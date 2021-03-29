@@ -1,0 +1,59 @@
+{
+  "root": true,
+  "parserOptions": {
+    "project": ["./tsconfig.json", "./packages/*/tsconfig.json"]
+  },
+  "extends": [
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:jest/recommended",
+    "plugin:jest/style",
+    "plugin:jest-dom/recommended",
+    "plugin:testing-library/react"
+  ],
+  "rules": {
+    "class-methods-use-this": "off",
+    "no-plusplus": "off",
+    "prettier/prettier": "warn",
+    "no-unreachable": "error",
+
+    "import/extensions": ["warn", "never"],
+    // A copy of Airbnb's no-restricted-syntax rule, but with `for-of` loops excluded.
+    // The reasoning for this is that Typescript compiles the for-of syntax back into a normal indexed for loop.
+    // Since Typescript's compilation happens before Babel's, regenerator-runtime is not included.
+    // https://github.com/airbnb/javascript/blob/63098cbb6c05376dbefc9a91351f5727540c1ce1/packages/eslint-config-airbnb-base/rules/style.js#L339
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "ForInStatement",
+        "message": "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array."
+      },
+      {
+        "selector": "LabeledStatement",
+        "message": "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand."
+      },
+      {
+        "selector": "WithStatement",
+        "message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
+      }
+    ],
+
+    "react/jsx-curly-newline": "off",
+    "react/jsx-indent": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/no-unused-prop-types": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    "react/uses-react": "off"
+  },
+  "settings": {
+    "jest": {
+      "version": 26
+    }
+  }
+}
