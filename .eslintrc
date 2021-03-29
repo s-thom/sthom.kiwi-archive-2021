@@ -1,13 +1,12 @@
 {
   "root": true,
   "parserOptions": {
-    "project": ["./tsconfig.json", "./packages/*/tsconfig.json"]
+    "project": ["./tsconfig.json"]
   },
   "extends": [
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
     "plugin:jest/recommended",
     "plugin:jest/style",
     "plugin:jest-dom/recommended",
@@ -18,7 +17,6 @@
     "no-plusplus": "off",
     "prettier/prettier": "warn",
     "no-unreachable": "error",
-
     "import/extensions": ["warn", "never"],
     // A copy of Airbnb's no-restricted-syntax rule, but with `for-of` loops excluded.
     // The reasoning for this is that Typescript compiles the for-of syntax back into a normal indexed for loop.
@@ -39,7 +37,6 @@
         "message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
       }
     ],
-
     "react/jsx-curly-newline": "off",
     "react/jsx-indent": "off",
     "react/jsx-one-expression-per-line": "off",
