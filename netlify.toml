@@ -11,3 +11,15 @@
   force = true
   [redirects.headers]
     Access-Control-Allow-Origin = "*"
+
+# Redirects for old content. Keep this for at least a year or two, after which, review referrer traffic
+[[redirects]]
+  from = "/posts/*"
+  to = "https://2020-archive.sthom.kiwi/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/projects/*"
+  to = "https://2020-archive.sthom.kiwi/:splat"
+  status = 301
+  force = true
