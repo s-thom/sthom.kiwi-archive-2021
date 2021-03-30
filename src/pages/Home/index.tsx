@@ -1,3 +1,5 @@
+import GlobalLoading from '../../components/GlobalLoading';
+
 export default function Home() {
-  return <div>Test</div>;
+  return <GlobalLoading />;
 }

@@ -2,6 +2,10 @@ import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    // TODO:
+    colors: {
+      primary: string;
+      background: string;
+      text: string;
+    };
   }
 }
