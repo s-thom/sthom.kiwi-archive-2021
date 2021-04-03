@@ -1,5 +1,6 @@
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
+import portraitSrc from './portrait-2020.jpg';
 
 const VerticalContainer = styled(animated.div)`
   display: flex;
@@ -15,6 +16,12 @@ const HorizontalContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+`;
+
+const ProfilePhoto = styled.img`
+  width: 10em;
+  height: 10em;
+  border-radius: 5em;
 `;
 
 const Name = styled.h1`
@@ -37,6 +44,7 @@ export default function Home() {
 
   return (
     <VerticalContainer style={animProps}>
+      <ProfilePhoto src={portraitSrc} />
       <Name>Stuart Thomson</Name>
       <HorizontalContainer>
         <a href="mailto:me@sthom.kiwi" aria-label="Email">
