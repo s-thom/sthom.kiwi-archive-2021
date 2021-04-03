@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Stuart",
+  "name": "Stuart Thomson",
+  "description": "Stuart Thomson: Software Developer and Human Being",
   "icons": [
     {
       "src": "favicon.ico",
