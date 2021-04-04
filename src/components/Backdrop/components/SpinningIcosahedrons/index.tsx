@@ -21,7 +21,7 @@ export default function SpinningIcosahedrons() {
       { variant: 'dodecahedron', position: [-2.5, 6, 0], radius: 1, reverse: false },
       { variant: 'cube', position: [1.5, -4, 0], radius: 2.25, reverse: false },
       { variant: 'icosahedron', position: [-6, -0.5, 0], radius: 6, reverse: true },
-      { variant: 'icosahedron', position: [3.5, 5, 0], radius: 1.5, reverse: true, color: theme.colors.primary },
+      { variant: 'icosahedron', position: [3.5, 5.5, 0], radius: 1.5, reverse: true, color: theme.colors.primary },
       { variant: 'octahedron', position: [7, 8, 0], radius: 2, reverse: true },
       { variant: 'cube', position: [-5, 10, 0], radius: 3, reverse: false },
       { variant: 'icosahedron', position: [18, -10, 0], radius: 10, reverse: false },

@@ -7,5 +7,11 @@ declare module 'styled-components' {
       background: string;
       text: string;
     };
+    mediaQueries: {
+      teensy: string;
+      mobile: string;
+      tablet: string;
+      desktop: string;
+    };
   }
 }
