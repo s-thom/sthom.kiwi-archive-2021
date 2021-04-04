@@ -1,8 +1,8 @@
 import { OrthographicCamera } from '@react-three/drei';
-import { ComponentType, useMemo } from 'react';
+import { ComponentType, Suspense, useMemo } from 'react';
+import seedrandom from 'seedrandom';
 import { useTheme } from 'styled-components';
 import { Vector3Tuple } from 'three';
-import useWindowSize from '../../../../hooks/useWindowSize';
 import Code from '../../../../models/Code';
 import Curly from '../../../../models/Curly';
 import FnCall from '../../../../models/FnCall';
@@ -13,6 +13,7 @@ import Shape from './Shape';
  * Pixels per THREE unit
  */
 const ZOOM = 40;
+const RANDOM_SEED = 'stuart';
 
 interface RotationDefinition<T = any> {
   component: ComponentType<T>;
@@ -27,11 +28,9 @@ function getRotation(radius: number, reverse: boolean): number {
 
 export default function SpinningShapes() {
   const theme = useTheme();
-  const windowSize = useWindowSize();
 
   const shapes = useMemo<RotationDefinition[]>(() => {
-    const scaledWidth = windowSize.width / ZOOM;
-    const scaledHeight = windowSize.height / ZOOM;
+    const random = seedrandom(RANDOM_SEED);
 
     const shapeList: RotationDefinition[] = [
       {
@@ -41,15 +40,15 @@ export default function SpinningShapes() {
         rotationSpeed: getRotation(1, false),
       },
       {
-        component: Shape,
-        props: { variant: 'cube', radius: 2.25 },
-        position: [1.5, -4, 0],
-        rotationSpeed: getRotation(2.25, false),
+        component: Curly,
+        props: { scale: [2, 2, 2], rotation: [0, random() * Math.PI - Math.PI / 2, 0] },
+        position: [1.5, -6, 0],
+        rotationSpeed: getRotation(2, true),
       },
       {
         component: Code,
-        props: { scale: [10, 10, 10] },
-        position: [-6, -0.5, 0],
+        props: { scale: [10, 10, 10], rotation: [0, random() * Math.PI - Math.PI / 2, 0] },
+        position: [-5, -0.5, 0],
         rotationSpeed: getRotation(6, false),
       },
       {
@@ -59,32 +58,32 @@ export default function SpinningShapes() {
         rotationSpeed: getRotation(1.5, true),
       },
       {
-        component: Shape,
-        props: { variant: 'octahedron', radius: 2 },
+        component: Curly,
+        props: { scale: [6, 6, 6], rotation: [0, random() * Math.PI - Math.PI / 2, 0] },
         position: [7, 8, 0],
         rotationSpeed: getRotation(2, false),
       },
       {
-        component: Shape,
-        props: { variant: 'cube', radius: 3 },
+        component: FnCall,
+        props: { scale: [4, 4, 4], rotation: [0, random() * Math.PI - Math.PI / 2, 0] },
         position: [-5, 10, 0],
-        rotationSpeed: getRotation(3, false),
+        rotationSpeed: getRotation(2, true),
       },
       {
-        component: Shape,
-        props: { variant: 'icosahedron', radius: 10 },
+        component: FnCall,
+        props: { scale: [20, 20, 20], rotation: [0, random() * Math.PI - Math.PI / 2, 0] },
         position: [18, -10, 0],
         rotationSpeed: getRotation(10, false),
       },
       {
         component: Shape,
-        props: { variant: 'octahedron', radius: 6 },
+        props: { variant: 'icosahedron', radius: 6 },
         position: [-17, -12, 0],
         rotationSpeed: getRotation(6, false),
       },
       {
         component: Shape,
-        props: { variant: 'cube', radius: 8 },
+        props: { variant: 'icosahedron', radius: 6 },
         position: [19, 12, 0],
         rotationSpeed: getRotation(8, false),
       },
@@ -115,25 +114,27 @@ export default function SpinningShapes() {
     ];
 
     return shapeList;
-  }, [theme.colors.primary, windowSize.height, windowSize.width]);
+  }, [theme.colors.primary]);
 
   return (
     <>
       <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={ZOOM}>
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
-        <group position={[0, 0, -10]}>
-          {shapes.map(({ component: Component, position, rotationSpeed, props }, index) => (
-            <RotatingGroup
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              position={position}
-              rotationSpeed={rotationSpeed}
-            >
-              <Component {...props} />
-            </RotatingGroup>
-          ))}
-        </group>
+        <Suspense fallback={<></>}>
+          <group position={[0, 0, -10]}>
+            {shapes.map(({ component: Component, position, rotationSpeed, props }, index) => (
+              <RotatingGroup
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                position={position}
+                rotationSpeed={rotationSpeed}
+              >
+                <Component {...props} />
+              </RotatingGroup>
+            ))}
+          </group>
+        </Suspense>
       </OrthographicCamera>
     </>
   );
