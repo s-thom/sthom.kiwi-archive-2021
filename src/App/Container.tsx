@@ -5,6 +5,8 @@ const Container = styled.div`
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
+  position: relative;
+  z-index: 1;
 `;
 
 export default Container;
