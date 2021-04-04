@@ -11,9 +11,7 @@ export default function App() {
     <Providers>
       <GlobalStyles />
       <Container>
-        <Suspense fallback={<></>}>
-          <Backdrop />
-        </Suspense>
+        <Backdrop />
         <Suspense fallback={<GlobalLoading />}>
           <Router />
         </Suspense>

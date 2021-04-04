@@ -1,7 +1,8 @@
 import { useContextBridge } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import SpinningIcosahedrons from './components/SpinningIcosahedrons';
+import SpinningShapes from './components/SpinningShapes';
 
 const StyledCanvas = styled(Canvas)`
   width: 100vw !important;
@@ -16,10 +17,12 @@ export default function Backdrop() {
   const ContextBridge = useContextBridge(ThemeContext);
 
   return (
-    <StyledCanvas>
-      <ContextBridge>
-        <SpinningIcosahedrons />
-      </ContextBridge>
-    </StyledCanvas>
+    <Suspense fallback={<></>}>
+      <StyledCanvas>
+        <ContextBridge>
+          <SpinningShapes />
+        </ContextBridge>
+      </StyledCanvas>
+    </Suspense>
   );
 }
