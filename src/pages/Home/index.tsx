@@ -9,6 +9,17 @@ const VerticalContainer = styled(animated.div)`
   justify-content: center;
   min-height: 100vh;
   height: 100%;
+
+  font-size: 0.8em;
+  @media (${({ theme }) => theme.mediaQueries.mobile}) {
+    font-size: 1em;
+  }
+  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+    font-size: 1.2em;
+  }
+  @media (${({ theme }) => theme.mediaQueries.desktop}) {
+    font-size: 1.3em;
+  }
 `;
 
 const HorizontalContainer = styled.div`
