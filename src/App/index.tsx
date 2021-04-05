@@ -1,18 +1,20 @@
-import { Suspense } from 'react';
-import GlobalLoading from '../components/GlobalLoading';
+import { lazy, Suspense } from 'react';
 import Router from '../components/Router';
-import Backdrop from '../components/Backdrop';
 import Container from './Container';
 import GlobalStyles from './GlobalStyles';
 import Providers from './Providers';
+
+const Backdrop = lazy(() => import('../components/Backdrop'));
 
 export default function App() {
   return (
     <Providers>
       <GlobalStyles />
       <Container>
-        <Backdrop />
-        <Suspense fallback={<GlobalLoading />}>
+        <Suspense fallback={<></>}>
+          <Backdrop />
+        </Suspense>
+        <Suspense fallback={<></>}>
           <Router />
         </Suspense>
       </Container>
