@@ -1,11 +1,11 @@
 import { OrthographicCamera } from '@react-three/drei';
 import { ComponentType, Suspense, useMemo } from 'react';
 import seedrandom from 'seedrandom';
-import { useTheme } from 'styled-components';
 import { Vector3Tuple } from 'three';
 import Code from '../../../../models/Code';
 import Curly from '../../../../models/Curly';
 import FnCall from '../../../../models/FnCall';
+import BlueOrb from './BlueOrb';
 import RotatingGroup from './RotatingGroup';
 import Shape from './Shape';
 
@@ -27,8 +27,6 @@ function getRotation(radius: number, reverse: boolean): number {
 }
 
 export default function SpinningShapes() {
-  const theme = useTheme();
-
   const shapes = useMemo<RotationDefinition[]>(() => {
     const random = seedrandom(RANDOM_SEED);
 
@@ -50,12 +48,6 @@ export default function SpinningShapes() {
         props: { scale: [10, 10, 10], rotation: [0, random() * Math.PI - Math.PI / 2, 0] },
         position: [-5, -0.5, 0],
         rotationSpeed: getRotation(6, false),
-      },
-      {
-        component: Shape,
-        props: { variant: 'icosahedron', radius: 1.5, color: theme.colors.primary },
-        position: [3.5, 5.5, 0],
-        rotationSpeed: getRotation(1.5, true),
       },
       {
         component: Curly,
@@ -114,7 +106,7 @@ export default function SpinningShapes() {
     ];
 
     return shapeList;
-  }, [theme.colors.primary]);
+  }, []);
 
   return (
     <>
@@ -133,6 +125,9 @@ export default function SpinningShapes() {
                 <Component {...props} />
               </RotatingGroup>
             ))}
+            <RotatingGroup position={[3.5, 5.5, 0]} rotationSpeed={getRotation(1.5, true)}>
+              <BlueOrb radius={1.5} />
+            </RotatingGroup>
           </group>
         </Suspense>
       </OrthographicCamera>
