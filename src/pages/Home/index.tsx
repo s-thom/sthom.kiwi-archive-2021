@@ -20,6 +20,10 @@ const VerticalContainer = styled(animated.div)`
   @media (${({ theme }) => theme.mediaQueries.desktop}) {
     font-size: 1.3em;
   }
+
+  & > * {
+    pointer-events: all;
+  }
 `;
 
 const HorizontalContainer = styled.div`

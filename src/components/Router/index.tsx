@@ -8,6 +8,7 @@ const Home = lazy(() => import('../../pages/Home'));
 const Wrapper = styled(animated.div)`
   position: relative;
   z-index: 1;
+  pointer-events: none;
 `;
 
 export default function Router() {
