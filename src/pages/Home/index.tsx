@@ -1,5 +1,6 @@
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
+import Image from 'next/image';
 import portraitSrc from './portrait-2020.jpg';
 
 const VerticalContainer = styled(animated.div)`
@@ -9,6 +10,7 @@ const VerticalContainer = styled(animated.div)`
   justify-content: center;
   min-height: 100vh;
   height: 100%;
+  pointer-events: none;
 
   font-size: 0.8em;
   @media (${({ theme }) => theme.mediaQueries.mobile}) {
@@ -33,10 +35,8 @@ const HorizontalContainer = styled.div`
   justify-content: center;
 `;
 
-const ProfilePhoto = styled.img`
-  width: 10em;
-  height: 10em;
-  border-radius: 5em;
+const ProfilePhoto = styled(Image)`
+  border-radius: 100px;
 `;
 
 const Name = styled.h1`
@@ -67,7 +67,7 @@ export default function Home() {
 
   return (
     <VerticalContainer style={animProps}>
-      <ProfilePhoto src={portraitSrc} alt="Stuart Thomson" />
+      <ProfilePhoto src={portraitSrc} alt="Stuart Thomson" width={200} height={200} priority />
       <Name>Stuart Thomson</Name>
       <JobLine>Software Developer | Human Being</JobLine>
       <HorizontalContainer>
