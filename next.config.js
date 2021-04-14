@@ -21,6 +21,7 @@ module.exports = withPlugins([
   // ],
   [withTM(['react-spring/three'])],
   {
+    poweredByHeader: false,
     reactStrictMode: true,
     future: {
       webpack5: false,
