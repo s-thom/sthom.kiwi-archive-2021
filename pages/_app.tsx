@@ -1,8 +1,6 @@
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import { NextWebVitalsMetric } from 'next/dist/next-server/lib/utils';
-import Container from '../src/app/Container';
-import GlobalStyles from '../src/app/GlobalStyles';
-import Theme from '../src/components/Theme';
+import App from '../src/App';
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
   // eslint-disable-next-line no-console
@@ -11,13 +9,8 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Theme>
-        <GlobalStyles />
-        <Container>
-          <Component {...pageProps} />
-        </Container>
-      </Theme>
-    </>
+    <App>
+      <Component {...pageProps} />
+    </App>
   );
 }
