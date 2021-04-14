@@ -25,5 +25,32 @@ module.exports = withPlugins([
     future: {
       webpack5: false,
     },
+    async headers() {
+      return [
+        {
+          source: '/.well-known/:slug*',
+          headers: [
+            {
+              key: 'Access-Control-Allow-Origin',
+              value: '*',
+            },
+          ],
+        },
+      ];
+    },
+    async redirects() {
+      return [
+        {
+          source: '/posts/:slug*',
+          destination: 'https://archive-2020.sthom.kiwi/posts/:slug*',
+          permanent: true,
+        },
+        {
+          source: '/projects/:slug*',
+          destination: 'https://archive-2020.sthom.kiwi/projects/:slug*',
+          permanent: true,
+        },
+      ];
+    },
   },
 ]);
