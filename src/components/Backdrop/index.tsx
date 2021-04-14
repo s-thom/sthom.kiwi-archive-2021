@@ -10,7 +10,7 @@ const StyledCanvas = styled(Canvas)`
   position: fixed !important;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: -1;
 `;
 
 export default function Backdrop() {
