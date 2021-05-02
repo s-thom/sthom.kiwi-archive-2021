@@ -41,18 +41,18 @@ const ProfilePhoto = styled(Image)`
 `;
 
 const Name = styled.h1`
-  font-size: 3em;
+  font-size: 2.5em;
   margin-bottom: 0;
 `;
 
 const JobLine = styled.p`
-  font-size: 1em;
+  font-size: 0.9em;
   margin-top: 0;
 `;
 
 const Icon = styled.svg`
-  width: 2em;
-  height: 2em;
+  width: 1.5em;
+  height: 1.5em;
   margin: 0.5em;
   fill: ${({ theme }) => theme.colors.text};
 `;

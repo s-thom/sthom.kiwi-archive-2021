@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import portraitSrc from './portrait-2020.jpg';
+import Link from '../Link';
 
 const HeaderArea = styled.header``;
 
-const HeaderProfile = styled.a`
+const HeaderProfile = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,11 @@ const ProfileName = styled.h1`
   margin-left: 0.5em;
 `;
 
-const BreadcrumbLink = styled.a`
+const Breadcrumbs = styled.nav`
+  font-size: 0.9em;
+`;
+
+const BreadcrumbLink = styled(Link)`
   color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
   opacity: 0.8;
@@ -38,36 +42,32 @@ const BreadcrumbSeparator = styled.span`
   opacity: 0.6;
 `;
 
-export interface Breadcrumbs {
+export interface Breadcrumb {
   path: string;
   name: string;
 }
 
 export interface HeaderProps {
   className?: string;
-  breadcrumbs?: Breadcrumbs[];
+  breadcrumbs?: Breadcrumb[];
 }
 
 export default function Header({ className, breadcrumbs }: HeaderProps) {
   return (
     <HeaderArea className={className}>
-      <Link href="/" passHref>
-        <HeaderProfile>
-          <ProfilePhoto src={portraitSrc} alt="Stuart Thomson" width={48} height={48} priority />
-          <ProfileName>Stuart Thomson</ProfileName>
-        </HeaderProfile>
-      </Link>
+      <HeaderProfile href="/">
+        <ProfilePhoto src={portraitSrc} alt="Stuart Thomson" width={48} height={48} priority />
+        <ProfileName>Stuart Thomson</ProfileName>
+      </HeaderProfile>
       {breadcrumbs && (
-        <nav aria-label="Breadcrumbs">
+        <Breadcrumbs aria-label="Breadcrumbs">
           {breadcrumbs.map(({ path, name }, index) => (
             <React.Fragment key={path}>
               {index > 0 && <BreadcrumbSeparator> / </BreadcrumbSeparator>}
-              <Link href={path} passHref>
-                <BreadcrumbLink>{name}</BreadcrumbLink>
-              </Link>
+              <BreadcrumbLink href={path}>{name}</BreadcrumbLink>
             </React.Fragment>
           ))}
-        </nav>
+        </Breadcrumbs>
       )}
     </HeaderArea>
   );

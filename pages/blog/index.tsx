@@ -1,6 +1,7 @@
-import { RichText } from 'prismic-reactjs';
 import { getAllPostsForHome, Post } from '../../src/api';
 import Layout from '../../src/components/Layout';
+import Link from '../../src/components/Link';
+import PostPreview from '../../src/components/PostPreview';
 
 interface IndexProps {
   preview?: boolean;
@@ -19,7 +20,15 @@ export default function Index({ preview, allPosts }: IndexProps) {
         { path: '/', name: 'Home' },
         { path: '/blog', name: 'Blog' },
       ]}
-    />
+    >
+      <h1>My Blog</h1>
+      <p>Sometimes I write things. Here they are:</p>
+      {allPosts.map(({ node }) => (
+        <Link href={`/blog/${node._meta.uid}`}>
+          <PostPreview post={node} />
+        </Link>
+      ))}
+    </Layout>
   );
 }
 

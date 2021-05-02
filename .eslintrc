@@ -38,6 +38,7 @@
         "message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
       }
     ],
+    "no-underscore-dangle": "off",
     "react/jsx-curly-newline": "off",
     "react/jsx-indent": "off",
     "react/jsx-one-expression-per-line": "off",

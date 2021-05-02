@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fontsource/jost": "^4.2.2",
+    "@fontsource/open-sans": "^4.2.2",
     "@react-three/drei": "^4.3.2",
     "@react-three/fiber": "^6.0.18",
     "@testing-library/jest-dom": "^5.12.0",
