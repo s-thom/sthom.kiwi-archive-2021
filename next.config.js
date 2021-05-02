@@ -26,6 +26,9 @@ module.exports = withPlugins([
     future: {
       webpack5: false,
     },
+    images: {
+      domains: ['images.prismic.io'],
+    },
     async headers() {
       return [
         {

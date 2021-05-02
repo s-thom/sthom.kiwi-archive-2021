@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import ErrorPage from 'next/error';
 import { RichText } from 'prismic-reactjs';
 import { getAllPostsWithSlug, getPostAndMorePosts } from '../../src/api';
 import Layout from '../../src/components/Layout';
 
-export default function Post({ post, morePosts, preview }) {
+export default function Post({ post, morePosts }) {
   const router = useRouter();
 
   if (!router.isFallback && !post?._meta?.uid) {
@@ -20,6 +21,8 @@ export default function Post({ post, morePosts, preview }) {
       ]}
     >
       <RichText render={post.title} />
+
+      {post.coverimage && <Image src={post.coverimage.url} width={800} height={600} quality={95} priority />}
 
       <RichText render={post.content} />
     </Layout>
