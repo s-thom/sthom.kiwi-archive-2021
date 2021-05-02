@@ -5,6 +5,7 @@ declare module 'styled-components' {
     colors: {
       primary: string;
       background: string;
+      dark: string;
       text: string;
     };
     mediaQueries: {

@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo';
 import styled from 'styled-components';
 import { getAllPostsForHome, Post } from '../../src/api';
 import Layout from '../../src/components/Layout';
@@ -5,13 +6,13 @@ import Link from '../../src/components/Link';
 import PostPreview from '../../src/components/PostPreview';
 
 const HeroContainer = styled.div`
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 `;
 
 const PostGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2em;
+  gap: 1em;
 `;
 
 interface IndexProps {
@@ -30,6 +31,7 @@ export default function Index({ allPosts }: IndexProps) {
         { path: '/blog', name: 'Blog' },
       ]}
     >
+      <NextSeo title="Blog | Stuart Thomson" />
       <h1>My Blog</h1>
       <p>Sometimes I write things. Here they are:</p>
       {/* Make first post full-width */}

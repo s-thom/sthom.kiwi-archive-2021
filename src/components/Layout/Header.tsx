@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import portraitSrc from './portrait-2020.jpg';
 import Link from '../Link';
 
-const HeaderArea = styled.header``;
+const HeaderArea = styled.header`
+  font-size: 1.1em;
+`;
 
 const HeaderProfile = styled(Link)`
   display: flex;
@@ -12,6 +14,11 @@ const HeaderProfile = styled(Link)`
   justify-content: center;
   color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
+
+  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+    justify-content: start;
+    justify-content: flex-start;
+  }
 `;
 
 const ProfilePhoto = styled(Image)`
@@ -23,7 +30,7 @@ const ProfileName = styled.h1`
 `;
 
 const Breadcrumbs = styled.nav`
-  font-size: 0.9em;
+  font-size: 0.8em;
 `;
 
 const BreadcrumbLink = styled(Link)`

@@ -11,6 +11,7 @@ const StyledCanvas = styled(Canvas)`
   top: 0;
   left: 0;
   z-index: -1;
+  background-color: ${({ theme }) => theme.colors.dark};
 `;
 
 export default function Backdrop() {

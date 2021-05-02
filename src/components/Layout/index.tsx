@@ -18,13 +18,14 @@ const GridContainer = styled.div`
     'content'
     'aside';
   grid-template-columns: 100%;
-  gap: 2em;
+  gap: 0.5em;
 
   @media (${({ theme }) => theme.mediaQueries.tablet}) {
     grid-template-areas:
       'header content'
       'aside content';
     grid-template-columns: 20em 1fr;
+    gap: 2em;
   }
 `;
 

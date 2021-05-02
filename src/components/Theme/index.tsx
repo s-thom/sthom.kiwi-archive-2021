@@ -6,8 +6,9 @@ export default function Theme({ children }: PropsWithChildren<{}>) {
     () => ({
       colors: {
         primary: '#002355',
-        background: '#0D1117',
-        text: '#FFFFFF',
+        background: '#3A3A40',
+        dark: '#0D1117',
+        text: '#F0F0F0',
       },
       mediaQueries: {
         teensy: `min-width: 0px`,
