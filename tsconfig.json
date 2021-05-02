@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": ["src", "pages","next.config.js"],
+  "include": ["src", "pages", "next.config.js"],
   "exclude": ["node_modules"]
 }
