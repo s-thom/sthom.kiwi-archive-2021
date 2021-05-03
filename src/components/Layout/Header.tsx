@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import portraitSrc from './portrait-2020.jpg';
 import Link from '../Link';
 
@@ -14,18 +14,33 @@ const HeaderProfile = styled(Link)`
   justify-content: center;
   color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
+  padding: 0.5em;
 
   @media (${({ theme }) => theme.mediaQueries.tablet}) {
-    justify-content: start;
-    justify-content: flex-start;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  @media (${({ theme }) => theme.mediaQueries.desktop}) {
+    /* justify-content: start;
+    justify-content: flex-start; */
+  }
+`;
+
+const ProfilePhotoWrapper = styled.div`
+  width: 48px;
+
+  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+    width: 96px;
   }
 `;
 
 const ProfilePhoto = styled(Image)`
-  border-radius: 24px;
+  border-radius: 50%;
 `;
 
 const ProfileName = styled.h1`
+  margin: 0;
   margin-left: 0.5em;
 `;
 
@@ -60,10 +75,22 @@ export interface HeaderProps {
 }
 
 export default function Header({ className, breadcrumbs }: HeaderProps) {
+  const theme = useTheme();
+
   return (
     <HeaderArea className={className}>
       <HeaderProfile href="/">
-        <ProfilePhoto src={portraitSrc} alt="Stuart Thomson" width={48} height={48} priority />
+        <ProfilePhotoWrapper>
+          <ProfilePhoto
+            src={portraitSrc}
+            alt="Stuart Thomson"
+            width={96}
+            height={96}
+            sizes={`(${theme.mediaQueries.tablet}) 96px, 48px`}
+            priority
+          />
+        </ProfilePhotoWrapper>
+
         <ProfileName>Stuart Thomson</ProfileName>
       </HeaderProfile>
       {breadcrumbs && (

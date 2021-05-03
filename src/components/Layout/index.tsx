@@ -5,7 +5,7 @@ import Header, { HeaderProps } from './Header';
 
 const Container = styled(animated.div)`
   margin: 0 auto;
-  padding: 0 0.5em;
+  padding: 0 1em;
   max-width: 70em;
   min-height: 100vh;
   height: 100%;
@@ -24,8 +24,12 @@ const GridContainer = styled.div`
     grid-template-areas:
       'header content'
       'aside content';
+    grid-template-columns: 10em 1fr;
+    gap: 1em;
+  }
+
+  @media (${({ theme }) => theme.mediaQueries.desktop}) {
     grid-template-columns: 20em 1fr;
-    gap: 2em;
   }
 `;
 

@@ -9,8 +9,8 @@ const Container = styled.div`
   padding: 1em;
   display: grid;
 
-  background-position: center;
-  background-size: cover;
+  background-position: center !important;
+  background-size: cover !important;
 
   grid-template-areas:
     'gap'

@@ -6,7 +6,8 @@ export default function Theme({ children }: PropsWithChildren<{}>) {
     () => ({
       colors: {
         primary: '#002355',
-        background: '#3A3A40',
+        // background: '#2d2d4d',
+        background: '#0D1117',
         dark: '#0D1117',
         text: '#F0F0F0',
       },

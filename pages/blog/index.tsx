@@ -5,14 +5,18 @@ import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
 import PostPreview from '../../src/components/PostPreview';
 
-const HeroContainer = styled.div`
-  margin-bottom: 1em;
-`;
-
 const PostGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1em;
+
+  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+    grid-template-columns: 1fr 1fr;
+
+    & > *:first-child {
+      grid-column: 1 /-1;
+    }
+  }
 `;
 
 interface IndexProps {
@@ -21,9 +25,6 @@ interface IndexProps {
 }
 
 export default function Index({ allPosts }: IndexProps) {
-  const heroPost = allPosts[0]?.node;
-  const morePosts = allPosts.length > 0 ? allPosts.slice(1) : [];
-
   return (
     <Layout
       breadcrumbs={[
@@ -34,24 +35,13 @@ export default function Index({ allPosts }: IndexProps) {
       <NextSeo title="Blog | Stuart Thomson" />
       <h1>My Blog</h1>
       <p>Sometimes I write things. Here they are:</p>
-      {/* Make first post full-width */}
-      {heroPost && (
-        <HeroContainer>
-          <Link href={`/blog/${heroPost._meta.uid}`} key={heroPost._meta.uid}>
-            <PostPreview post={heroPost} />
+      <PostGrid>
+        {allPosts.map(({ node }) => (
+          <Link href={`/blog/${node._meta.uid}`} key={node._meta.uid}>
+            <PostPreview post={node} />
           </Link>
-        </HeroContainer>
-      )}
-      {/* Everything else is according to grid */}
-      {morePosts.length > 0 && (
-        <PostGrid>
-          {morePosts.map(({ node }) => (
-            <Link href={`/blog/${node._meta.uid}`} key={node._meta.uid}>
-              <PostPreview post={node} />
-            </Link>
-          ))}
-        </PostGrid>
-      )}
+        ))}
+      </PostGrid>
     </Layout>
   );
 }

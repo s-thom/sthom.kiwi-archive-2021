@@ -9,7 +9,7 @@ import Layout from '../../src/components/Layout';
 export default function Post({ post }) {
   const router = useRouter();
 
-  if (!router.isFallback && !post?._meta?.uid) {
+  if (!post || (!router.isFallback && !post?._meta?.uid)) {
     return <ErrorPage statusCode={404} />;
   }
 
