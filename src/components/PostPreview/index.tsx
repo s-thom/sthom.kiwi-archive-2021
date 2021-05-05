@@ -1,7 +1,6 @@
-import { RichText } from 'prismic-reactjs';
 import { useMemo } from 'react';
 import styled from 'styled-components';
-import { Post } from '../../api';
+import { PostMeta } from '../../types/post';
 
 const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.text};
@@ -38,21 +37,21 @@ const Excerpt = styled.p`
 `;
 
 export interface PostPreviewProps {
-  post: Post;
+  post: PostMeta;
 }
 
 export default function PostPreview({ post }: PostPreviewProps) {
   const background = useMemo(() => {
-    if (!post.coverimage) {
+    if (!post.coverImage) {
       return 'transparent';
     }
 
-    return `linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url(${post.coverimage.url})`;
-  }, [post.coverimage]);
+    return `linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url(${post.coverImage})`;
+  }, [post.coverImage]);
 
   return (
     <Container style={{ background }}>
-      {post.title && <Title>{RichText.asText(post.title)}</Title>}
+      {post.title && <Title>{post.title}</Title>}
       {post.excerpt && <Excerpt>{post.excerpt}</Excerpt>}
     </Container>
   );

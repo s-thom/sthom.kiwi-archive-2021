@@ -1,54 +1,58 @@
+import 'katex/dist/katex.min.css';
+import { GetStaticProps } from 'next';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 import ErrorPage from 'next/error';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { RichText } from 'prismic-reactjs';
-import { getAllPostsWithSlug, getPostAndMorePosts } from '../../src/api';
 import Layout from '../../src/components/Layout';
+import { getMarkdownSource } from '../../src/mdx';
+import { PostMeta } from '../../src/types/post';
 
-export default function Post({ post }) {
+interface PostProps {
+  source: MDXRemoteSerializeResult;
+  frontMatter: PostMeta;
+}
+
+export default function Post({ source, frontMatter }: PostProps) {
   const router = useRouter();
+  const { slug } = router.query;
 
-  if (!post || (!router.isFallback && !post?._meta?.uid)) {
+  if (!source || (!router.isFallback && !frontMatter.title)) {
     return <ErrorPage statusCode={404} />;
   }
-
-  const title = RichText.asText(post.title);
 
   return (
     <Layout
       breadcrumbs={[
         { path: '/', name: 'Home' },
         { path: '/blog', name: 'Blog' },
-        { path: `/blog/${post._meta.uid}`, name: title },
+        { path: `/blog/${slug}`, name: frontMatter.title },
       ]}
     >
-      <NextSeo title={`${title} | Blog | Stuart Thomson`} description={post.excerpt} />
-      <RichText render={post.title} />
-
-      {post.coverimage && <Image src={post.coverimage.url} width={800} height={600} quality={95} priority />}
-
-      <RichText render={post.content} />
+      <NextSeo title={`${frontMatter.title} | Blog | Stuart Thomson`} description={frontMatter.description} />
+      <MDXRemote {...source} />
     </Layout>
   );
 }
 
-export async function getStaticProps({ params, preview = false, previewData }) {
-  const data = await getPostAndMorePosts(params.slug, previewData);
+export const getStaticProps: GetStaticProps<PostProps> = async ({ params }) => {
+  // TODO: Get file content from `params.slug`
+
+  const { frontMatter, source } = await getMarkdownSource("---\ntitle: 'hello'\n---\n# hello\n\nworld");
 
   return {
     props: {
-      preview,
-      post: data?.post ?? null,
-      morePosts: data?.morePosts ?? [],
+      source,
+      frontMatter,
     },
   };
-}
+};
 
+// TODO: List all files
 export async function getStaticPaths() {
-  const allPosts = await getAllPostsWithSlug();
+  // const allPosts = await getAllPostsWithSlug();
   return {
-    paths: allPosts?.map(({ node }) => `/blog/${node._meta.uid}`) || [],
+    paths: ['/blog/test'],
     fallback: true,
   };
 }

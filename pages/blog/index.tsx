@@ -1,9 +1,10 @@
+import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 import styled from 'styled-components';
-import { getAllPostsForHome, Post } from '../../src/api';
 import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
 import PostPreview from '../../src/components/PostPreview';
+import { PostMeta } from '../../src/types/post';
 
 const PostGrid = styled.div`
   display: grid;
@@ -20,8 +21,7 @@ const PostGrid = styled.div`
 `;
 
 interface IndexProps {
-  preview?: boolean;
-  allPosts: { node: Post }[];
+  allPosts: { slug: string; meta: PostMeta }[];
 }
 
 export default function Index({ allPosts }: IndexProps) {
@@ -36,9 +36,9 @@ export default function Index({ allPosts }: IndexProps) {
       <h1>My Blog</h1>
       <p>Sometimes I write things. Here they are:</p>
       <PostGrid>
-        {allPosts.map(({ node }) => (
-          <Link href={`/blog/${node._meta.uid}`} key={node._meta.uid}>
-            <PostPreview post={node} />
+        {allPosts.map(({ slug, meta }) => (
+          <Link href={`/blog/${slug}`} key={slug}>
+            <PostPreview post={meta} />
           </Link>
         ))}
       </PostGrid>
@@ -46,9 +46,8 @@ export default function Index({ allPosts }: IndexProps) {
   );
 }
 
-export async function getStaticProps({ preview = false, previewData }: any) {
-  const allPosts = await getAllPostsForHome(previewData);
+export const getStaticProps: GetStaticProps<IndexProps> = async ({ params }) => {
   return {
-    props: { preview, allPosts },
+    props: { allPosts: [{ slug: 'test', meta: { title: 'Test title', description: 'adesc' } }] },
   };
-}
+};

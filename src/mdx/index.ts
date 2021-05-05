@@ -1,0 +1,19 @@
+import matter from 'gray-matter';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
+import config from './config';
+import { PostMeta } from '../types/post';
+
+export interface MarkdownSource {
+  source: MDXRemoteSerializeResult;
+  frontMatter: PostMeta;
+}
+
+export async function getMarkdownSource(mdx: string): Promise<MarkdownSource> {
+  const { content, data } = matter(mdx);
+  const source = await serialize(content, config);
+  return {
+    source,
+    frontMatter: data as PostMeta,
+  };
+}
