@@ -9,6 +9,11 @@ export interface MarkdownSource {
   frontMatter: PostMeta;
 }
 
+export async function getFrontMatter(mdx: string): Promise<PostMeta> {
+  const { data } = matter(mdx);
+  return data as PostMeta;
+}
+
 export async function getMarkdownSource(mdx: string): Promise<MarkdownSource> {
   const { content, data } = matter(mdx);
   const source = await serialize(content, config);

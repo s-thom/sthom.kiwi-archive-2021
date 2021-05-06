@@ -1,12 +1,14 @@
+import { promises as fs } from 'fs';
 import 'katex/dist/katex.min.css';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
-import Layout from '../../src/components/Layout';
-import { getMarkdownSource } from '../../src/mdx';
-import { PostMeta } from '../../src/types/post';
+import path from 'path';
+import Layout from '../../../src/components/Layout';
+import { getMarkdownSource } from '../../../src/mdx';
+import { PostMeta } from '../../../src/types/post';
 
 interface PostProps {
   source: MDXRemoteSerializeResult;
@@ -26,7 +28,7 @@ export default function Post({ source, frontMatter }: PostProps) {
       breadcrumbs={[
         { path: '/', name: 'Home' },
         { path: '/blog', name: 'Blog' },
-        { path: `/blog/${slug}`, name: frontMatter.title },
+        { path: `/blog/posts/${slug}`, name: frontMatter.title },
       ]}
     >
       <NextSeo title={`${frontMatter.title} | Blog | Stuart Thomson`} description={frontMatter.description} />
@@ -35,10 +37,17 @@ export default function Post({ source, frontMatter }: PostProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<PostProps> = async ({ params }) => {
-  // TODO: Get file content from `params.slug`
+export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async ({ params }) => {
+  if (!params || typeof params.slug !== 'string') {
+    return {
+      notFound: true,
+    };
+  }
 
-  const { frontMatter, source } = await getMarkdownSource("---\ntitle: 'hello'\n---\n# hello\n\nworld");
+  const filePath = path.join(process.cwd(), 'content/posts', `${decodeURI(params.slug)}.mdx`);
+  const fileContents = await fs.readFile(filePath, 'utf8');
+
+  const { frontMatter, source } = await getMarkdownSource(fileContents);
 
   return {
     props: {
@@ -48,11 +57,17 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({ params }) => {
   };
 };
 
-// TODO: List all files
 export async function getStaticPaths() {
-  // const allPosts = await getAllPostsWithSlug();
+  const postsDirectory = path.join(process.cwd(), 'content/posts');
+  const filenames = await fs.readdir(postsDirectory);
+
+  const paths = filenames
+    .filter((filename) => filename.match(/\.mdx$/))
+    .map((filename) => filename.match(/^(.*)\.mdx$/)![1])
+    .map((slug) => `/blog/posts/${encodeURI(slug)}`);
+
   return {
-    paths: ['/blog/test'],
+    paths,
     fallback: true,
   };
 }

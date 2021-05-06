@@ -1,9 +1,12 @@
+import { promises as fs } from 'fs';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
+import path from 'path';
 import styled from 'styled-components';
 import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
 import PostPreview from '../../src/components/PostPreview';
+import { getFrontMatter } from '../../src/mdx';
 import { PostMeta } from '../../src/types/post';
 
 const PostGrid = styled.div`
@@ -37,7 +40,7 @@ export default function Index({ allPosts }: IndexProps) {
       <p>Sometimes I write things. Here they are:</p>
       <PostGrid>
         {allPosts.map(({ slug, meta }) => (
-          <Link href={`/blog/${slug}`} key={slug}>
+          <Link href={`/blog/posts/${slug}`} key={slug}>
             <PostPreview post={meta} />
           </Link>
         ))}
@@ -46,8 +49,28 @@ export default function Index({ allPosts }: IndexProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<IndexProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<IndexProps> = async () => {
+  const postsDirectory = path.join(process.cwd(), 'content/posts');
+  const filenames = await fs.readdir(postsDirectory);
+
+  const posts = await Promise.all(
+    filenames
+      .filter((filename) => filename.match(/\.mdx$/))
+      .map<Promise<{ slug: string; meta: PostMeta }>>(async (filename) => {
+        const slug = filename.match(/^(.*)\.mdx$/)![1];
+
+        const fileContents = await fs.readFile(path.join(postsDirectory, filename), 'utf8');
+
+        const meta = await getFrontMatter(fileContents);
+
+        return {
+          slug: encodeURI(slug),
+          meta,
+        };
+      }),
+  );
+
   return {
-    props: { allPosts: [{ slug: 'test', meta: { title: 'Test title', description: 'adesc' } }] },
+    props: { allPosts: posts },
   };
 };
