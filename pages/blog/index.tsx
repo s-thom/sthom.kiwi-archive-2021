@@ -53,7 +53,8 @@ export const getStaticProps: GetStaticProps<IndexProps> = async () => {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
   const filenames = await fs.readdir(postsDirectory);
 
-  const posts = await Promise.all(
+  // Read frontmatter of all files
+  const allFiles = await Promise.all(
     filenames
       .filter((filename) => filename.match(/\.mdx$/))
       .map<Promise<{ slug: string; meta: PostMeta }>>(async (filename) => {
@@ -69,6 +70,9 @@ export const getStaticProps: GetStaticProps<IndexProps> = async () => {
         };
       }),
   );
+
+  // Filter to only published posts
+  const posts = allFiles.filter(({ meta }) => !!meta.published);
 
   return {
     props: { allPosts: posts },
