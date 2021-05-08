@@ -6,8 +6,15 @@ import styled from 'styled-components';
 import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
 import PostPreview from '../../src/components/PostPreview';
+import Tag from '../../src/components/Tag';
 import { getFrontMatter } from '../../src/mdx';
 import { PostMeta } from '../../src/types/post';
+
+const TagList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8em;
+`;
 
 const PostGrid = styled.div`
   display: grid;
@@ -24,22 +31,35 @@ const PostGrid = styled.div`
 `;
 
 interface IndexProps {
-  allPosts: { slug: string; meta: PostMeta }[];
+  posts: { slug: string; meta: PostMeta }[];
+  tags: string[];
 }
 
-export default function Index({ allPosts }: IndexProps) {
+export default function Index({ posts, tags }: IndexProps) {
   return (
     <Layout
       breadcrumbs={[
         { path: '/', name: 'Home' },
         { path: '/blog', name: 'Blog' },
       ]}
+      aside={
+        <>
+          <h3>All tags</h3>
+          <TagList>
+            {tags.map((tag) => (
+              <Link key={tag} href={`/blog/tags/${encodeURI(tag)}`}>
+                <Tag name={tag} />
+              </Link>
+            ))}
+          </TagList>
+        </>
+      }
     >
       <NextSeo title="Blog | Stuart Thomson" />
       <h1>My Blog</h1>
       <p>Sometimes I write things. Here they are:</p>
       <PostGrid>
-        {allPosts.map(({ slug, meta }) => (
+        {posts.map(({ slug, meta }) => (
           <Link href={`/blog/posts/${slug}`} key={slug}>
             <PostPreview post={meta} />
           </Link>
@@ -74,7 +94,21 @@ export const getStaticProps: GetStaticProps<IndexProps> = async () => {
   // Filter to only published posts
   const posts = allFiles.filter(({ meta }) => !!meta.published);
 
+  const tags: string[] = [];
+  // Find tags in published posts
+  allFiles
+    .filter(({ meta }) => !!meta.published)
+    .forEach(({ meta }) => {
+      if (meta.tags) {
+        meta.tags.forEach((tag) => {
+          if (!tags.includes(tag)) {
+            tags.push(tag);
+          }
+        });
+      }
+    });
+
   return {
-    props: { allPosts: posts },
+    props: { posts, tags },
   };
 };

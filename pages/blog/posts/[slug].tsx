@@ -6,9 +6,18 @@ import { NextSeo } from 'next-seo';
 import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import path from 'path';
+import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
+import Link from '../../../src/components/Link';
+import Tag from '../../../src/components/Tag';
 import { getMarkdownSource } from '../../../src/mdx';
 import { PostMeta } from '../../../src/types/post';
+
+const TagList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8em;
+`;
 
 interface PostProps {
   source: MDXRemoteSerializeResult;
@@ -30,6 +39,22 @@ export default function Post({ source, frontMatter }: PostProps) {
         { path: '/blog', name: 'Blog' },
         { path: `/blog/posts/${slug}`, name: frontMatter.title },
       ]}
+      aside={
+        <>
+          {frontMatter.tags && (
+            <>
+              <h3>Tags</h3>
+              <TagList>
+                {frontMatter.tags.map((tag) => (
+                  <Link key={tag} href={`/blog/tags/${encodeURI(tag)}`}>
+                    <Tag name={tag} />
+                  </Link>
+                ))}
+              </TagList>
+            </>
+          )}
+        </>
+      }
     >
       <NextSeo title={`${frontMatter.title} | Blog | Stuart Thomson`} description={frontMatter.description} />
       <MDXRemote {...source} />
