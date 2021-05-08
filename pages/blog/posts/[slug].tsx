@@ -13,6 +13,13 @@ import Tag from '../../../src/components/Tag';
 import { getMarkdownSource } from '../../../src/mdx';
 import { PostMeta } from '../../../src/types/post';
 
+const Warning = styled.div`
+  border: 1px solid ${({ theme }) => theme.colors.warning};
+  color: ${({ theme }) => theme.colors.warning};
+  background-color: ${({ theme }) => `${theme.colors.warning}44`};
+  padding: 0.25em;
+`;
+
 const TagList = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -56,6 +63,7 @@ export default function Post({ source, frontMatter }: PostProps) {
         </>
       }
     >
+      {!frontMatter.published && <Warning>This post is a draft and has not been published yet</Warning>}
       <NextSeo title={`${frontMatter.title} | Blog | Stuart Thomson`} description={frontMatter.description} />
       <MDXRemote {...source} />
     </Layout>

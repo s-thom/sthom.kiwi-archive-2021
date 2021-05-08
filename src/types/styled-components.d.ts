@@ -7,6 +7,8 @@ declare module 'styled-components' {
       background: string;
       dark: string;
       text: string;
+      warning: string;
+      error: string;
     };
     mediaQueries: {
       teensy: string;

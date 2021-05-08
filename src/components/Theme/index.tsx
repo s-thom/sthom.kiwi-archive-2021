@@ -10,6 +10,8 @@ export default function Theme({ children }: PropsWithChildren<{}>) {
         background: '#0D1117',
         dark: '#0D1117',
         text: '#F0F0F0',
+        warning: '#ffdd9e',
+        error: '#ff8080',
       },
       mediaQueries: {
         teensy: `min-width: 0px`,
