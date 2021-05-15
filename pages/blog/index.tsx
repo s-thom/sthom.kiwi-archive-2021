@@ -30,6 +30,11 @@ const PostGrid = styled.div`
   }
 `;
 
+const HalfText = styled.p`
+  font-size: 0.8em;
+  opacity: 0.7;
+`;
+
 interface IndexProps {
   posts: { slug: string; meta: PostMeta }[];
   tags: string[];
@@ -59,6 +64,7 @@ export default function Index({ posts, tags }: IndexProps) {
       <h1>My Blog</h1>
       <p>Sometimes I write things. Here they are:</p>
       <PostGrid>
+        {posts.length === 0 && <HalfText>I haven&apos;t finished writing yet. Check back later.</HalfText>}
         {posts.map(({ slug, meta }) => (
           <Link href={`/blog/posts/${slug}`} key={slug}>
             <PostPreview post={meta} />
