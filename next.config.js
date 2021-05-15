@@ -9,22 +9,20 @@ module.exports = withPlugins([
     withImages,
     {
       inlineImageLimit: false,
+      future: {
+        webpack5: true,
+      },
     },
   ],
-  // [
-  //   withPWA,
-  //   {
-  //     pwa: {
-  //       dest: 'public',
-  //     },
-  //   },
-  // ],
   [withTM(['react-spring/three'])],
   {
     poweredByHeader: false,
     reactStrictMode: true,
     future: {
-      webpack5: false,
+      webpack5: true,
+    },
+    images: {
+      domains: ['images.prismic.io'],
     },
     async headers() {
       return [
