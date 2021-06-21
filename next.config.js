@@ -35,6 +35,15 @@ module.exports = withPlugins([
             },
           ],
         },
+        {
+          source: '/(.*)',
+          headers: [
+            {
+              key: 'Permissions-Policy',
+              value: 'interest-cohort=()',
+            },
+          ],
+        },
       ];
     },
     async redirects() {
