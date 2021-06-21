@@ -11,7 +11,8 @@
     "plugin:jest/recommended",
     "plugin:jest/style",
     "plugin:jest-dom/recommended",
-    "plugin:testing-library/react"
+    "plugin:testing-library/react",
+    "plugin:@next/next/recommended"
   ],
   "rules": {
     "class-methods-use-this": "off",

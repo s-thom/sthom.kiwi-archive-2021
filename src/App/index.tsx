@@ -56,8 +56,8 @@ export default function App({ children }: PropsWithChildren<{}>) {
                 username: 'sthom',
               },
               images: [
-                { url: og800x600, alt: 'Stuart Thomson', height: 600, width: 800 },
-                { url: og1200x900, alt: 'Stuart Thomson', height: 900, width: 1200 },
+                { url: og800x600.src, alt: 'Stuart Thomson', height: 600, width: 800 },
+                { url: og1200x900.src, alt: 'Stuart Thomson', height: 900, width: 1200 },
               ],
             }),
             [],

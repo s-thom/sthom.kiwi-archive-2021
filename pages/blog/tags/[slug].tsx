@@ -42,7 +42,7 @@ export default function TaggedPosts({ tag, posts }: TaggedPostsProps) {
       <NextSeo title={`Tagged: ${tag} | Stuart Thomson`} />
       <h1>{`Tagged: ${tag}`}</h1>
       <PostGrid>
-        {posts.map(({ slug, meta }) => (
+        {posts?.map(({ slug, meta }) => (
           <Link href={`/blog/posts/${slug}`} key={slug}>
             <PostPreview post={meta} />
           </Link>
@@ -88,6 +88,8 @@ export const getStaticProps: GetStaticProps<TaggedPostsProps, { slug: string }> 
   if (posts.length === 0) {
     return { notFound: true };
   }
+
+  console.log({tag,posts})
 
   return {
     props: {
