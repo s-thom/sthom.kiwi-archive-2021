@@ -53,6 +53,10 @@ export default function TaggedPosts({ tag, posts }: TaggedPostsProps) {
 }
 
 export const getStaticProps: GetStaticProps<TaggedPostsProps, { slug: string }> = async ({ params }) => {
+  if (!params) {
+    return { notFound: true };
+  }
+
   const tag = decodeURI(params.slug);
 
   const postsDirectory = path.join(process.cwd(), 'content/posts');
