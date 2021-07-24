@@ -89,8 +89,6 @@ export const getStaticProps: GetStaticProps<TaggedPostsProps, { slug: string }> 
     return { notFound: true };
   }
 
-  console.log({tag,posts})
-
   return {
     props: {
       tag,

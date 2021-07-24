@@ -50,8 +50,8 @@
     "start": "next start",
     "lint": "npm run lint:tsc && npm run lint:eslint",
     "lint:tsc": "tsc --noEmit",
-    "lint:eslint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
-    "format": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix"
+    "lint:eslint": "eslint \"{src,pages}/**/*.{js,jsx,ts,tsx}\"",
+    "format": "eslint \"{src,pages}/**/*.{js,jsx,ts,tsx}\" --fix"
   },
   "browserslist": {
     "production": [
