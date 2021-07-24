@@ -5,9 +5,21 @@ import Header, { HeaderProps } from './Header';
 const Container = styled.div`
   margin: 0 auto;
   padding: 0 1em;
-  max-width: 70em;
+  max-width: 30em;
   min-height: 100vh;
   height: 100%;
+
+  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
+    max-width: 50em;
+  }
+
+  @media (${({ theme }) => theme.mediaQueries.blog.desktop}) {
+    max-width: 60em;
+  }
+
+  @media (${({ theme }) => theme.mediaQueries.blog.largeDesktop}) {
+    max-width: 70em;
+  }
 
   animation: 0.5s ease-in FadeIn;
 `;
@@ -18,6 +30,7 @@ const GridContainer = styled.div`
     'header'
     'content'
     'aside';
+  grid-template-rows: max-content;
   grid-template-columns: 100%;
   gap: 0.5em;
 
@@ -25,12 +38,16 @@ const GridContainer = styled.div`
     grid-template-areas:
       'header content'
       'aside content';
-    grid-template-columns: 10em 1fr;
+    grid-template-columns: 10em 1fr 1em;
     gap: 1em;
   }
 
   @media (${({ theme }) => theme.mediaQueries.blog.desktop}) {
-    grid-template-columns: 20em 1fr;
+    grid-template-columns: 10em 1fr 2em;
+  }
+
+  @media (${({ theme }) => theme.mediaQueries.blog.largeDesktop}) {
+    grid-template-columns: 20em 1fr 5em;
   }
 `;
 
