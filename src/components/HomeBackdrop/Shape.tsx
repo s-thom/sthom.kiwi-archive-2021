@@ -17,7 +17,7 @@ export default function Shape({ color, variant, radius = 1, ...meshProps }: Shap
       {variant === 'octahedron' && <octahedronBufferGeometry args={[radius, 0]} />}
       {variant === 'tetrahedron' && <tetrahedronBufferGeometry args={[radius, 0]} />}
       {variant === 'cube' && <boxBufferGeometry args={[radius, radius, radius]} />}
-      <meshStandardMaterial color={color ?? theme.colors.dark} />
+      <meshStandardMaterial color={color ?? theme.colors.background} />
     </mesh>
   );
 }

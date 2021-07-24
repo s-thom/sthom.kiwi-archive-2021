@@ -18,13 +18,13 @@ const VerticalContainer = styled.div`
   animation: 0.5s ease-in FadeIn;
 
   font-size: 0.8em;
-  @media (${({ theme }) => theme.mediaQueries.mobile}) {
+  @media (min-width: 360px) {
     font-size: 1em;
   }
-  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+  @media (min-width: 768px) {
     font-size: 1.2em;
   }
-  @media (${({ theme }) => theme.mediaQueries.desktop}) {
+  @media (min-width: 1200px) {
     font-size: 1.3em;
   }
 

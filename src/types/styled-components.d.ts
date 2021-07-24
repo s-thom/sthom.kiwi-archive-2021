@@ -5,16 +5,18 @@ declare module 'styled-components' {
     colors: {
       primary: string;
       background: string;
-      dark: string;
       text: string;
       warning: string;
       error: string;
     };
     mediaQueries: {
-      teensy: string;
-      mobile: string;
-      tablet: string;
-      desktop: string;
+      blog: {
+        smallMobile: string;
+        mobile: string;
+        tablet: string;
+        desktop: string;
+        largeDesktop: string;
+      };
     };
   }
 }

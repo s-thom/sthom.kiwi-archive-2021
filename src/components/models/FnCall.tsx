@@ -24,7 +24,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
   return (
     <group ref={group} {...props} dispose={null}>
       <mesh geometry={nodes.Text.geometry} rotation={[Math.PI / 2, 0, 0]}>
-        <meshStandardMaterial color={theme.colors.dark} />
+        <meshStandardMaterial color={theme.colors.background} />
       </mesh>
     </group>
   );

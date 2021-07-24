@@ -6,18 +6,19 @@ export default function Theme({ children }: PropsWithChildren<{}>) {
     () => ({
       colors: {
         primary: '#002355',
-        // background: '#2d2d4d',
         background: '#0D1117',
-        dark: '#0D1117',
         text: '#F0F0F0',
         warning: '#ffdd9e',
         error: '#ff8080',
       },
       mediaQueries: {
-        teensy: `min-width: 0px`,
-        mobile: `min-width: 300px`,
-        tablet: `min-width: 768px`,
-        desktop: `min-width: 1200px`,
+        blog: {
+          smallMobile: `min-width: 0px`,
+          mobile: `min-width: 300px`,
+          tablet: `min-width: 768px`,
+          desktop: `min-width: 1200px`,
+          largeDesktop: `min-width: 3000px`,
+        },
       },
     }),
     [],

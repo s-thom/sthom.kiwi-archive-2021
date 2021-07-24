@@ -21,7 +21,7 @@ const GridContainer = styled.div`
   grid-template-columns: 100%;
   gap: 0.5em;
 
-  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
     grid-template-areas:
       'header content'
       'aside content';
@@ -29,7 +29,7 @@ const GridContainer = styled.div`
     gap: 1em;
   }
 
-  @media (${({ theme }) => theme.mediaQueries.desktop}) {
+  @media (${({ theme }) => theme.mediaQueries.blog.desktop}) {
     grid-template-columns: 20em 1fr;
   }
 `;

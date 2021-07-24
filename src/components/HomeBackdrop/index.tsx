@@ -24,7 +24,7 @@ const StyledCanvas = styled(Canvas)<{ ready: boolean }>`
   top: 0;
   left: 0;
   z-index: -1;
-  background-color: ${({ theme }) => theme.colors.dark};
+  background-color: ${({ theme }) => theme.colors.background};
   opacity: 0;
 
   ${({ ready }) => (ready ? 'animation: 0.5s ease-in both FadeIn;' : '')}
