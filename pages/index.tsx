@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import portraitSrc from '../src/resources/portrait-2020.jpg';
 
-const Backdrop = dynamic(() => import('../src/components/Backdrop'), { ssr: false });
+const HomeBackdrop = dynamic(() => import('../src/components/HomeBackdrop'), { ssr: false });
 
 const VerticalContainer = styled.div`
   display: flex;
@@ -64,7 +64,7 @@ const Icon = styled.svg`
 export default function Home() {
   return (
     <>
-      <Backdrop />
+      <HomeBackdrop />
       <VerticalContainer>
         <ProfilePhoto src={portraitSrc} alt="Stuart Thomson" width={200} height={200} priority />
         <Name>Stuart Thomson</Name>

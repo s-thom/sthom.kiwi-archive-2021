@@ -4,9 +4,9 @@ import { ComponentType, Suspense, useCallback, useEffect, useMemo, useState } fr
 import seedrandom from 'seedrandom';
 import styled, { ThemeContext } from 'styled-components';
 import { Vector3Tuple } from 'three';
-import Code from '../../models/Code';
-import Curly from '../../models/Curly';
-import FnCall from '../../models/FnCall';
+import Code from '../models/Code';
+import Curly from '../models/Curly';
+import FnCall from '../models/FnCall';
 import BlueOrb from './BlueOrb';
 import RotatingGroup from './RotatingGroup';
 import Shape from './Shape';
