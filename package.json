@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fec/remark-a11y-emoji": "^3.1.0",
+    "@fontsource/jetbrains-mono": "^4.5.0",
     "@fontsource/jost": "^4.5.0",
     "@fontsource/open-sans": "^4.5.0",
     "@react-spring/three": "^9.2.4",

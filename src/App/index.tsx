@@ -1,11 +1,45 @@
+import '@fontsource/jetbrains-mono';
+import '@fontsource/jost';
+import '@fontsource/open-sans';
 import { DefaultSeo } from 'next-seo';
 import { DefaultSeoProps, OpenGraph } from 'next-seo/lib/types';
 import { PropsWithChildren, useMemo } from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
 import Theme from '../components/Theme';
-import Container from './Container';
-import GlobalStyles from './GlobalStyles';
 import og1200x900 from './og-1200-900.png';
 import og800x600 from './og-800-600.png';
+
+const GlobalStyles = createGlobalStyle`
+body {
+  margin: 0;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.2em;
+}
+
+code {
+  font-family: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: Jost, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-weight: 400;
+}
+`;
+
+const Container = styled.div`
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
+  position: relative;
+  z-index: 1;
+`;
 
 export default function App({ children }: PropsWithChildren<{}>) {
   return (

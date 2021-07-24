@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import portraitSrc from './portrait-2020.jpg';
+import portraitSrc from '../../resources/portrait-2020.jpg';
 import Link from '../Link';
 
 const HeaderArea = styled.header`
