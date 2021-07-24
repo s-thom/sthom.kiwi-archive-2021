@@ -16,12 +16,12 @@ const HeaderProfile = styled(Link)`
   text-decoration: none;
   padding: 0.5em;
 
-  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
     flex-direction: column;
     text-align: center;
   }
 
-  @media (${({ theme }) => theme.mediaQueries.desktop}) {
+  @media (${({ theme }) => theme.mediaQueries.blog.desktop}) {
     /* justify-content: start;
     justify-content: flex-start; */
   }
@@ -30,7 +30,7 @@ const HeaderProfile = styled(Link)`
 const ProfilePhotoWrapper = styled.div`
   width: 48px;
 
-  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
     width: 96px;
   }
 `;
@@ -86,7 +86,7 @@ export default function Header({ className, breadcrumbs }: HeaderProps) {
             alt="Stuart Thomson"
             width={96}
             height={96}
-            sizes={`(${theme.mediaQueries.tablet}) 96px, 48px`}
+            sizes={`(${theme.mediaQueries.blog.tablet}) 96px, 48px`}
             priority
           />
         </ProfilePhotoWrapper>

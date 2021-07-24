@@ -17,7 +17,7 @@ const Container = styled.div`
     'excerpt'
     'date';
 
-  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
     grid-template-areas:
       'gap gap'
       'title title'

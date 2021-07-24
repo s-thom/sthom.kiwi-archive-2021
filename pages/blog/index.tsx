@@ -21,7 +21,7 @@ const PostGrid = styled.div`
   grid-template-columns: 1fr;
   gap: 1em;
 
-  @media (${({ theme }) => theme.mediaQueries.tablet}) {
+  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
     grid-template-columns: 1fr 1fr;
 
     & > *:first-child {

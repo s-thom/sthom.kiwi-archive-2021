@@ -16,6 +16,7 @@ declare module 'styled-components' {
         tablet: string;
         desktop: string;
         largeDesktop: string;
+        extraLargeDesktop: string;
       };
     };
   }
