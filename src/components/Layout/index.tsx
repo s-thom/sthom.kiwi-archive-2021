@@ -1,14 +1,15 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import { animated, useSpring } from 'react-spring';
 import styled from 'styled-components';
 import Header, { HeaderProps } from './Header';
 
-const Container = styled(animated.div)`
+const Container = styled.div`
   margin: 0 auto;
   padding: 0 1em;
   max-width: 70em;
   min-height: 100vh;
   height: 100%;
+
+  animation: 0.5s ease-in FadeIn;
 `;
 
 const GridContainer = styled.div`
@@ -52,14 +53,8 @@ export interface LayoutProps {
 }
 
 export default function Layout({ breadcrumbs, aside, children }: PropsWithChildren<LayoutProps>) {
-  const animProps = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    delay: 200,
-  });
-
   return (
-    <Container style={animProps}>
+    <Container>
       <GridContainer>
         <HeaderArea breadcrumbs={breadcrumbs} />
         <ContentArea>{children}</ContentArea>

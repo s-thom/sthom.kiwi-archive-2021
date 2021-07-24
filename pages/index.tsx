@@ -1,13 +1,12 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React from 'react';
-import { animated, useSpring } from 'react-spring';
 import styled from 'styled-components';
 import portraitSrc from '../src/resources/portrait-2020.jpg';
 
 const Backdrop = dynamic(() => import('../src/components/Backdrop'), { ssr: false });
 
-const VerticalContainer = styled(animated.div)`
+const VerticalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,6 +14,8 @@ const VerticalContainer = styled(animated.div)`
   min-height: 100vh;
   height: 100%;
   pointer-events: none;
+
+  animation: 0.5s ease-in FadeIn;
 
   font-size: 0.8em;
   @media (${({ theme }) => theme.mediaQueries.mobile}) {
@@ -61,16 +62,10 @@ const Icon = styled.svg`
 `;
 
 export default function Home() {
-  const animProps = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    delay: 200,
-  });
-
   return (
     <>
       <Backdrop />
-      <VerticalContainer style={animProps}>
+      <VerticalContainer>
         <ProfilePhoto src={portraitSrc} alt="Stuart Thomson" width={200} height={200} priority />
         <Name>Stuart Thomson</Name>
         <JobLine>Software Developer | Human Being</JobLine>

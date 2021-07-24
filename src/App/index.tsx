@@ -30,6 +30,16 @@ h1,h2,h3,h4,h5,h6 {
     sans-serif;
   font-weight: 400;
 }
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 `;
 
 const Container = styled.div`
@@ -60,6 +70,7 @@ export default function App({ children }: PropsWithChildren<{}>) {
           )}
           additionalLinkTags={useMemo<DefaultSeoProps['additionalLinkTags']>(
             () => [
+              { rel: 'author', type: 'text/plain', href: '/humans.txt' },
               { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon.ico' },
               { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/icons/android-icon-192x192.png' },
               { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/icons/favicon-96x96.png' },
