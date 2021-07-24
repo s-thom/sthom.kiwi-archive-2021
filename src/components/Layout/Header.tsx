@@ -42,6 +42,10 @@ const ProfilePhoto = styled(Image)`
 const ProfileName = styled.h1`
   margin: 0;
   margin-left: 0.5em;
+
+  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
+    margin-left: 0;
+  }
 `;
 
 const Breadcrumbs = styled.nav`

@@ -43,7 +43,7 @@ h1,h2,h3,h4,h5,h6 {
 `;
 
 const Container = styled.div`
-  min-width: 100vw;
+  max-width: 100vw;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
