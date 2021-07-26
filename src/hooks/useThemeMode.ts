@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
@@ -10,11 +10,31 @@ function getInitialValue(): boolean {
   return global.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-export default function useDarkMode(defaultForSsr: boolean): {
-  value: boolean;
-  setValue: (newValue: boolean | undefined) => void;
-} {
-  const [currentState, setCurrentState] = useState<boolean>(defaultForSsr);
+export type ThemeMode = 'light' | 'dark';
+
+export interface DarkModeContextValue {
+  mode: ThemeMode;
+  setMode: (newMode: ThemeMode | undefined) => void;
+}
+
+export const DarkModeContext = createContext<DarkModeContextValue>(null as any);
+
+export function useDarkMode() {
+  const ctx = useContext(DarkModeContext);
+  if (!ctx) {
+    throw new Error('useDarkMode must be called within a DarkModeProvider');
+  }
+}
+
+export interface DarkModeProviderProps {
+  /**
+   * Important for ensuring pages generated using SSR match the initial render on the client
+   */
+  defaultMode: ThemeMode;
+}
+
+export function DarkModeProvider({ defaultMode }: DarkModeProviderProps) {
+  const [currentState, setCurrentState] = useState<ThemeMode>(defaultMode);
 
   useIsomorphicLayoutEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -37,6 +57,4 @@ export default function useDarkMode(defaultForSsr: boolean): {
       setCurrentState(newValue);
     }
   }, []);
-
-  return useMemo(() => ({ value: currentState, setValue }), [currentState, setValue]);
 }

@@ -3,7 +3,7 @@ import '@fontsource/jetbrains-mono';
 import '@fontsource/jost';
 import { PropsWithChildren, useMemo } from 'react';
 import { createGlobalStyle, DefaultTheme, ThemeProvider } from 'styled-components';
-import useDarkTheme from '../../hooks/useDarkTheme';
+import { useThemeMode } from '../../hooks/useThemeMode';
 
 const LIGHT_MODE_COLOURS: DefaultTheme['colors'] = {
   primary: '#4273bd',
@@ -58,11 +58,11 @@ h1,h2,h3,h4,h5,h6 {
 `;
 
 export default function Theme({ children }: PropsWithChildren<{}>) {
-  const { value: isDarkTheme } = useDarkTheme(false);
+  const { mode } = useThemeMode();
 
   const theme = useMemo<DefaultTheme>(
     () => ({
-      colors: isDarkTheme ? DARK_MODE_COLOURS : LIGHT_MODE_COLOURS,
+      colors: mode === 'light' ? LIGHT_MODE_COLOURS : DARK_MODE_COLOURS,
       mediaQueries: {
         blog: {
           smallMobile: `min-width: 0px`,
@@ -74,7 +74,7 @@ export default function Theme({ children }: PropsWithChildren<{}>) {
         },
       },
     }),
-    [isDarkTheme],
+    [mode],
   );
 
   return (
