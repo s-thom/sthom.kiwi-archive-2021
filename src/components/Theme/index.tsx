@@ -3,6 +3,7 @@ import '@fontsource/jetbrains-mono';
 import '@fontsource/jost';
 import { PropsWithChildren, useMemo } from 'react';
 import { createGlobalStyle, DefaultTheme, ThemeProvider } from 'styled-components';
+import useDarkTheme from '../../hooks/useDarkTheme';
 
 const LIGHT_MODE_COLOURS: DefaultTheme['colors'] = {
   primary: '#4273bd',
@@ -11,13 +12,13 @@ const LIGHT_MODE_COLOURS: DefaultTheme['colors'] = {
   warning: '#ce8c11',
   error: '#972929',
 };
-// const DARK_MODE_COLOURS: DefaultTheme['colors'] = {
-//   primary: '#002355',
-//   background: '#0D1117',
-//   text: '#F0F0F0',
-//   warning: '#ffdd9e',
-//   error: '#ff8080',
-// };
+const DARK_MODE_COLOURS: DefaultTheme['colors'] = {
+  primary: '#002355',
+  background: '#0D1117',
+  text: '#F0F0F0',
+  warning: '#ffdd9e',
+  error: '#ff8080',
+};
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -57,9 +58,11 @@ h1,h2,h3,h4,h5,h6 {
 `;
 
 export default function Theme({ children }: PropsWithChildren<{}>) {
+  const { value: isDarkTheme } = useDarkTheme(false);
+
   const theme = useMemo<DefaultTheme>(
     () => ({
-      colors: LIGHT_MODE_COLOURS,
+      colors: isDarkTheme ? DARK_MODE_COLOURS : LIGHT_MODE_COLOURS,
       mediaQueries: {
         blog: {
           smallMobile: `min-width: 0px`,
@@ -71,7 +74,7 @@ export default function Theme({ children }: PropsWithChildren<{}>) {
         },
       },
     }),
-    [],
+    [isDarkTheme],
   );
 
   return (
