@@ -18,7 +18,7 @@ const Container = styled.div`
 
 export default function App({ children }: PropsWithChildren<{}>) {
   return (
-    <ThemeModeProvider defaultMode="light">
+    <ThemeModeProvider ssrEnabled>
       <Theme>
         <DefaultSeo
           defaultTitle="Stuart Thomson"

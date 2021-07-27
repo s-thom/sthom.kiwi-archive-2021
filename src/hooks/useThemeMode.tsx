@@ -28,12 +28,24 @@ export function useThemeMode() {
 export interface ThemeModeProviderProps {
   /**
    * Important for ensuring pages generated using SSR match the initial render on the client
+   *
+   * @default 'light'
    */
-  defaultMode: ThemeMode;
+  defaultMode?: ThemeMode;
+  /**
+   * Forces the default mode on mount, to ensure classNames match when hydrating.
+   * On mount, an effect runs that then allows the user/browser preference to be used.
+   * This will, of course, potentially lead to a flash of the wrong theme for a frame.
+   */
+  ssrEnabled?: boolean;
 }
 
-export function ThemeModeProvider({ defaultMode, children }: React.PropsWithChildren<ThemeModeProviderProps>) {
-  const [forceDefault, setForceDefault] = useState<boolean>(true);
+export function ThemeModeProvider({
+  defaultMode = 'light',
+  ssrEnabled = false,
+  children,
+}: React.PropsWithChildren<ThemeModeProviderProps>) {
+  const [forceDefault, setForceDefault] = useState<boolean>(ssrEnabled);
   const [storedMode, setStoredMode, removeStoredMode] = useLocalStorage<ThemeMode>(LS_VALUE_KEY, defaultMode);
   const [isControlled, setIsControlled] = useLocalStorage<boolean>(LS_ENABLED_KEY, false);
 
