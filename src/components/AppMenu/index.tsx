@@ -1,5 +1,6 @@
 import { useToggle } from 'react-use';
 import MenuButton from './MenuButton';
+import MenuModal from './MenuModal';
 
 export default function AppMenu() {
   const [isOpen, toggleIsOpen] = useToggle(false);
@@ -7,7 +8,7 @@ export default function AppMenu() {
   return (
     <>
       <MenuButton isOpen={isOpen} onClick={toggleIsOpen} />
-      {/* TODO: menu */}
+      <MenuModal isOpen={isOpen} onClose={toggleIsOpen} />
     </>
   );
 }
