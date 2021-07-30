@@ -8,6 +8,7 @@ export type ThemeMode = 'light' | 'dark';
 
 // #region Context
 export interface ThemeModeContextValue {
+  isAuto: boolean;
   mode: ThemeMode;
   setMode: (newMode: ThemeMode | undefined) => void;
 }
@@ -80,7 +81,10 @@ export function ThemeModeProvider({
     [removeStoredMode, setIsControlled, setStoredMode],
   );
 
-  const contextValue = useMemo<ThemeModeContextValue>(() => ({ mode: currentMode, setMode }), [currentMode, setMode]);
+  const contextValue = useMemo<ThemeModeContextValue>(
+    () => ({ isAuto: !isControlled, mode: currentMode, setMode }),
+    [currentMode, isControlled, setMode],
+  );
 
   return <ThemeModeContext.Provider value={contextValue}>{children}</ThemeModeContext.Provider>;
 }
