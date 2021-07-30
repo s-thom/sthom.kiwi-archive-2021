@@ -34,19 +34,13 @@ export interface MenuModalProps {
 }
 
 export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
-  const { isAuto, mode, setMode } = useThemeMode();
+  const { preference, setPreference } = useThemeMode();
 
   const changeHandler = useCallback<React.ChangeEventHandler<HTMLSelectElement>>(
     (event) => {
-      const { value } = event.target;
-
-      if (value === 'auto') {
-        setMode(undefined);
-      } else {
-        setMode(value as ThemeMode);
-      }
+      setPreference(event.target.value as ThemeMode);
     },
-    [setMode],
+    [setPreference],
   );
 
   return (
@@ -59,7 +53,7 @@ export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
           </div>
           <div>
             <p>Theme</p>
-            <select value={isAuto ? 'auto' : mode} onChange={changeHandler}>
+            <select value={preference} onChange={changeHandler}>
               <option value="auto">System Auto</option>
               <option value="light">Light</option>
               <option value="dark">Dark</option>
