@@ -8,6 +8,7 @@ import { useThemeMode } from '../../hooks/useThemeMode';
 const LIGHT_MODE_COLOURS: DefaultTheme['colors'] = {
   primary: '#4273bd',
   background: '#e4e4e4',
+  modal: '#e4e4e4F0',
   text: '#0D1117',
   warning: '#ce8c11',
   error: '#972929',
@@ -15,6 +16,7 @@ const LIGHT_MODE_COLOURS: DefaultTheme['colors'] = {
 const DARK_MODE_COLOURS: DefaultTheme['colors'] = {
   primary: '#002355',
   background: '#0D1117',
+  modal: '#0D1117F0',
   text: '#F0F0F0',
   warning: '#ffdd9e',
   error: '#ff8080',

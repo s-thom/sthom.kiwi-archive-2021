@@ -4,12 +4,13 @@ import { useIsomorphicLayoutEffect, useLocalStorage, useMedia } from 'react-use'
 const LS_ENABLED_KEY = 'preference.theme.enabled';
 const LS_VALUE_KEY = 'preference.theme.value';
 
-export type ThemeMode = 'light' | 'dark';
+export type ThemeMode = 'auto' | 'light' | 'dark';
 
 // #region Context
 export interface ThemeModeContextValue {
-  mode: ThemeMode;
-  setMode: (newMode: ThemeMode | undefined) => void;
+  mode: Exclude<ThemeMode, 'auto'>;
+  preference: ThemeMode;
+  setPreference: (newMode: ThemeMode) => void;
 }
 
 export const ThemeModeContext = createContext<ThemeModeContextValue>(null as any);
@@ -31,7 +32,7 @@ export interface ThemeModeProviderProps {
    *
    * @default 'light'
    */
-  defaultMode?: ThemeMode;
+  defaultMode?: Exclude<ThemeMode, 'auto'>;
   /**
    * Forces the default mode on mount, to ensure classNames match when hydrating.
    * On mount, an effect runs that then allows the user/browser preference to be used.
@@ -46,7 +47,10 @@ export function ThemeModeProvider({
   children,
 }: React.PropsWithChildren<ThemeModeProviderProps>) {
   const [forceDefault, setForceDefault] = useState<boolean>(ssrEnabled);
-  const [storedMode, setStoredMode, removeStoredMode] = useLocalStorage<ThemeMode>(LS_VALUE_KEY, defaultMode);
+  const [storedMode, setStoredMode, removeStoredMode] = useLocalStorage<Exclude<ThemeMode, 'auto'>>(
+    LS_VALUE_KEY,
+    defaultMode,
+  );
   const [isControlled, setIsControlled] = useLocalStorage<boolean>(LS_ENABLED_KEY, false);
 
   const isDarkMode = useMedia('(prefers-color-scheme: dark)', defaultMode === 'dark');
@@ -55,7 +59,7 @@ export function ThemeModeProvider({
     setForceDefault(false);
   }, []);
 
-  const currentMode = useMemo<ThemeMode>(() => {
+  const mode = useMemo<Exclude<ThemeMode, 'auto'>>(() => {
     if (forceDefault) {
       return defaultMode;
     }
@@ -66,9 +70,17 @@ export function ThemeModeProvider({
 
     return isDarkMode ? 'dark' : 'light';
   }, [defaultMode, forceDefault, isControlled, isDarkMode, storedMode]);
-  const setMode = useCallback<(newMode: ThemeMode | undefined) => void>(
+
+  const preference = useMemo<ThemeMode>(() => {
+    if (isControlled) {
+      return storedMode ?? defaultMode;
+    }
+    return 'auto';
+  }, [defaultMode, isControlled, storedMode]);
+
+  const setPreference = useCallback<(newMode: ThemeMode | undefined) => void>(
     (newMode) => {
-      if (!newMode) {
+      if (newMode === 'auto') {
         setIsControlled(false);
         removeStoredMode();
         return;
@@ -80,7 +92,10 @@ export function ThemeModeProvider({
     [removeStoredMode, setIsControlled, setStoredMode],
   );
 
-  const contextValue = useMemo<ThemeModeContextValue>(() => ({ mode: currentMode, setMode }), [currentMode, setMode]);
+  const contextValue = useMemo<ThemeModeContextValue>(
+    () => ({ mode, preference, setPreference }),
+    [mode, preference, setPreference],
+  );
 
   return <ThemeModeContext.Provider value={contextValue}>{children}</ThemeModeContext.Provider>;
 }
