@@ -119,7 +119,7 @@ export default function ProjectsPage() {
     <Layout
       breadcrumbs={[
         { path: '/', name: 'Home' },
-        { path: '/projects', name: 'Projects' },
+        { path: '/my-projects', name: 'Projects' },
       ]}
     >
       <NextSeo title="Projects | Stuart Thomson" />
