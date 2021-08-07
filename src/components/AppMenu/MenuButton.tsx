@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ButtonWrapper = styled.button<{ isOpen?: boolean }>`
+const ButtonWrapper = styled.button<{ isVisible?: boolean }>`
   position: fixed;
   top: 0.25em;
   right: 0;
@@ -13,7 +13,7 @@ const ButtonWrapper = styled.button<{ isOpen?: boolean }>`
   font-size: 0.8em;
   outline: none;
   transition: transform 0.2s ease-out;
-  transform: ${({ isOpen }) => (isOpen ? `translateX(100%)` : `translateX(0%)`)};
+  transform: ${({ isVisible }) => (isVisible ? `translateX(0%)` : `translateX(100%)`)};
 `;
 
 const Icon = styled.svg`
@@ -25,13 +25,13 @@ const Icon = styled.svg`
 `;
 
 export interface MenuButtonProps {
-  isOpen?: boolean;
+  isVisible?: boolean;
   onClick?: () => void;
 }
 
-export default function MenuButton({ isOpen, onClick }: MenuButtonProps) {
+export default function MenuButton({ isVisible, onClick }: MenuButtonProps) {
   return (
-    <ButtonWrapper isOpen={isOpen} onClick={onClick}>
+    <ButtonWrapper isVisible={isVisible} onClick={onClick}>
       <Icon viewBox="0 0 24 24">
         <path d="M0 0h24v24H0V0z" fill="none" />
         <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
