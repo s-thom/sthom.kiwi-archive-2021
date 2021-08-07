@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import portraitSrc from '../src/resources/portrait-2020.jpg';
@@ -61,6 +62,10 @@ const Icon = styled.svg`
   fill: ${({ theme }) => theme.colors.text};
 `;
 
+const LinkText = styled.a`
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 export default function Home() {
   return (
     <>
@@ -70,6 +75,10 @@ export default function Home() {
         <Name>Stuart Thomson</Name>
         <JobLine>Software Developer | Human Being</JobLine>
         <HorizontalContainer>
+          <Link href="/about" passHref>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <LinkText>About Me</LinkText>
+          </Link>
           {
             // <Link href="/blog">
             // {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -81,6 +90,8 @@ export default function Home() {
             // </a>
             // </Link>
           }
+        </HorizontalContainer>
+        <HorizontalContainer>
           <a href="https://github.com/s-thom" aria-label="GitHub" rel="nofollow noopener noreferrer" target="_blank">
             <Icon viewBox="0 0 24 24">
               <title>GitHub</title>

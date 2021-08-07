@@ -35,6 +35,7 @@ const GridContainer = styled.div`
   gap: 0.5em;
 
   @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
+    padding-top: 1em;
     grid-template-areas:
       'header content'
       'aside content';
@@ -54,6 +55,10 @@ const GridContainer = styled.div`
 const ContentArea = styled.div`
   grid-area: content;
   font-size: 1.1em;
+
+  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
+    padding-top: 1em;
+  }
 `;
 
 const HeaderArea = styled(Header)`
