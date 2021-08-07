@@ -9,7 +9,6 @@ const Container = styled.div`
   grid-template-areas: 'human' 'dev';
 
   @media (${({ theme }) => theme.mediaQueries.blog.desktop}) {
-    padding-top: 3em;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'dev human';
   }
