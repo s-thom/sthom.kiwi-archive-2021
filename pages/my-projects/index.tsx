@@ -5,6 +5,17 @@ import styled from 'styled-components';
 import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
 import howToScreenshotImage from './hts.png';
+import sthomKiwiImage from './sthom.png';
+
+const ProjectList = styled.div`
+  display: grid;
+  gap: 1em;
+  grid-template-columns: 1fr;
+
+  @media (${({ theme }) => theme.mediaQueries.blog.desktop}) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 
 const ProjectWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.text};
@@ -111,6 +122,29 @@ export default function ProjectsPage() {
         image: howToScreenshotImage,
         link: 'https://screenshot.help/',
       },
+      {
+        name: 'sthom.kiwi',
+        description: (
+          <p>
+            I am working on the very website you&apos;re looking at. It&apos;s my goal to write a little bit for it each
+            week, whether that be the code for the site or working on a draft blog post.
+          </p>
+        ),
+        github: 'https://github.com/s-thom/sthom.kiwi',
+        image: sthomKiwiImage,
+        link: 'https://sthom.kiwi/',
+      },
+      {
+        name: 'Infrastructure',
+        description: (
+          <p>
+            In the background, I am trying out different ways of orchestrating any services I want to self-host, and how
+            to manage the deployment and upgrading of them. It&apos;s a fairly slow and steady project at the moment,
+            and I am using tools that I have not used before It&apos;s a complex topic, so rushing through is only going
+            to lead to issues down the line.
+          </p>
+        ),
+      },
     ],
     [],
   );
@@ -128,11 +162,11 @@ export default function ProjectsPage() {
         These projects are still actively being worked on. If they look like your kind of thing, then contributions are
         welcome!
       </p>
-      <div role="list">
+      <ProjectList role="list">
         {activeProjects.map((project) => (
           <ProjectCard key={project.name} project={project} role="listitem" />
         ))}
-      </div>
+      </ProjectList>
       <h1>Completed Projects</h1>
       <p>
         These are the lucky ones that have graduated to the promised land known as &quot;the done column of my projects
