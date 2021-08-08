@@ -33,6 +33,7 @@ const GridContainer = styled.div`
   grid-template-rows: max-content;
   grid-template-columns: 100%;
   gap: 0.5em;
+  padding-bottom: 1em;
 
   @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
     padding-top: 1em;
