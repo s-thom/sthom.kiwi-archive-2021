@@ -66,6 +66,10 @@ const LinkText = styled.a`
   color: ${({ theme }) => theme.colors.text};
 `;
 
+const Separator = styled.span`
+  margin: 0 0.25em;
+`;
+
 export default function Home() {
   return (
     <>
@@ -85,6 +89,7 @@ export default function Home() {
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkText>About Me</LinkText>
           </Link>
+          <Separator aria-hidden="true">|</Separator>
           <Link href="/my-projects" passHref>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkText aria-label="Projects">Projects</LinkText>
