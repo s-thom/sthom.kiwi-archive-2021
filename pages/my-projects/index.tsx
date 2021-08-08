@@ -8,6 +8,7 @@ import howToScreenshotImage from './hts.png';
 import sthomKiwiImage from './sthom.png';
 import theIndexImage from './the-index.png';
 import ednonImage from './ednon.png';
+import colourImage from './colour.png';
 
 const ProjectList = styled.div`
   display: grid;
@@ -194,7 +195,30 @@ export default function ProjectsPage() {
     ],
     [],
   );
-  const dormantProjects = useMemo<Project[]>(() => [], []);
+  const dormantProjects = useMemo<Project[]>(
+    () => [
+      {
+        name: 'Colour Tool',
+        description: (
+          <>
+            <p>
+              Initially a tool to help me compare colours, this project ended up being a journey down how colour is
+              represented in computers, the features of different colour spaces, and just how much we take for granted
+              when it comes to colour.
+            </p>
+            <p>
+              In the future I want to extend this to have a more advanced colour picker, as well as better
+              representations of the colour spaces, so that others can learn what I have only scratched the surface of.
+            </p>
+          </>
+        ),
+        github: 'https://github.com/s-thom/colour-tool',
+        image: colourImage,
+        link: 'https://colour.sthom.kiwi/',
+      },
+    ],
+    [],
+  );
 
   return (
     <Layout
