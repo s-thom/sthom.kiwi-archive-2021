@@ -79,6 +79,10 @@ export default function Home() {
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkText>About Me</LinkText>
           </Link>
+          <Link href="/my-projects" passHref>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <LinkText aria-label="Projects">Projects</LinkText>
+          </Link>
           {
             // <Link href="/blog">
             // {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
