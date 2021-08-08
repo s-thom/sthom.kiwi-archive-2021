@@ -6,6 +6,8 @@ import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
 import howToScreenshotImage from './hts.png';
 import sthomKiwiImage from './sthom.png';
+import theIndexImage from './the-index.png';
+import ednonImage from './ednon.png';
 
 const ProjectList = styled.div`
   display: grid;
@@ -148,6 +150,51 @@ export default function ProjectsPage() {
     ],
     [],
   );
+  const completedProjects = useMemo<Project[]>(
+    () => [
+      {
+        name: 'the-index',
+        description: (
+          <>
+            <p>
+              the-index is a link bookmarking site with tags and searching. I made it because I was losing track of the
+              tickets I had worked on previously at work, and found myself benefiting from having links to past tickets
+              easily searchable.
+            </p>
+            <p>
+              Signing up to the-index is not possible. You can contact me directly if you believe it would be useful to
+              you. Alternatively, grab the Docker images and run it yourself.
+            </p>
+          </>
+        ),
+        github: 'https://github.com/s-thom/the-index',
+        image: theIndexImage,
+        link: 'https://the-index.sthom.kiwi/',
+      },
+      {
+        name: 'EdNon',
+        description: (
+          <>
+            <p>
+              EdNon is an experiment into the IndexedDB APIs, and the implications of storing data on the client using
+              async APIs. It also filled a need of mine at work, where I needed to keep track of the time I had spent on
+              different tasks. With this, I was able to create as many timers and notes as I needed, without any extra
+              menus.
+            </p>
+            <p>
+              All data is stored locally on the browser. There is no server behind this application (apart from the web
+              server).
+            </p>
+          </>
+        ),
+        github: 'https://github.com/s-thom/ednon',
+        image: ednonImage,
+        link: 'https://ednon.sthom.kiwi/',
+      },
+    ],
+    [],
+  );
+  const dormantProjects = useMemo<Project[]>(() => [], []);
 
   return (
     <Layout
@@ -172,8 +219,18 @@ export default function ProjectsPage() {
         These are the lucky ones that have graduated to the promised land known as &quot;the done column of my projects
         board&quot;.
       </p>
+      <ProjectList role="list">
+        {completedProjects.map((project) => (
+          <ProjectCard key={project.name} project={project} role="listitem" />
+        ))}
+      </ProjectList>
       <h1>Dormant Projects</h1>
       <p>These projects are currently lying in wait for either time or motivation.</p>
+      <ProjectList role="list">
+        {dormantProjects.map((project) => (
+          <ProjectCard key={project.name} project={project} role="listitem" />
+        ))}
+      </ProjectList>
     </Layout>
   );
 }
