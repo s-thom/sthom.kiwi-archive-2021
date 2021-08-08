@@ -87,7 +87,7 @@ export default function Header({ className, breadcrumbs }: HeaderProps) {
         <ProfilePhotoWrapper>
           <ProfilePhoto
             src={portraitSrc}
-            alt="Stuart Thomson"
+            alt="Portrait of Stuart Thomson"
             width={96}
             height={96}
             sizes={`(${theme.mediaQueries.blog.tablet}) 96px, 48px`}

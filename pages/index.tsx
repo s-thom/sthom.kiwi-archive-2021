@@ -71,7 +71,13 @@ export default function Home() {
     <>
       <HomeBackdrop />
       <VerticalContainer>
-        <ProfilePhoto src={portraitSrc} alt="Stuart Thomson" width={200} height={200} priority />
+        <ProfilePhoto
+          src={portraitSrc}
+          alt="Stuart Thomson, smiling with a local park in the background"
+          width={200}
+          height={200}
+          priority
+        />
         <Name>Stuart Thomson</Name>
         <JobLine>Software Developer | Human Being</JobLine>
         <HorizontalContainer>
