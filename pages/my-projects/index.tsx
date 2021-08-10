@@ -30,7 +30,10 @@ const ProjectImageWrapper = styled.div`
   position: relative;
 `;
 
-const ProjectImage = styled(Image)``;
+const ProjectImage = styled(Image)`
+  width: 100%;
+  aspect-ratio: 2 / 1;
+`;
 
 const ProjectContent = styled.div`
   margin: 1em;

@@ -14,6 +14,7 @@ const ButtonWrapper = styled.button<{ isVisible?: boolean }>`
   outline: none;
   transition: transform 0.2s ease-out;
   transform: ${({ isVisible }) => (isVisible ? `translateX(0%)` : `translateX(100%)`)};
+  z-index: 10;
 `;
 
 const Icon = styled.svg`
