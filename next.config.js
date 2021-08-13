@@ -2,8 +2,10 @@
 // const withPWA = require('next-pwa');
 const withPlugins = require('next-compose-plugins');
 const withTM = require('next-transpile-modules');
+const withBundle = require('@next/bundle-analyzer');
 
 module.exports = withPlugins([
+  [withBundle({ enabled: process.env.ANALYZE === 'true' })],
   [withTM(['@react-spring/three'])],
   {
     poweredByHeader: false,
