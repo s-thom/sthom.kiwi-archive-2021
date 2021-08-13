@@ -1,6 +1,6 @@
+import { animated, useSpring } from '@react-spring/three';
 import { GroupProps } from '@react-three/fiber';
 import { useCallback, useState } from 'react';
-import { animated, useSpring } from '@react-spring/three';
 import { useTheme } from 'styled-components';
 import { Vector3Tuple } from 'three';
 

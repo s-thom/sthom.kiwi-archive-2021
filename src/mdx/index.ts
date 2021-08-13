@@ -1,8 +1,8 @@
 import matter from 'gray-matter';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import config from './config';
 import { PostMeta } from '../types/post';
+import config from './config';
 
 export interface MarkdownSource {
   source: MDXRemoteSerializeResult;
