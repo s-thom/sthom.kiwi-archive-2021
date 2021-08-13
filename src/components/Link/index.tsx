@@ -1,6 +1,6 @@
-import styled from 'styled-components';
 import NextLink from 'next/link';
 import { AnchorHTMLAttributes } from 'react';
+import styled from 'styled-components';
 
 const StyledA = styled.a`
   color: ${({ theme }) => theme.colors.text};

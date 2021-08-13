@@ -4,11 +4,11 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
+import colourImage from './colour.png';
+import ednonImage from './ednon.png';
 import howToScreenshotImage from './hts.png';
 import sthomKiwiImage from './sthom.png';
 import theIndexImage from './the-index.png';
-import ednonImage from './ednon.png';
-import colourImage from './colour.png';
 
 const ProjectList = styled.div`
   display: grid;
