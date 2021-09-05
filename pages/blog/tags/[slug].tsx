@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
 import Link from '../../../src/components/Link';
 import PostPreview from '../../../src/components/PostPreview';
-import { getFrontMatter } from '../../../src/mdx';
+import { getFrontMatter } from '../../../src/mdx/server';
 import { PostMeta } from '../../../src/types/post';
 
 const PostGrid = styled.div`

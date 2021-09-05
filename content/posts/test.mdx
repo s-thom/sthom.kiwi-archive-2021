@@ -9,6 +9,52 @@ excerpt: Test
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris efficitur magna ut varius ornare. Nulla ornare felis commodo est molestie, sed sollicitudin libero faucibus. Praesent id luctus arcu, a convallis enim. Morbi ut quam accumsan, pharetra tortor nec, fermentum tortor. In hac habitasse platea dictumst. Suspendisse fringilla, turpis sed mollis faucibus, ipsum eros sollicitudin sem, ac egestas elit mi ac lectus. Maecenas dignissim at tellus a bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean a venenatis justo. Quisque ac tristique arcu, non imperdiet nisl. In rutrum faucibus luctus.
 
+```ts
+const foo = 'bar';
+```
+
+```ts twoslash
+const wibble = 'wobble';
+console.log(wibble);
+```
+
+```ts twoslash
+// @module: esnext
+// @filename: maths.ts
+export function absolute(num: number) {
+  if (num < 0) return num * -1;
+  return num;
+}
+// @filename: index.ts
+// ---cut---
+import { absolute } from './maths';
+const value = absolute(-1);
+//    ^?
+```
+
+<!-- prettier-ignore-start -->
+```ts twoslash
+// @noErrors
+// @module: esnext
+// @filename: maths.ts
+export function absolute(num: number) {
+  if (num < 0) return num * -1;
+  return num;
+}
+// @filename: index.ts
+// ---cut---
+import { absolute } from './maths';
+const value = abs
+//               ^|
+```
+<!-- prettier-ignore-end -->
+
+```ts twoslash
+// @errors: 2339
+const welcome = 'Tudo bem gente?';
+const words = welcome.contains(' ');
+```
+
 ## help
 
 Fusce et dolor quis velit _vulputate pharetra_. Maecenas lacus quam, porta at interdum et, vulputate vel nibh. Nam eget arcu dolor. Phasellus nibh nibh, lacinia ut neque nec, auctor consectetur mauris. Nunc vitae urna vel tortor pharetra ultricies id nec dolor. Ut in rutrum dui, quis tincidunt tortor. Nulla quis mollis metus. Pellentesque tempus turpis a efficitur suscipit. Aliquam at velit fermentum, faucibus sem at, **scelerisque nulla**. Integer vel mauris eget lorem lobortis maximus.
