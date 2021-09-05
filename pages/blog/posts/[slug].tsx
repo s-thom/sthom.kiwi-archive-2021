@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
 import Link from '../../../src/components/Link';
 import Tag from '../../../src/components/Tag';
-import { getMarkdownSource } from '../../../src/mdx';
+import { getMarkdownSource } from '../../../src/mdx/server';
 import { PostMeta } from '../../../src/types/post';
 
 const Warning = styled.div`
