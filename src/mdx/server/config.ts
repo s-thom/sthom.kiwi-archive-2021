@@ -20,11 +20,14 @@ import hint from 'remark-hint';
 import math from 'remark-math';
 // @ts-ignore
 import removeComments from 'remark-remove-comments';
+import remarkShikiTwoslash from 'remark-shiki-twoslash';
+import { syntaxTheme } from './theme';
 
 const config: SerializeOptions = {
   scope: {},
   mdxOptions: {
     remarkPlugins: [
+      [remarkShikiTwoslash, { theme: syntaxTheme }],
       a11yEmoji,
       directive,
       emoji,

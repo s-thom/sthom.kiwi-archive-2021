@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import 'katex/dist/katex.min.css';
 import { GetStaticProps } from 'next';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
 import Link from '../../../src/components/Link';
 import Tag from '../../../src/components/Tag';
+import { MdxRenderer } from '../../../src/mdx/client';
 import { getMarkdownSource } from '../../../src/mdx/server';
 import { PostMeta } from '../../../src/types/post';
 
@@ -65,7 +66,7 @@ export default function Post({ source, frontMatter }: PostProps) {
     >
       {!frontMatter.published && <Warning>This post is a draft and has not been published yet</Warning>}
       <NextSeo title={`${frontMatter.title} | Blog | Stuart Thomson`} description={frontMatter.description} />
-      <MDXRemote {...source} />
+      <MdxRenderer {...source} />
     </Layout>
   );
 }
