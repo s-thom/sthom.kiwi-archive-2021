@@ -13,9 +13,19 @@ const Wrapper = styled(ShikiCss)`
     padding-bottom: 1px;
   }
 
-  /* pre.twoslash data-lsp:hover::before {
-    position:sticky;
-  } */
+  pre .popover {
+    background-color: #3d3d3d;
+  }
+
+  pre .arrow {
+    background-color: #3d3d3d;
+    border-left: 1px solid #3d3d3d;
+    border-top: 1px solid #3d3d3d;
+  }
+
+  pre .inline-completions ul.dropdown {
+    background-color: #3d3d3d;
+  }
 `;
 
 const components: Record<string, React.Component> = {};
