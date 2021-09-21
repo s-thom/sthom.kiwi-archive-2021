@@ -68,7 +68,7 @@ function GithubLink({ link }: { link: string }) {
 }
 
 interface Project {
-  name: string;
+  title: string;
   image?: ImageProps['src'];
   description?: React.ReactNode;
   link?: string;
@@ -80,9 +80,9 @@ interface ProjectCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 function ProjectCard({ project, ...rest }: ProjectCardProps) {
-  const { name, image, description, link, github } = project;
+  const { title, image, description, link, github } = project;
 
-  const nameElement = link ? <Link href={link}>{name}</Link> : name;
+  const titleElement = link ? <Link href={link}>{title}</Link> : title;
 
   return (
     <ProjectWrapper {...rest}>
@@ -90,18 +90,18 @@ function ProjectCard({ project, ...rest }: ProjectCardProps) {
         (link ? (
           <Link href={link}>
             <ProjectImageWrapper>
-              <ProjectImage src={image} alt={name} layout="responsive" />
+              <ProjectImage src={image} alt={title} layout="responsive" />
             </ProjectImageWrapper>
           </Link>
         ) : (
           <ProjectImageWrapper>
-            <ProjectImage src={image} alt={name} layout="responsive" />
+            <ProjectImage src={image} alt={title} layout="responsive" />
           </ProjectImageWrapper>
         ))}
       <ProjectContent>
         <ProjectTitle>
           {github && <GithubLink link="github" />}
-          {nameElement}
+          {titleElement}
         </ProjectTitle>
         {description && <ProjectDescription>{description}</ProjectDescription>}
       </ProjectContent>
@@ -113,7 +113,7 @@ export default function ProjectsPage() {
   const activeProjects = useMemo<Project[]>(
     () => [
       {
-        name: 'How to Screenshot',
+        title: 'How to Screenshot',
         description: (
           <>
             <p>A website to show how to take screenshots on various platforms.</p>
@@ -129,7 +129,7 @@ export default function ProjectsPage() {
         link: 'https://screenshot.help/',
       },
       {
-        name: 'sthom.kiwi',
+        title: 'sthom.kiwi',
         description: (
           <p>
             I am working on the very website you&apos;re looking at. It&apos;s my goal to write a little bit for it each
@@ -141,7 +141,7 @@ export default function ProjectsPage() {
         link: 'https://sthom.kiwi/',
       },
       {
-        name: 'Infrastructure',
+        title: 'Infrastructure',
         description: (
           <p>
             In the background, I am trying out different ways of orchestrating any services I want to self-host, and how
@@ -157,7 +157,7 @@ export default function ProjectsPage() {
   const completedProjects = useMemo<Project[]>(
     () => [
       {
-        name: 'the-index',
+        title: 'the-index',
         description: (
           <>
             <p>
@@ -176,7 +176,7 @@ export default function ProjectsPage() {
         link: 'https://the-index.sthom.kiwi/',
       },
       {
-        name: 'EdNon',
+        title: 'EdNon',
         description: (
           <>
             <p>
@@ -201,7 +201,7 @@ export default function ProjectsPage() {
   const dormantProjects = useMemo<Project[]>(
     () => [
       {
-        name: 'Colour Tool',
+        title: 'Colour Tool',
         description: (
           <>
             <p>
