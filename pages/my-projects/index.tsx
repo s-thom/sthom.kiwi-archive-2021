@@ -7,7 +7,9 @@ import Link from '../../src/components/Link';
 import colourImage from './colour.png';
 import ednonImage from './ednon.png';
 import howToScreenshotImage from './hts.png';
+import pexaUkImage from './peuk.png';
 import pexaPlusImage from './pexa-plus.png';
+import realtimeImage from './rtc.png';
 import sthomKiwiImage from './sthom.png';
 import theIndexImage from './the-index.png';
 
@@ -123,6 +125,41 @@ function ProjectCard({ project, ...rest }: ProjectCardProps) {
 export default function ProjectsPage() {
   const priorWork = useMemo<Project[]>(
     () => [
+      {
+        title: 'Realtime Conveyancer',
+        subtitle: 'Proaxiom - Released 2021',
+        description: (
+          <>
+            <p>
+              Realtime Conveyancer is a startup out of Western Australia, looking to make conveyancers' jobs more
+              efficient.
+            </p>
+            <p>
+              I worked on all aspects of Realtime, from gathering requirements, to designing, architecture,
+              infrastructure, Ops, and of course development. This application, more than any other, shows my capability
+              as a full-stack developer. Now, Realtime is out there in the world, supporting conveyancers to do their
+              job more effectively than ever.
+            </p>
+          </>
+        ),
+        image: realtimeImage,
+        link: 'https://realtimeconveyancer.com.au/',
+      },
+      {
+        title: 'PEXA UK Prototype',
+        subtitle: 'Proaxiom - 2020',
+        description: (
+          <>
+            <p>
+              The Australian PropTech company PEXA has been making moves towards the UK property transaction space, and
+              asked Proaxiom to design a prototype for the upcoming venture. This involved radically rethinking the
+              workflow process; providing insights into the process directly to the user. The process focussed on
+              ensuring the necessary steps for a transaction occurred in the right order, with all dependencies met.
+            </p>
+          </>
+        ),
+        image: pexaUkImage,
+      },
       {
         title: 'PEXA Plus',
         subtitle: 'Proaxiom - Released 2018',
