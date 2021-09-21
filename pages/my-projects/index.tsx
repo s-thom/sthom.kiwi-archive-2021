@@ -100,7 +100,7 @@ function ProjectCard({ project, ...rest }: ProjectCardProps) {
         ))}
       <ProjectContent>
         <ProjectTitle>
-          {github && <GithubLink link="github" />}
+          {github && <GithubLink link={github} />}
           {titleElement}
         </ProjectTitle>
         {description && <ProjectDescription>{description}</ProjectDescription>}
