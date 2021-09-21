@@ -7,6 +7,7 @@ import Link from '../../src/components/Link';
 import colourImage from './colour.png';
 import ednonImage from './ednon.png';
 import howToScreenshotImage from './hts.png';
+import pexaPlusImage from './pexa-plus.png';
 import sthomKiwiImage from './sthom.png';
 import theIndexImage from './the-index.png';
 
@@ -43,6 +44,14 @@ const ProjectTitle = styled.h3`
   font-size: 1em;
   font-weight: 500;
 `;
+const ProjectSubtitle = styled.h4`
+  margin: 0;
+  opacity: 0.8;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.8em;
+  margin-top: -1.5em;
+`;
 const ProjectDescription = styled.div`
   font-size: 0.8em;
 `;
@@ -69,6 +78,7 @@ function GithubLink({ link }: { link: string }) {
 
 interface Project {
   title: string;
+  subtitle?: React.ReactNode;
   image?: ImageProps['src'];
   description?: React.ReactNode;
   link?: string;
@@ -80,7 +90,7 @@ interface ProjectCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 function ProjectCard({ project, ...rest }: ProjectCardProps) {
-  const { title, image, description, link, github } = project;
+  const { title, subtitle, image, description, link, github } = project;
 
   const titleElement = link ? <Link href={link}>{title}</Link> : title;
 
@@ -103,6 +113,7 @@ function ProjectCard({ project, ...rest }: ProjectCardProps) {
           {github && <GithubLink link={github} />}
           {titleElement}
         </ProjectTitle>
+        {subtitle && <ProjectSubtitle>{subtitle}</ProjectSubtitle>}
         {description && <ProjectDescription>{description}</ProjectDescription>}
       </ProjectContent>
     </ProjectWrapper>
@@ -110,6 +121,31 @@ function ProjectCard({ project, ...rest }: ProjectCardProps) {
 }
 
 export default function ProjectsPage() {
+  const priorWork = useMemo<Project[]>(
+    () => [
+      {
+        title: 'PEXA Plus',
+        subtitle: 'Proaxiom - Released 2018',
+        description: (
+          <>
+            <p>
+              Working for the Australian PropTech company PEXA, PEXA Plus quickly grew from a single dashboard to an
+              entire suite of functionality. PEXA Plus Marketplace became PEXA's first source of alternative revenue,
+              providing direct benefit to shareholders.
+            </p>
+            <p>
+              I worked alongside my team to deliver the initial prototypes, while involved integrating with multiple
+              third party providers for the marketplace documents. These prototypes gained immense positive feedback
+              from users, and led to further business opportunities for Proaxiom.
+            </p>
+          </>
+        ),
+        image: pexaPlusImage,
+        link: 'https://www.pexa.com.au/sites/plus',
+      },
+    ],
+    [],
+  );
   const activeProjects = useMemo<Project[]>(
     () => [
       {
@@ -231,6 +267,13 @@ export default function ProjectsPage() {
       ]}
     >
       <NextSeo title="Projects | Stuart Thomson" />
+      <h1>Prior Work</h1>
+      <p>Here are a selection on the products I have worked on over my career.</p>
+      <ProjectList role="list">
+        {priorWork.map((project) => (
+          <ProjectCard key={project.title} project={project} role="listitem" />
+        ))}
+      </ProjectList>
       <h1>Personal Projects</h1>
       <p>
         I do also work on other things in my space time. Most of the time, these are to fulfil a need I have at work, or
