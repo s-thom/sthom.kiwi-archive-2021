@@ -7,6 +7,9 @@ import Link from '../../src/components/Link';
 import colourImage from './colour.png';
 import ednonImage from './ednon.png';
 import howToScreenshotImage from './hts.png';
+import pexaUkImage from './peuk.png';
+import pexaPlusImage from './pexa-plus.png';
+import realtimeImage from './rtc.png';
 import sthomKiwiImage from './sthom.png';
 import theIndexImage from './the-index.png';
 
@@ -43,6 +46,14 @@ const ProjectTitle = styled.h3`
   font-size: 1em;
   font-weight: 500;
 `;
+const ProjectSubtitle = styled.h4`
+  margin: 0;
+  opacity: 0.8;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.8em;
+  margin-top: -1.5em;
+`;
 const ProjectDescription = styled.div`
   font-size: 0.8em;
 `;
@@ -68,7 +79,8 @@ function GithubLink({ link }: { link: string }) {
 }
 
 interface Project {
-  name: string;
+  title: string;
+  subtitle?: React.ReactNode;
   image?: ImageProps['src'];
   description?: React.ReactNode;
   link?: string;
@@ -80,9 +92,9 @@ interface ProjectCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 function ProjectCard({ project, ...rest }: ProjectCardProps) {
-  const { name, image, description, link, github } = project;
+  const { title, subtitle, image, description, link, github } = project;
 
-  const nameElement = link ? <Link href={link}>{name}</Link> : name;
+  const titleElement = link ? <Link href={link}>{title}</Link> : title;
 
   return (
     <ProjectWrapper {...rest}>
@@ -90,19 +102,20 @@ function ProjectCard({ project, ...rest }: ProjectCardProps) {
         (link ? (
           <Link href={link}>
             <ProjectImageWrapper>
-              <ProjectImage src={image} alt={name} layout="responsive" />
+              <ProjectImage src={image} alt={title} layout="responsive" />
             </ProjectImageWrapper>
           </Link>
         ) : (
           <ProjectImageWrapper>
-            <ProjectImage src={image} alt={name} layout="responsive" />
+            <ProjectImage src={image} alt={title} layout="responsive" />
           </ProjectImageWrapper>
         ))}
       <ProjectContent>
         <ProjectTitle>
-          {github && <GithubLink link="github" />}
-          {nameElement}
+          {github && <GithubLink link={github} />}
+          {titleElement}
         </ProjectTitle>
+        {subtitle && <ProjectSubtitle>{subtitle}</ProjectSubtitle>}
         {description && <ProjectDescription>{description}</ProjectDescription>}
       </ProjectContent>
     </ProjectWrapper>
@@ -110,10 +123,70 @@ function ProjectCard({ project, ...rest }: ProjectCardProps) {
 }
 
 export default function ProjectsPage() {
+  const priorWork = useMemo<Project[]>(
+    () => [
+      {
+        title: 'Realtime Conveyancer',
+        subtitle: 'Proaxiom - Released 2021',
+        description: (
+          <>
+            <p>
+              Realtime Conveyancer is a startup out of Western Australia, looking to make conveyancers' jobs more
+              efficient.
+            </p>
+            <p>
+              I worked on all aspects of Realtime, from gathering requirements, to designing, architecture,
+              infrastructure, Ops, and of course development. This application, more than any other, shows my capability
+              as a full-stack developer. Now, Realtime is out there in the world, supporting conveyancers to do their
+              job more effectively than ever.
+            </p>
+          </>
+        ),
+        image: realtimeImage,
+        link: 'https://realtimeconveyancer.com.au/',
+      },
+      {
+        title: 'PEXA UK Prototype',
+        subtitle: 'Proaxiom - 2020',
+        description: (
+          <>
+            <p>
+              The Australian PropTech company PEXA has been making moves towards the UK property transaction space, and
+              asked Proaxiom to design a prototype for the upcoming venture. This involved radically rethinking the
+              workflow process; providing insights into the process directly to the user. The process focussed on
+              ensuring the necessary steps for a transaction occurred in the right order, with all dependencies met.
+            </p>
+          </>
+        ),
+        image: pexaUkImage,
+      },
+      {
+        title: 'PEXA Plus',
+        subtitle: 'Proaxiom - Released 2018',
+        description: (
+          <>
+            <p>
+              Working for the Australian PropTech company PEXA, PEXA Plus quickly grew from a single dashboard to an
+              entire suite of functionality. PEXA Plus Marketplace became PEXA's first source of alternative revenue,
+              providing direct benefit to shareholders.
+            </p>
+            <p>
+              I worked alongside my team to deliver the initial prototypes, while involved integrating with multiple
+              third party providers for the marketplace documents. These prototypes gained immense positive feedback
+              from users, and led to further business opportunities for Proaxiom.
+            </p>
+          </>
+        ),
+        image: pexaPlusImage,
+        link: 'https://www.pexa.com.au/sites/plus',
+      },
+    ],
+    [],
+  );
   const activeProjects = useMemo<Project[]>(
     () => [
       {
-        name: 'How to Screenshot',
+        title: 'How to Screenshot',
         description: (
           <>
             <p>A website to show how to take screenshots on various platforms.</p>
@@ -129,7 +202,7 @@ export default function ProjectsPage() {
         link: 'https://screenshot.help/',
       },
       {
-        name: 'sthom.kiwi',
+        title: 'sthom.kiwi',
         description: (
           <p>
             I am working on the very website you&apos;re looking at. It&apos;s my goal to write a little bit for it each
@@ -141,7 +214,7 @@ export default function ProjectsPage() {
         link: 'https://sthom.kiwi/',
       },
       {
-        name: 'Infrastructure',
+        title: 'Infrastructure',
         description: (
           <p>
             In the background, I am trying out different ways of orchestrating any services I want to self-host, and how
@@ -157,7 +230,7 @@ export default function ProjectsPage() {
   const completedProjects = useMemo<Project[]>(
     () => [
       {
-        name: 'the-index',
+        title: 'the-index',
         description: (
           <>
             <p>
@@ -176,7 +249,7 @@ export default function ProjectsPage() {
         link: 'https://the-index.sthom.kiwi/',
       },
       {
-        name: 'EdNon',
+        title: 'EdNon',
         description: (
           <>
             <p>
@@ -201,7 +274,7 @@ export default function ProjectsPage() {
   const dormantProjects = useMemo<Project[]>(
     () => [
       {
-        name: 'Colour Tool',
+        title: 'Colour Tool',
         description: (
           <>
             <p>
@@ -231,31 +304,44 @@ export default function ProjectsPage() {
       ]}
     >
       <NextSeo title="Projects | Stuart Thomson" />
-      <h1>Active Projects</h1>
-      <p>
-        These projects are still actively being worked on. If they look like your kind of thing, then contributions are
-        welcome!
-      </p>
+      <h1>Prior Work</h1>
+      <p>Here are a selection on the products I have worked on over my career.</p>
       <ProjectList role="list">
-        {activeProjects.map((project) => (
-          <ProjectCard key={project.name} project={project} role="listitem" />
+        {priorWork.map((project) => (
+          <ProjectCard key={project.title} project={project} role="listitem" />
         ))}
       </ProjectList>
-      <h1>Completed Projects</h1>
+      <h1>Personal Projects</h1>
+      <p>
+        I do also work on other things in my space time. Most of the time, these are to fulfil a need I have at work, or
+        simply to help me learn something new. The software industry is constantly evolving, so it is important that I
+        keep on top of my own learning.
+      </p>
+      <h2>Completed Projects</h2>
       <p>
         These are the lucky ones that have graduated to the promised land known as &quot;the done column of my projects
         board&quot;.
       </p>
       <ProjectList role="list">
         {completedProjects.map((project) => (
-          <ProjectCard key={project.name} project={project} role="listitem" />
+          <ProjectCard key={project.title} project={project} role="listitem" />
         ))}
       </ProjectList>
-      <h1>Dormant Projects</h1>
+      <h2>Active Projects</h2>
+      <p>
+        These projects are still actively being worked on. If they look like your kind of thing, then contributions are
+        welcome!
+      </p>
+      <ProjectList role="list">
+        {activeProjects.map((project) => (
+          <ProjectCard key={project.title} project={project} role="listitem" />
+        ))}
+      </ProjectList>
+      <h2>Dormant Projects</h2>
       <p>These projects are currently lying in wait for either time or motivation.</p>
       <ProjectList role="list">
         {dormantProjects.map((project) => (
-          <ProjectCard key={project.name} project={project} role="listitem" />
+          <ProjectCard key={project.title} project={project} role="listitem" />
         ))}
       </ProjectList>
     </Layout>
