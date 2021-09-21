@@ -231,31 +231,37 @@ export default function ProjectsPage() {
       ]}
     >
       <NextSeo title="Projects | Stuart Thomson" />
-      <h1>Active Projects</h1>
+      <h1>Personal Projects</h1>
       <p>
-        These projects are still actively being worked on. If they look like your kind of thing, then contributions are
-        welcome!
+        I do also work on other things in my space time. Most of the time, these are to fulfil a need I have at work, or
+        simply to help me learn something new. The software industry is constantly evolving, so it is important that I
+        keep on top of my own learning.
       </p>
-      <ProjectList role="list">
-        {activeProjects.map((project) => (
-          <ProjectCard key={project.name} project={project} role="listitem" />
-        ))}
-      </ProjectList>
-      <h1>Completed Projects</h1>
+      <h2>Completed Projects</h2>
       <p>
         These are the lucky ones that have graduated to the promised land known as &quot;the done column of my projects
         board&quot;.
       </p>
       <ProjectList role="list">
         {completedProjects.map((project) => (
-          <ProjectCard key={project.name} project={project} role="listitem" />
+          <ProjectCard key={project.title} project={project} role="listitem" />
         ))}
       </ProjectList>
-      <h1>Dormant Projects</h1>
+      <h2>Active Projects</h2>
+      <p>
+        These projects are still actively being worked on. If they look like your kind of thing, then contributions are
+        welcome!
+      </p>
+      <ProjectList role="list">
+        {activeProjects.map((project) => (
+          <ProjectCard key={project.title} project={project} role="listitem" />
+        ))}
+      </ProjectList>
+      <h2>Dormant Projects</h2>
       <p>These projects are currently lying in wait for either time or motivation.</p>
       <ProjectList role="list">
         {dormantProjects.map((project) => (
-          <ProjectCard key={project.name} project={project} role="listitem" />
+          <ProjectCard key={project.title} project={project} role="listitem" />
         ))}
       </ProjectList>
     </Layout>
