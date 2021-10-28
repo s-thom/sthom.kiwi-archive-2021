@@ -5,6 +5,7 @@
     "project": "./tsconfig.json"
   },
   "extends": [
+    "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:prettier/recommended",
