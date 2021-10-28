@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-// const withPWA = require('next-pwa');
 const withPlugins = require('next-compose-plugins');
 // const withTM = require('next-transpile-modules');
 const withBundle = require('@next/bundle-analyzer');
@@ -10,7 +9,6 @@ module.exports = withPlugins([
   {
     poweredByHeader: false,
     reactStrictMode: true,
-    webpack5: true,
     async headers() {
       return [
         {
@@ -51,6 +49,9 @@ module.exports = withPlugins([
           permanent: true,
         },
       ];
+    },
+    images: {
+      formats: ['image/avif', 'image/webp'],
     },
   },
 ]);
