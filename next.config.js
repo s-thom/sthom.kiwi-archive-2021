@@ -25,6 +25,11 @@ module.exports = withPlugins([
             { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
             { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
             { key: 'Cross-Origin-Resource-Policy', value: 'same-site' },
+            {
+              key: 'Content-Security-Policy',
+              value:
+                "default-src 'none'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' vitals.vercel-insights.com www.gstatic.com; media-src 'self'; prefetch-src 'self'; child-src 'self'; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; manifest-src 'self'",
+            },
           ],
         },
         {
