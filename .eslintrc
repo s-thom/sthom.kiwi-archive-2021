@@ -21,6 +21,7 @@
     "prettier/prettier": "warn",
     "no-unreachable": "error",
     "import/extensions": ["warn", "never"],
+    "import/prefer-default-export": "off",
     // A copy of Airbnb's no-restricted-syntax rule, but with `for-of` loops excluded.
     // The reasoning for this is that Typescript compiles the for-of syntax back into a normal indexed for loop.
     // Since Typescript's compilation happens before Babel's, regenerator-runtime is not included.

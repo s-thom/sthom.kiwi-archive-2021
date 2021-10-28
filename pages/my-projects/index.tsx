@@ -131,7 +131,7 @@ export default function ProjectsPage() {
         description: (
           <>
             <p>
-              Realtime Conveyancer is a startup out of Western Australia, looking to make conveyancers' jobs more
+              Realtime Conveyancer is a startup out of Western Australia, looking to make conveyancers&apos; jobs more
               efficient.
             </p>
             <p>
@@ -167,8 +167,8 @@ export default function ProjectsPage() {
           <>
             <p>
               Working for the Australian PropTech company PEXA, PEXA Plus quickly grew from a single dashboard to an
-              entire suite of functionality. PEXA Plus Marketplace became PEXA's first source of alternative revenue,
-              providing direct benefit to shareholders.
+              entire suite of functionality. PEXA Plus Marketplace became PEXA&apos;s first source of alternative
+              revenue, providing direct benefit to shareholders.
             </p>
             <p>
               I worked alongside my team to deliver the initial prototypes, while involved integrating with multiple
