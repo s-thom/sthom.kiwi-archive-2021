@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
 export default function Model(props: JSX.IntrinsicElements['group']) {
   const theme = useTheme();
   const group = useRef<THREE.Group>();
-  const { nodes } = useGLTF('/models/code.glb') as GLTFResult;
+  const { nodes } = useGLTF('/models/code.glb') as unknown as GLTFResult;
   return (
     <group ref={group} {...props} dispose={null}>
       <mesh geometry={nodes.Text.geometry} rotation={[Math.PI / 2, 0, 0]}>
