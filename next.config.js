@@ -14,22 +14,22 @@ module.exports = withPlugins([
     async headers() {
       return [
         {
-          source: '/.well-known/:slug*',
+          source: '/(.*)',
           headers: [
-            {
-              key: 'Access-Control-Allow-Origin',
-              value: '*',
-            },
+            { key: 'Access-Control-Allow-Origin', value: 'https://sthom.kiwi' },
+            { key: 'Permissions-Policy', value: 'interest-cohort=()' },
+            { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+            { key: 'X-XSS-Protection', value: '1; mode=block' },
+            { key: 'X-Content-Type-Options', value: 'nosniff' },
+            { key: 'Referrer-Policy', value: 'same-origin' },
+            { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
+            { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+            { key: 'Cross-Origin-Resource-Policy', value: 'same-site' },
           ],
         },
         {
-          source: '/(.*)',
-          headers: [
-            {
-              key: 'Permissions-Policy',
-              value: 'interest-cohort=()',
-            },
-          ],
+          source: '/.well-known/:slug*',
+          headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
         },
       ];
     },
