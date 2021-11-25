@@ -32,6 +32,7 @@ export default function App({ children }: PropsWithChildren<{}>) {
               { name: 'theme-color', content: '#0D1117' },
               { name: 'msapplication-TileColor', content: '#0D1117' },
               { name: 'msapplication-TileImage', content: '/icons/ms-icon-144x144.png' },
+              { name: 'monetization', content: '$webmonetization.org/api/receipts/%24ilp.uphold.com%2FhjaFdfjk6iy' },
             ],
             [],
           )}
