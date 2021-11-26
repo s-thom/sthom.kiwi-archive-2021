@@ -1,6 +1,7 @@
 import 'katex/dist/katex.min.css';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
+import dynamic from 'next/dynamic';
 import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import { NotionAPI } from 'notion-client';
@@ -10,15 +11,23 @@ import { getAllPagesInSpace, getCanonicalPageId, getPageTitle, parsePageId } fro
 import 'prismjs/themes/prism-tomorrow.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'rc-dropdown/assets/index.css';
-import { Collection, NotionRenderer } from 'react-notion-x';
+import { Code, Collection, NotionRenderer } from 'react-notion-x';
 import 'react-notion-x/src/styles.css';
 import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
+import Link from '../../../src/components/Link';
 import { useThemeMode } from '../../../src/hooks/useThemeMode';
 
+// @ts-ignore
+const Equation = dynamic(() => import('react-notion-x').then((notion) => notion.Equation));
+
+const Modal = dynamic(() => import('react-notion-x').then((notion) => notion.Modal), { ssr: false });
+
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
+/* eslint-disable prefer-destructuring */
 const NOTION_SPACE = process.env.NOTION_SPACE;
 const NOTION_COLLECTION = process.env.NOTION_COLLECTION;
+/* eslint-enable prefer-destructuring */
 const notion = new NotionAPI();
 
 const StyledNotionRenderer = styled(NotionRenderer)`
@@ -40,7 +49,7 @@ const StyledNotionRenderer = styled(NotionRenderer)`
   }
 
   &.dark-mode {
-    --fg-color: rgba(255, 255, 255, 0.9);
+    --fg-color: ${({ theme }) => theme.colors.text};
     --fg-color-0: var(--fg-color);
     --fg-color-1: var(--fg-color);
     --fg-color-2: var(--fg-color);
@@ -50,7 +59,7 @@ const StyledNotionRenderer = styled(NotionRenderer)`
     --fg-color-6: #fff;
     --fg-color-icon: #fff;
 
-    --bg-color: #2f3437;
+    --bg-color: ${({ theme }) => theme.colors.background};
     --bg-color-0: rgb(71, 76, 80);
     --bg-color-1: rgb(63, 68, 71);
     --bg-color-2: rgba(135, 131, 120, 0.15);
@@ -101,8 +110,12 @@ export default function Post({ recordMap, reason }: PostProps) {
         fullPage
         darkMode={mode === 'dark'}
         components={{
+          code: Code,
           collection: Collection,
           collectionRow: CollectionRow,
+          pageLink: Link,
+          modal: Modal,
+          equation: Equation,
         }}
         mapPageUrl={(id) => `/blog/posts/${getCanonicalPageId(id, recordMap)}`}
       />

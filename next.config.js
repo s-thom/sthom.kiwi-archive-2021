@@ -26,7 +26,7 @@ module.exports = withPlugins([
             {
               key: 'Content-Security-Policy',
               value:
-                "default-src 'none'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' vitals.vercel-insights.com www.gstatic.com; media-src 'self'; prefetch-src 'self'; child-src 'self'; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; manifest-src 'self'",
+                "default-src 'none'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src *; font-src 'self'; connect-src 'self' vitals.vercel-insights.com www.gstatic.com; media-src 'self'; prefetch-src 'self'; child-src 'self'; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'self'; manifest-src 'self'",
             },
           ],
         },
