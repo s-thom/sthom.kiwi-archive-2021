@@ -49,6 +49,7 @@
     "remark-remove-comments": "^0.2.0",
     "remark-shiki-twoslash": "^3.0.6",
     "seedrandom": "^3.0.5",
+    "shiki": "^0.9.12",
     "styled-components": "^5.3.3",
     "three": "^0.136.0"
   },

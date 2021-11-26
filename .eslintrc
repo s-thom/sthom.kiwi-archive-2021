@@ -42,13 +42,7 @@
       }
     ],
     "no-underscore-dangle": "off",
-    "react/function-component-definition": [
-      "warn",
-      {
-        "namedComponents": "function-declaration",
-        "unnamedComponents": "arrow-function"
-      }
-    ],
+    "react/function-component-definition": "off",
     "react/jsx-curly-newline": "off",
     "react/jsx-indent": "off",
     "react/jsx-one-expression-per-line": "off",

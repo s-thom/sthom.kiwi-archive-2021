@@ -6,22 +6,29 @@ import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import { NotionAPI } from 'notion-client';
 import { ExtendedRecordMap } from 'notion-types';
-import { getAllPagesInSpace, getCanonicalPageId, getPageTitle, parsePageId } from 'notion-utils';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import 'prismjs/themes/prism-tomorrow.css';
+import {
+  getAllPagesInSpace,
+  getCanonicalPageId,
+  getPageContentBlockIds,
+  getPageTitle,
+  parsePageId,
+} from 'notion-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'rc-dropdown/assets/index.css';
-import { Code, Collection, NotionRenderer } from 'react-notion-x';
+import { Collection, NotionRenderer } from 'react-notion-x';
 import 'react-notion-x/src/styles.css';
 import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
 import Link from '../../../src/components/Link';
 import { useThemeMode } from '../../../src/hooks/useThemeMode';
+import { highlightCode } from '../../../src/shiki';
 
 // @ts-ignore
 const Equation = dynamic(() => import('react-notion-x').then((notion) => notion.Equation));
 
 const Modal = dynamic(() => import('react-notion-x').then((notion) => notion.Modal), { ssr: false });
+
+const Code = dynamic(() => import('../../../src/components/Code'));
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
 /* eslint-disable prefer-destructuring */
@@ -143,6 +150,22 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
         },
         revalidate: 10,
       };
+    }
+
+    const allBlockIds = getPageContentBlockIds(recordMap);
+    for (const blockId of allBlockIds) {
+      const block = recordMap.block[blockId]?.value;
+      if (block) {
+        if (block.type === 'code') {
+          // Override the content of the code block to be the highlighted code by Shiki.
+          // This is done at this stage, as extra build steps would be required to get it running in the browser.
+          // eslint-disable-next-line no-await-in-loop
+          const html = await highlightCode(block);
+          if (html) {
+            block.properties.title[0][0] = html;
+          }
+        }
+      }
     }
 
     return {
