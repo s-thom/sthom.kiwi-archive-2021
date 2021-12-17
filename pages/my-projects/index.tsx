@@ -149,14 +149,12 @@ export default function ProjectsPage() {
         title: 'PEXA UK Prototype',
         subtitle: 'Proaxiom - 2020',
         description: (
-          <>
-            <p>
-              The Australian PropTech company PEXA has been making moves towards the UK property transaction space, and
-              asked Proaxiom to design a prototype for the upcoming venture. This involved radically rethinking the
-              workflow process; providing insights into the process directly to the user. The process focussed on
-              ensuring the necessary steps for a transaction occurred in the right order, with all dependencies met.
-            </p>
-          </>
+          <p>
+            The Australian PropTech company PEXA has been making moves towards the UK property transaction space, and
+            asked Proaxiom to design a prototype for the upcoming venture. This involved radically rethinking the
+            workflow process; providing insights into the process directly to the user. The process focussed on ensuring
+            the necessary steps for a transaction occurred in the right order, with all dependencies met.
+          </p>
         ),
         image: pexaUkImage,
       },

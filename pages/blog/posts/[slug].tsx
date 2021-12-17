@@ -48,20 +48,18 @@ export default function Post({ source, frontMatter }: PostProps) {
         { path: `/blog/posts/${slug}`, name: frontMatter.title },
       ]}
       aside={
-        <>
-          {frontMatter.tags && (
-            <>
-              <h3>Tags</h3>
-              <TagList>
-                {frontMatter.tags.map((tag) => (
-                  <Link key={tag} href={`/blog/tags/${encodeURI(tag)}`}>
-                    <Tag name={tag} />
-                  </Link>
-                ))}
-              </TagList>
-            </>
-          )}
-        </>
+        frontMatter.tags ? (
+          <>
+            <h3>Tags</h3>
+            <TagList>
+              {frontMatter.tags.map((tag) => (
+                <Link key={tag} href={`/blog/tags/${encodeURI(tag)}`}>
+                  <Tag name={tag} />
+                </Link>
+              ))}
+            </TagList>
+          </>
+        ) : undefined
       }
     >
       {!frontMatter.published && <Warning>This post is a draft and has not been published yet</Warning>}
