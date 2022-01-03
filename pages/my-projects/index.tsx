@@ -7,6 +7,7 @@ import Link from '../../src/components/Link';
 import colourImage from './colour.png';
 import ednonImage from './ednon.png';
 import howToScreenshotImage from './hts.png';
+import pasteImage from './paste.png';
 import pexaUkImage from './peuk.png';
 import pexaPlusImage from './pexa-plus.png';
 import realtimeImage from './rtc.png';
@@ -227,6 +228,19 @@ export default function ProjectsPage() {
   );
   const completedProjects = useMemo<Project[]>(
     () => [
+      {
+        title: 'paste',
+        description: (
+          <p>
+            paste is a tiny text file hosting site, similar in concept to pastebin. I built it because I wanted to give
+            the Rust programming language a try, and wanted a small project to learn it with. Writing paste gave me an
+            opportunity to get it all wrong, throw code out, and start again; which certainly happened. I think the
+            language has some interesting design decisions, which I may write about at a later date.
+          </p>
+        ),
+        github: 'https://github.com/s-thom/paste',
+        image: pasteImage,
+      },
       {
         title: 'the-index',
         description: (
