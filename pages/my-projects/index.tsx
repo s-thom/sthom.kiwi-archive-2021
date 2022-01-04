@@ -359,3 +359,7 @@ export default function ProjectsPage() {
     </Layout>
   );
 }
+
+export const config = {
+  unstable_runtimeJS: false,
+};

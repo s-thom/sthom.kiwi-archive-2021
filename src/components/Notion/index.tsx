@@ -7,7 +7,7 @@ import 'rc-dropdown/assets/index.css';
 import { NotionRenderer } from 'react-notion-x';
 import 'react-notion-x/src/styles.css';
 import styled from 'styled-components';
-import { useThemeMode } from '../../../src/hooks/useThemeMode';
+import { useThemeMode } from '../../hooks/useThemeMode';
 import Link from '../Link';
 
 // @ts-ignore
@@ -17,7 +17,7 @@ const Collection = dynamic(() => import('react-notion-x').then((notion) => notio
 // @ts-ignore
 const CollectionRow = dynamic(() => import('react-notion-x').then((notion) => notion.CollectionRow));
 const Modal = dynamic(() => import('react-notion-x').then((notion) => notion.Modal), { ssr: false });
-const Code = dynamic(() => import('../../../src/components/Code'));
+const Code = dynamic(() => import('../Code'));
 
 const StyledNotionRenderer = styled(NotionRenderer)`
   font-family: inherit;

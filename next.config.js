@@ -7,7 +7,6 @@ module.exports = withPlugins([
   [withBundle({ enabled: process.env.ANALYZE === 'true' })],
   // [withTM(['@react-spring/three'])],
   {
-    unstable_runtimeJS: false,
     poweredByHeader: false,
     reactStrictMode: true,
     async headers() {

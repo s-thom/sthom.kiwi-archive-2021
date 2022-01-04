@@ -61,3 +61,7 @@ export const getStaticProps: GetStaticProps<IndexProps> = async () => {
     props: { recordMap },
   };
 };
+
+export const config = {
+  unstable_runtimeJS: false,
+};

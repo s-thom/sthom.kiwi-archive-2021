@@ -145,7 +145,10 @@ export default function Backdrop() {
         <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={ZOOM}>
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
-          <Suspense fallback={<></>}>
+          <Suspense
+            // eslint-disable-next-line react/jsx-no-useless-fragment
+            fallback={<></>}
+          >
             <OnRender onRender={setReady} />
             <group position={[0, 0, -10]}>
               {shapes.map(({ component: Component, position, rotationSpeed, props }, index) => (
