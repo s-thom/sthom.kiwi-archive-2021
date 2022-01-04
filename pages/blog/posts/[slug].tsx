@@ -38,6 +38,8 @@ const NOTION_COLLECTION = process.env.NOTION_COLLECTION;
 const notion = new NotionAPI();
 
 const StyledNotionRenderer = styled(NotionRenderer)`
+  font-family: inherit;
+
   &.light-mode {
     --fg-color: ${({ theme }) => theme.colors.text};
     --fg-color-0: rgba(55, 53, 47, 0.09);

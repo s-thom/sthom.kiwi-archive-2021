@@ -1,6 +1,6 @@
 import { CodeBlock } from 'notion-types';
 import { getHighlighter, IShikiTheme } from 'shiki';
-import { syntaxTheme } from '../mdx/server/theme';
+import { syntaxTheme } from './theme';
 import { languageMap } from './languageMap';
 
 const highlighterPromise = getHighlighter({ theme: syntaxTheme as unknown as IShikiTheme });
@@ -13,7 +13,7 @@ export async function highlightCode(block: CodeBlock): Promise<string | undefine
     const fallback = notionLanguage.toLowerCase();
     const language = (languageMap[fallback] ?? fallback) || 'tsx';
     const highlighter = await highlighterPromise;
-    const code = highlighter.codeToHtml(content, language);
+    const code = highlighter.codeToHtml(content, { lang: language });
     return code;
   }
 
