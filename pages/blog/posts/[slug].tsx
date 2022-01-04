@@ -97,6 +97,7 @@ export default function Post({ recordMap, reason }: PostProps) {
   const { mode } = useThemeMode();
 
   if (!recordMap) {
+    console.log('404 because no recordmap', reason);
     return <ErrorPage statusCode={404} title={reason} />;
   }
 
@@ -132,6 +133,7 @@ export default function Post({ recordMap, reason }: PostProps) {
 
 export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async ({ params }) => {
   if (!params || typeof params.slug !== 'string') {
+    console.log('404 because no slug');
     return {
       notFound: true,
     };
@@ -141,16 +143,16 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
 
   try {
     const recordMap = await notion.getPage(pageId);
-    const spaceId = recordMap.block[pageId]?.value?.space_id;
-    if (spaceId !== NOTION_SPACE) {
-      return {
-        props: {
-          recordMap: null,
-          reason: `wrong space (${spaceId})`,
-        },
-        revalidate: 10,
-      };
-    }
+    // const spaceId = recordMap.block[pageId]?.value?.space_id;
+    // if (spaceId !== NOTION_SPACE) {
+    //   return {
+    //     props: {
+    //       recordMap: null,
+    //       reason: `wrong space (${spaceId})`,
+    //     },
+    //     revalidate: 10,
+    //   };
+    // }
 
     const allBlockIds = getPageContentBlockIds(recordMap);
     for (const blockId of allBlockIds) {
@@ -175,10 +177,12 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
       revalidate: 10,
     };
   } catch (err) {
+    console.error('null record because error', err);
     return {
       props: {
         recordMap: null,
-        reason: `error: ${err instanceof Error ? err.toString() : 'unknown'}`,
+        // reason: `error: ${err instanceof Error ? err.toString() : 'unknown'}`,
+        reason: `error: ${err instanceof Error ? err.stack : 'unknown'}`,
       },
       revalidate: 10,
     };

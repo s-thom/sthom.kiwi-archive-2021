@@ -1,7 +1,7 @@
 import { DefaultSeo } from 'next-seo';
 import { DefaultSeoProps, MetaTag, OpenGraph } from 'next-seo/lib/types';
+import { AppProps } from 'next/dist/shared/lib/router/router';
 import dynamic from 'next/dynamic';
-import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import Theme from '../components/Theme';
 import { ThemeModeProvider } from '../hooks/useThemeMode';
@@ -65,7 +65,7 @@ const Container = styled.div`
   z-index: 1;
 `;
 
-export default function App({ children }: PropsWithChildren<{}>) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeModeProvider ssrEnabled>
       <Theme>
@@ -78,7 +78,7 @@ export default function App({ children }: PropsWithChildren<{}>) {
         />
         <Container>
           <AppMenu />
-          {children}
+          <Component {...pageProps} />
         </Container>
       </Theme>
     </ThemeModeProvider>

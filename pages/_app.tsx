@@ -7,10 +7,6 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
   console.debug(metric);
 }
 
-export default function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <App>
-      <Component {...pageProps} />
-    </App>
-  );
+export default function MyApp(props: AppProps) {
+  return <App {...props} />;
 }
