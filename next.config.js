@@ -7,6 +7,7 @@ module.exports = withPlugins([
   [withBundle({ enabled: process.env.ANALYZE === 'true' })],
   // [withTM(['@react-spring/three'])],
   {
+    unstable_runtimeJS: false,
     poweredByHeader: false,
     reactStrictMode: true,
     async headers() {
@@ -26,7 +27,7 @@ module.exports = withPlugins([
             {
               key: 'Content-Security-Policy',
               value:
-                "default-src 'none'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src *; font-src 'self'; connect-src 'self' vitals.vercel-insights.com www.gstatic.com; media-src 'self'; prefetch-src 'self'; child-src 'self'; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'self'; manifest-src 'self'",
+                "default-src 'none'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src * data:; font-src 'self'; connect-src 'self' vitals.vercel-insights.com www.gstatic.com; media-src 'self'; prefetch-src 'self'; child-src 'self'; worker-src 'self' blob:; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'self'; manifest-src 'self'",
             },
           ],
         },
