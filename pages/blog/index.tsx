@@ -12,6 +12,11 @@ const NOTION_COLLECTION = process.env.NOTION_COLLECTION;
 const notion = new NotionAPI();
 
 const BlogListNotion = styled(Notion)`
+  .notion-page {
+    padding-top: 0;
+    margin-top: 0 !important;
+  }
+
   .notion-page-icon,
   .notion-title,
   .notion-collection-header {
@@ -20,6 +25,10 @@ const BlogListNotion = styled(Notion)`
 
   .notion-gallery-grid {
     border-top: none;
+  }
+
+  .notion-gallery-grid > .notion-collection-card:first-child {
+    grid-column: 1 / -1;
   }
 `;
 

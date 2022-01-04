@@ -14,7 +14,7 @@ const Container = styled.div`
 const ContentArea = styled.div`
   font-size: 1.1em;
 
-  margin-top: 0.2em;
+  margin-top: 1.2em;
 `;
 
 export interface LayoutProps {
