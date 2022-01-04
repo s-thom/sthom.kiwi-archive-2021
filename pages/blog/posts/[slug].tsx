@@ -33,6 +33,7 @@ const Code = dynamic(() => import('../../../src/components/Code'));
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
 /* eslint-disable prefer-destructuring */
 const NOTION_SPACE = process.env.NOTION_SPACE;
+const NOTION_ALLOW_ALL_SPACES = process.env.NOTION_ALLOW_ALL_SPACES === 'true';
 const NOTION_COLLECTION = process.env.NOTION_COLLECTION;
 /* eslint-enable prefer-destructuring */
 const notion = new NotionAPI();
@@ -90,17 +91,15 @@ function CollectionRow() {
 
 interface PostProps {
   recordMap: ExtendedRecordMap | null;
-  reason?: string;
 }
 
-export default function Post({ recordMap, reason }: PostProps) {
+export default function Post({ recordMap }: PostProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { mode } = useThemeMode();
 
   if (!recordMap) {
-    console.log('404 because no recordmap', reason);
-    return <ErrorPage statusCode={404} title={reason} />;
+    return <ErrorPage statusCode={404} />;
   }
 
   const title = getPageTitle(recordMap);
@@ -135,7 +134,6 @@ export default function Post({ recordMap, reason }: PostProps) {
 
 export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async ({ params }) => {
   if (!params || typeof params.slug !== 'string') {
-    console.log('404 because no slug');
     return {
       notFound: true,
     };
@@ -145,16 +143,15 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
 
   try {
     const recordMap = await notion.getPage(pageId);
-    // const spaceId = recordMap.block[pageId]?.value?.space_id;
-    // if (spaceId !== NOTION_SPACE) {
-    //   return {
-    //     props: {
-    //       recordMap: null,
-    //       reason: `wrong space (${spaceId})`,
-    //     },
-    //     revalidate: 10,
-    //   };
-    // }
+    const spaceId = recordMap.block[pageId]?.value?.space_id;
+    if (!NOTION_ALLOW_ALL_SPACES && spaceId !== NOTION_SPACE) {
+      return {
+        props: {
+          recordMap: null,
+        },
+        revalidate: 10,
+      };
+    }
 
     const allBlockIds = getPageContentBlockIds(recordMap);
     for (const blockId of allBlockIds) {
@@ -179,12 +176,9 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
       revalidate: 10,
     };
   } catch (err) {
-    console.error('null record because error', err);
     return {
       props: {
         recordMap: null,
-        // reason: `error: ${err instanceof Error ? err.toString() : 'unknown'}`,
-        reason: `error: ${err instanceof Error ? err.stack : 'unknown'}`,
       },
       revalidate: 10,
     };
@@ -209,7 +203,13 @@ export async function getStaticPaths() {
 
   const allPageIds = Object.keys(pages);
   const pageIds = allPageIds.filter((pageId) => pageId !== NOTION_COLLECTION);
-  const paths = pageIds.map((pageId) => `/blog/posts/${pageId}`);
+  const paths = pageIds.map((pageId) => {
+    let id = pageId;
+    if (pages[pageId]) {
+      id = getCanonicalPageId(pageId, pages[pageId]!) ?? pageId;
+    }
+    return `/blog/posts/${id}`;
+  });
 
   return {
     paths,
