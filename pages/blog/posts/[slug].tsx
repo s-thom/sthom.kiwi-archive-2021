@@ -1,6 +1,5 @@
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
-import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import { NotionAPI } from 'notion-client';
 import { ExtendedRecordMap } from 'notion-types';
@@ -50,7 +49,7 @@ export default function Post({ recordMap }: PostProps) {
           { path: `/blog/posts/${slug}`, name: 'Loading...' },
         ]}
       >
-        <NextSeo title={`Loading... | Blog | Stuart Thomson`} />
+        <NextSeo title="Loading... | Blog | Stuart Thomson" />
       </Layout>
     );
   }

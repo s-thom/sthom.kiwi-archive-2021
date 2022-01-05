@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo';
-import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import Layout from '../src/components/Layout';
 import Link from '../src/components/Link';
