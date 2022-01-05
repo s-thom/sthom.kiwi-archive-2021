@@ -1,25 +1,28 @@
 import '@fontsource/inter';
 import '@fontsource/jetbrains-mono';
 import '@fontsource/jost';
-import { PropsWithChildren, useMemo } from 'react';
+import { PropsWithChildren } from 'react';
 import { createGlobalStyle, DefaultTheme, ThemeProvider } from 'styled-components';
-import { useThemeMode } from '../../hooks/useThemeMode';
 
-const LIGHT_MODE_COLOURS: DefaultTheme['colors'] = {
-  primary: '#4273bd',
-  background: '#e4e4e4',
-  modal: '#e4e4e4F0',
-  text: '#0D1117',
-  warning: '#ce8c11',
-  error: '#972929',
-};
-const DARK_MODE_COLOURS: DefaultTheme['colors'] = {
-  primary: '#002355',
-  background: '#0D1117',
-  modal: '#0D1117F0',
-  text: '#F0F0F0',
-  warning: '#ffdd9e',
-  error: '#ff8080',
+const THEME: DefaultTheme = {
+  colors: {
+    primary: '#4273bd',
+    background: '#e4e4e4',
+    modal: '#e4e4e4F0',
+    text: '#0D1117',
+    warning: '#ce8c11',
+    error: '#972929',
+  },
+  mediaQueries: {
+    blog: {
+      smallMobile: `min-width: 0px`,
+      mobile: `min-width: 300px`,
+      tablet: `min-width: 768px`,
+      desktop: `min-width: 1024px`,
+      largeDesktop: `min-width: 1440px`,
+      extraLargeDesktop: `min-width: 3000px`,
+    },
+  },
 };
 
 const GlobalStyles = createGlobalStyle`
@@ -60,27 +63,8 @@ h1,h2,h3,h4,h5,h6 {
 `;
 
 export default function Theme({ children }: PropsWithChildren<{}>) {
-  const { mode } = useThemeMode();
-
-  const theme = useMemo<DefaultTheme>(
-    () => ({
-      colors: mode === 'light' ? LIGHT_MODE_COLOURS : DARK_MODE_COLOURS,
-      mediaQueries: {
-        blog: {
-          smallMobile: `min-width: 0px`,
-          mobile: `min-width: 300px`,
-          tablet: `min-width: 768px`,
-          desktop: `min-width: 1024px`,
-          largeDesktop: `min-width: 1440px`,
-          extraLargeDesktop: `min-width: 3000px`,
-        },
-      },
-    }),
-    [mode],
-  );
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={THEME}>
       <GlobalStyles />
       {children}
     </ThemeProvider>

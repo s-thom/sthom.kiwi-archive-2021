@@ -1,7 +1,7 @@
 import { CodeBlock } from 'notion-types';
 import { getHighlighter, IShikiTheme } from 'shiki';
-import { syntaxTheme } from './theme';
 import { languageMap } from './languageMap';
+import { syntaxTheme } from './theme';
 
 const highlighterPromise = getHighlighter({ theme: syntaxTheme as unknown as IShikiTheme });
 
