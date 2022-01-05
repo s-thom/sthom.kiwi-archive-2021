@@ -5,7 +5,7 @@ export interface RotatingGroupProps extends GroupProps {
   rotationSpeed?: number;
 }
 
-export default function RotatingGroup({ rotationSpeed, ...groupProps }: RotatingGroupProps) {
+export default function RotatingGroup({ rotationSpeed, ...groupProps }: React.PropsWithChildren<RotatingGroupProps>) {
   const group = useRef<any>();
   useFrame(() => {
     if (group.current) {

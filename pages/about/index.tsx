@@ -74,3 +74,7 @@ export default function AboutPage() {
     </Layout>
   );
 }
+
+export const config = {
+  unstable_runtimeJS: false,
+};

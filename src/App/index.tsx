@@ -1,14 +1,10 @@
 import { DefaultSeo } from 'next-seo';
 import { DefaultSeoProps, MetaTag, OpenGraph } from 'next-seo/lib/types';
-import dynamic from 'next/dynamic';
-import { PropsWithChildren } from 'react';
+import { AppProps } from 'next/dist/shared/lib/router/router';
 import styled from 'styled-components';
 import Theme from '../components/Theme';
-import { ThemeModeProvider } from '../hooks/useThemeMode';
 import og1200x900 from './og-1200-900.png';
 import og800x600 from './og-800-600.png';
-
-const AppMenu = dynamic(() => import('../components/AppMenu'), { ssr: false });
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
 
@@ -65,22 +61,19 @@ const Container = styled.div`
   z-index: 1;
 `;
 
-export default function App({ children }: PropsWithChildren<{}>) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeModeProvider ssrEnabled>
-      <Theme>
-        <DefaultSeo
-          defaultTitle="Stuart Thomson"
-          description="Software Developer | Human Being"
-          additionalMetaTags={meta}
-          additionalLinkTags={link}
-          openGraph={og}
-        />
-        <Container>
-          <AppMenu />
-          {children}
-        </Container>
-      </Theme>
-    </ThemeModeProvider>
+    <Theme>
+      <DefaultSeo
+        defaultTitle="Stuart Thomson"
+        description="Software Developer | Human Being"
+        additionalMetaTags={meta}
+        additionalLinkTags={link}
+        openGraph={og}
+      />
+      <Container>
+        <Component {...pageProps} />
+      </Container>
+    </Theme>
   );
 }

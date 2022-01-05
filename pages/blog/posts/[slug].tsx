@@ -1,70 +1,72 @@
-import { promises as fs } from 'fs';
-import 'katex/dist/katex.min.css';
 import { GetStaticProps } from 'next';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
-import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
-import path from 'path';
+import { NotionAPI } from 'notion-client';
+import { ExtendedRecordMap } from 'notion-types';
+import {
+  getAllPagesInSpace,
+  getCanonicalPageId,
+  getPageContentBlockIds,
+  getPageTitle,
+  parsePageId,
+} from 'notion-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'rc-dropdown/assets/index.css';
+import 'react-notion-x/src/styles.css';
 import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
-import Link from '../../../src/components/Link';
-import Tag from '../../../src/components/Tag';
-import { MdxRenderer } from '../../../src/mdx/client';
-import { getMarkdownSource } from '../../../src/mdx/server';
-import { PostMeta } from '../../../src/types/post';
+import Notion from '../../../src/components/Notion';
+import { highlightCode } from '../../../src/shiki';
 
-const Warning = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.warning};
-  color: ${({ theme }) => theme.colors.warning};
-  background-color: ${({ theme }) => `${theme.colors.warning}44`};
-  padding: 0.25em;
-`;
+const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
+/* eslint-disable prefer-destructuring */
+const NOTION_SPACE = process.env.NOTION_SPACE;
+const NOTION_ALLOW_ALL_SPACES = process.env.NOTION_ALLOW_ALL_SPACES === 'true';
+const NOTION_COLLECTION = process.env.NOTION_COLLECTION;
+/* eslint-enable prefer-destructuring */
+const notion = new NotionAPI();
 
-const TagList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 0.8em;
+const BlogPageNotion = styled(Notion)`
+  .notion-title + .notion-collection-row {
+    display: none;
+  }
 `;
 
 interface PostProps {
-  source: MDXRemoteSerializeResult;
-  frontMatter: PostMeta;
+  recordMap: ExtendedRecordMap | null;
 }
 
-export default function Post({ source, frontMatter }: PostProps) {
+export default function Post({ recordMap }: PostProps) {
   const router = useRouter();
   const { slug } = router.query;
 
-  if (!source || (!router.isFallback && !frontMatter.title)) {
-    return <ErrorPage statusCode={404} />;
+  if (!recordMap) {
+    return (
+      <Layout
+        breadcrumbs={[
+          { path: '/', name: 'Home' },
+          { path: '/blog', name: 'Blog' },
+          { path: `/blog/posts/${slug}`, name: 'Loading...' },
+        ]}
+      >
+        <NextSeo title="Loading... | Blog | Stuart Thomson" />
+      </Layout>
+    );
   }
+
+  const title = getPageTitle(recordMap);
 
   return (
     <Layout
       breadcrumbs={[
         { path: '/', name: 'Home' },
         { path: '/blog', name: 'Blog' },
-        { path: `/blog/posts/${slug}`, name: frontMatter.title },
+        { path: `/blog/posts/${slug}`, name: title },
       ]}
-      aside={
-        frontMatter.tags ? (
-          <>
-            <h3>Tags</h3>
-            <TagList>
-              {frontMatter.tags.map((tag) => (
-                <Link key={tag} href={`/blog/tags/${encodeURI(tag)}`}>
-                  <Tag name={tag} />
-                </Link>
-              ))}
-            </TagList>
-          </>
-        ) : undefined
-      }
     >
-      {!frontMatter.published && <Warning>This post is a draft and has not been published yet</Warning>}
-      <NextSeo title={`${frontMatter.title} | Blog | Stuart Thomson`} description={frontMatter.description} />
-      <MdxRenderer {...source} />
+      {/* {!frontMatter.published && <Warning>This post is a draft and has not been published yet</Warning>} */}
+      <NextSeo title={`${title} | Blog | Stuart Thomson`} />
+      <BlogPageNotion recordMap={recordMap} />
     </Layout>
   );
 }
@@ -76,30 +78,72 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
     };
   }
 
-  const filePath = path.join(process.cwd(), 'content/posts', `${decodeURI(params.slug)}.mdx`);
-  const fileContents = await fs.readFile(filePath, 'utf8');
+  const pageId = parsePageId(params.slug);
 
-  const { frontMatter, source } = await getMarkdownSource(fileContents);
+  const recordMap = await notion.getPage(pageId);
+  const spaceId = recordMap.block[pageId]?.value?.space_id;
+  if (!NOTION_ALLOW_ALL_SPACES && spaceId !== NOTION_SPACE) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const allBlockIds = getPageContentBlockIds(recordMap);
+  for (const blockId of allBlockIds) {
+    const block = recordMap.block[blockId]?.value;
+    if (block) {
+      if (block.type === 'code') {
+        // Override the content of the code block to be the highlighted code by Shiki.
+        // This is done at this stage, as extra build steps would be required to get it running in the browser.
+        // eslint-disable-next-line no-await-in-loop
+        const html = await highlightCode(block);
+        if (html) {
+          block.properties.title[0][0] = html;
+        }
+      }
+    }
+  }
 
   return {
     props: {
-      source,
-      frontMatter,
+      recordMap,
     },
+    revalidate: 10,
   };
 };
 
 export async function getStaticPaths() {
-  const postsDirectory = path.join(process.cwd(), 'content/posts');
-  const filenames = await fs.readdir(postsDirectory);
+  if (isDev) {
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
 
-  const paths = filenames
-    .filter((filename) => filename.match(/\.mdx$/))
-    .map((filename) => filename.match(/^(.*)\.mdx$/)![1])
-    .map((slug) => `/blog/posts/${encodeURI(slug)}`);
+  if (!NOTION_COLLECTION) {
+    throw new Error('Root page ID was not specified. Check the "NOTION_COLLECTION" environment variable');
+  }
+
+  const pages = await getAllPagesInSpace(NOTION_COLLECTION, NOTION_SPACE, notion.getPage.bind(notion), {
+    traverseCollections: false,
+  });
+
+  const allPageIds = Object.keys(pages);
+  const pageIds = allPageIds.filter((pageId) => pageId !== NOTION_COLLECTION);
+  const paths = pageIds.map((pageId) => {
+    let id = pageId;
+    if (pages[pageId]) {
+      id = getCanonicalPageId(pageId, pages[pageId]!) ?? pageId;
+    }
+    return `/blog/posts/${id}`;
+  });
 
   return {
     paths,
     fallback: true,
   };
 }
+
+export const config = {
+  unstable_runtimeJS: false,
+};

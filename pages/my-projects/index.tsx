@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo';
 import Image, { ImageProps } from 'next/image';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
@@ -359,3 +359,7 @@ export default function ProjectsPage() {
     </Layout>
   );
 }
+
+export const config = {
+  unstable_runtimeJS: false,
+};

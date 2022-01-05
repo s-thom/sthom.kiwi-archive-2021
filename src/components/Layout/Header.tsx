@@ -15,16 +15,6 @@ const HeaderProfile = styled(Link)`
   color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
   padding: 0.5em;
-
-  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  @media (${({ theme }) => theme.mediaQueries.blog.desktop}) {
-    /* justify-content: start;
-    justify-content: flex-start; */
-  }
 `;
 
 const ProfilePhotoWrapper = styled.div`
@@ -42,10 +32,6 @@ const ProfilePhoto = styled(Image)`
 const ProfileName = styled.h1`
   margin: 0;
   margin-left: 0.5em;
-
-  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
-    margin-left: 0;
-  }
 `;
 
 const Breadcrumbs = styled.nav`

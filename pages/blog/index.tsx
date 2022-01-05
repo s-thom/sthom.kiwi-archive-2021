@@ -1,120 +1,67 @@
-import { promises as fs } from 'fs';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
-import path from 'path';
+import { NotionAPI } from 'notion-client';
+import { ExtendedRecordMap } from 'notion-types';
 import styled from 'styled-components';
 import Layout from '../../src/components/Layout';
-import Link from '../../src/components/Link';
-import PostPreview from '../../src/components/PostPreview';
-import Tag from '../../src/components/Tag';
-import { getFrontMatter } from '../../src/mdx/server';
-import { PostMeta } from '../../src/types/post';
+import Notion from '../../src/components/Notion';
 
-const TagList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 0.8em;
-`;
+/* eslint-disable prefer-destructuring */
+const NOTION_COLLECTION = process.env.NOTION_COLLECTION;
+/* eslint-enable prefer-destructuring */
+const notion = new NotionAPI();
 
-const PostGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1em;
+const BlogListNotion = styled(Notion)`
+  .notion-page {
+    padding-top: 0;
+    margin-top: 0 !important;
+  }
 
-  @media (${({ theme }) => theme.mediaQueries.blog.tablet}) {
-    grid-template-columns: 1fr 1fr;
+  .notion-page-icon,
+  .notion-title,
+  .notion-collection-header {
+    display: none;
+  }
 
-    & > *:first-child {
-      grid-column: 1 /-1;
-    }
+  .notion-gallery-grid {
+    border-top: none;
+  }
+
+  .notion-gallery-grid > .notion-collection-card:first-child {
+    grid-column: 1 / -1;
   }
 `;
 
-const HalfText = styled.p`
-  font-size: 0.8em;
-  opacity: 0.7;
-`;
-
 interface IndexProps {
-  posts: { slug: string; meta: PostMeta }[];
-  tags: string[];
+  recordMap: ExtendedRecordMap | null;
 }
 
-export default function Index({ posts, tags }: IndexProps) {
+export default function Index({ recordMap }: IndexProps) {
   return (
     <Layout
       breadcrumbs={[
         { path: '/', name: 'Home' },
         { path: '/blog', name: 'Blog' },
       ]}
-      aside={
-        <>
-          <h3>All tags</h3>
-          <TagList>
-            {tags.map((tag) => (
-              <Link key={tag} href={`/blog/tags/${encodeURI(tag)}`}>
-                <Tag name={tag} />
-              </Link>
-            ))}
-          </TagList>
-        </>
-      }
     >
       <NextSeo title="Blog | Stuart Thomson" />
-      <h1>My Blog</h1>
-      <p>Sometimes I write things. Here they are:</p>
-      <PostGrid>
-        {posts.length === 0 && <HalfText>I haven&apos;t finished writing yet. Check back later.</HalfText>}
-        {posts.map(({ slug, meta }) => (
-          <Link href={`/blog/posts/${slug}`} key={slug}>
-            <PostPreview post={meta} />
-          </Link>
-        ))}
-      </PostGrid>
+      {recordMap && <BlogListNotion recordMap={recordMap} />}
     </Layout>
   );
 }
 
 export const getStaticProps: GetStaticProps<IndexProps> = async () => {
-  const postsDirectory = path.join(process.cwd(), 'content/posts');
-  const filenames = await fs.readdir(postsDirectory);
+  if (!NOTION_COLLECTION) {
+    throw new Error('Root page ID was not specified. Check the "NOTION_COLLECTION" environment variable');
+  }
 
-  // Read frontmatter of all files
-  const allFiles = await Promise.all(
-    filenames
-      .filter((filename) => filename.match(/\.mdx$/))
-      .map<Promise<{ slug: string; meta: PostMeta }>>(async (filename) => {
-        const slug = filename.match(/^(.*)\.mdx$/)![1];
-
-        const fileContents = await fs.readFile(path.join(postsDirectory, filename), 'utf8');
-
-        const meta = await getFrontMatter(fileContents);
-
-        return {
-          slug: encodeURI(slug),
-          meta,
-        };
-      }),
-  );
-
-  // Filter to only published posts
-  const posts = allFiles.filter(({ meta }) => !!meta.published);
-
-  const tags: string[] = [];
-  // Find tags in published posts
-  allFiles
-    .filter(({ meta }) => !!meta.published)
-    .forEach(({ meta }) => {
-      if (meta.tags) {
-        meta.tags.forEach((tag) => {
-          if (!tags.includes(tag)) {
-            tags.push(tag);
-          }
-        });
-      }
-    });
+  const recordMap = await notion.getPage(NOTION_COLLECTION, { fetchCollections: true });
 
   return {
-    props: { posts, tags },
+    props: { recordMap },
   };
+};
+
+export const config = {
+  unstable_runtimeJS: false,
 };
