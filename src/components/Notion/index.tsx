@@ -44,6 +44,10 @@ const StyledNotionRenderer = styled(NotionRenderer)`
 
   .notion-page.notion-page-has-cover {
     padding-top: 56px;
+
+    & > .notion-page-icon-wrapper {
+      height: 1px;
+    }
   }
 
   .notion-title {
