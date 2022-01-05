@@ -42,7 +42,17 @@ export default function Post({ recordMap }: PostProps) {
   const { slug } = router.query;
 
   if (!recordMap) {
-    return <ErrorPage statusCode={404} />;
+    return (
+      <Layout
+        breadcrumbs={[
+          { path: '/', name: 'Home' },
+          { path: '/blog', name: 'Blog' },
+          { path: `/blog/posts/${slug}`, name: 'Loading...' },
+        ]}
+      >
+        <NextSeo title={`Loading... | Blog | Stuart Thomson`} />
+      </Layout>
+    );
   }
 
   const title = getPageTitle(recordMap);
@@ -71,48 +81,36 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
 
   const pageId = parsePageId(params.slug);
 
-  try {
-    const recordMap = await notion.getPage(pageId);
-    const spaceId = recordMap.block[pageId]?.value?.space_id;
-    if (!NOTION_ALLOW_ALL_SPACES && spaceId !== NOTION_SPACE) {
-      return {
-        props: {
-          recordMap: null,
-        },
-        revalidate: 10,
-      };
-    }
+  const recordMap = await notion.getPage(pageId);
+  const spaceId = recordMap.block[pageId]?.value?.space_id;
+  if (!NOTION_ALLOW_ALL_SPACES && spaceId !== NOTION_SPACE) {
+    return {
+      notFound: true,
+    };
+  }
 
-    const allBlockIds = getPageContentBlockIds(recordMap);
-    for (const blockId of allBlockIds) {
-      const block = recordMap.block[blockId]?.value;
-      if (block) {
-        if (block.type === 'code') {
-          // Override the content of the code block to be the highlighted code by Shiki.
-          // This is done at this stage, as extra build steps would be required to get it running in the browser.
-          // eslint-disable-next-line no-await-in-loop
-          const html = await highlightCode(block);
-          if (html) {
-            block.properties.title[0][0] = html;
-          }
+  const allBlockIds = getPageContentBlockIds(recordMap);
+  for (const blockId of allBlockIds) {
+    const block = recordMap.block[blockId]?.value;
+    if (block) {
+      if (block.type === 'code') {
+        // Override the content of the code block to be the highlighted code by Shiki.
+        // This is done at this stage, as extra build steps would be required to get it running in the browser.
+        // eslint-disable-next-line no-await-in-loop
+        const html = await highlightCode(block);
+        if (html) {
+          block.properties.title[0][0] = html;
         }
       }
     }
-
-    return {
-      props: {
-        recordMap,
-      },
-      revalidate: 10,
-    };
-  } catch (err) {
-    return {
-      props: {
-        recordMap: null,
-      },
-      revalidate: 10,
-    };
   }
+
+  return {
+    props: {
+      recordMap,
+    },
+    revalidate: 10,
+  };
 };
 
 export async function getStaticPaths() {
