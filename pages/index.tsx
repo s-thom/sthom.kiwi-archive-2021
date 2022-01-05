@@ -94,13 +94,11 @@ export default function Home() {
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkText aria-label="Projects">Projects</LinkText>
           </Link>
-          {
-            // <Separator aria-hidden="true">|</Separator>
-            // <Link href="/blog">
-            //   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            //   <LinkText aria-label="Blog">Blog</LinkText>
-            // </Link>
-          }
+          <Separator aria-hidden="true">|</Separator>
+          <Link href="/blog" passHref>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <LinkText aria-label="Blog">Blog</LinkText>
+          </Link>
         </HorizontalContainer>
         <HorizontalContainer>
           <a href="https://github.com/s-thom" aria-label="GitHub" rel="nofollow noopener noreferrer" target="_blank">
