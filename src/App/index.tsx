@@ -1,6 +1,7 @@
 import { DefaultSeo } from 'next-seo';
 import { DefaultSeoProps, MetaTag, OpenGraph } from 'next-seo/lib/types';
 import { AppProps } from 'next/dist/shared/lib/router/router';
+import Head from 'next/head';
 import styled from 'styled-components';
 import Theme from '../components/Theme';
 import og1200x900 from './og-1200-900.png';
@@ -71,6 +72,10 @@ export default function App({ Component, pageProps }: AppProps) {
         additionalLinkTags={link}
         openGraph={og}
       />
+      <Head>
+        <link rel="preconnect" href="https://www.gstatic.com" key="draco" />
+        <script src="/web-components/index.js" key="wc" async />
+      </Head>
       <Container>
         <Component {...pageProps} />
       </Container>

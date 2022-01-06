@@ -70,12 +70,7 @@ const Separator = styled.span`
 export default function Home() {
   return (
     <>
-      <Head>
-        <link rel="preconnect" href="https://www.gstatic.com" key="draco" />
-        <script src="/web-components/index.js" key="wc" async />
-      </Head>
       <sthom-home-background />
-      {/* <HomeBackdrop /> */}
       <VerticalContainer>
         <ProfilePhoto
           src={portraitSrc}
