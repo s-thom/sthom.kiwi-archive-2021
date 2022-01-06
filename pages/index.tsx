@@ -71,8 +71,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script src="/web-components/index.js" key="wc" />
+        <link rel="preconnect" href="https://www.gstatic.com" key="draco" />
+        <script src="/web-components/index.js" key="wc" async />
       </Head>
       <sthom-home-background />
       {/* <HomeBackdrop /> */}
@@ -131,3 +131,7 @@ export default function Home() {
     </>
   );
 }
+
+export const config = {
+  unstable_runtimeJS: false,
+};
