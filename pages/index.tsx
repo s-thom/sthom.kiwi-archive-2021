@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -12,6 +11,7 @@ const VerticalContainer = styled.div`
   min-height: 100vh;
   height: 100%;
   pointer-events: none;
+  gap: 0.5em;
 
   animation: 0.5s ease-in FadeIn;
 
@@ -36,6 +36,7 @@ const HorizontalContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 0.5em;
 `;
 
 const ProfilePhoto = styled(Image)`
@@ -44,12 +45,12 @@ const ProfilePhoto = styled(Image)`
 
 const Name = styled.h1`
   font-size: 2.5em;
-  margin-bottom: 0;
+  margin: 0;
 `;
 
 const JobLine = styled.p`
   font-size: 0.9em;
-  margin-top: 0;
+  margin: 0;
 `;
 
 const Icon = styled.svg`
