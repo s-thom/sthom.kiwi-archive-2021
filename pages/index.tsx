@@ -1,10 +1,10 @@
-import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 import portraitSrc from '../src/resources/portrait-2020.jpg';
 
-const HomeBackdrop = dynamic(() => import('../src/components/HomeBackdrop'), { ssr: false });
+const BackgroundComponent = 'sthom-home-background';
 
 const VerticalContainer = styled.div`
   display: flex;
@@ -69,10 +69,25 @@ const Separator = styled.span`
   margin: 0 0.25em;
 `;
 
+const Background = styled(BackgroundComponent)`
+  width: 100vw !important;
+  height: 100vh !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+
 export default function Home() {
   return (
     <>
-      <HomeBackdrop />
+      <Head>
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="/web-components/index.js" key="wc" />
+      </Head>
+      <Background />
+      {/* <HomeBackdrop /> */}
       <VerticalContainer>
         <ProfilePhoto
           src={portraitSrc}
