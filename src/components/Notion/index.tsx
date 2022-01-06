@@ -50,7 +50,8 @@ const StyledNotionRenderer = styled(NotionRenderer)`
     }
   }
 
-  .notion-title {
+  .notion-title,
+  .notion-h {
     font-weight: 400;
   }
 
