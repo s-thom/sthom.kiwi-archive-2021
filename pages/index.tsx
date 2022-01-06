@@ -4,8 +4,6 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import portraitSrc from '../src/resources/portrait-2020.jpg';
 
-const BackgroundComponent = 'sthom-home-background';
-
 const VerticalContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -69,16 +67,6 @@ const Separator = styled.span`
   margin: 0 0.25em;
 `;
 
-const Background = styled(BackgroundComponent)`
-  width: 100vw !important;
-  height: 100vh !important;
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  background-color: ${({ theme }) => theme.colors.background};
-`;
-
 export default function Home() {
   return (
     <>
@@ -86,7 +74,7 @@ export default function Home() {
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src="/web-components/index.js" key="wc" />
       </Head>
-      <Background />
+      <sthom-home-background />
       {/* <HomeBackdrop /> */}
       <VerticalContainer>
         <ProfilePhoto

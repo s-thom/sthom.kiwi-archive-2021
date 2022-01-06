@@ -6,6 +6,7 @@ import {
   Color,
   DodecahedronBufferGeometry,
   IcosahedronBufferGeometry,
+  LinearToneMapping,
   Mesh,
   MeshStandardMaterial,
   OctahedronBufferGeometry,
@@ -38,7 +39,7 @@ export class HomeBackground extends LitElement {
 
     #container {
       opacity: 0;
-      transition: opacity 1s ease-out;
+      transition: opacity 0.5s ease-out;
     }
 
     #container.ready {
@@ -71,7 +72,10 @@ export class HomeBackground extends LitElement {
     this.loader.setDRACOLoader(dracoLoader);
 
     this.renderer = new WebGLRenderer();
+    this.renderer.physicallyCorrectLights = true;
+    this.renderer.toneMapping = LinearToneMapping;
     this.renderer.outputEncoding = sRGBEncoding;
+    (this.renderer as any).gammaFactor = 2.2;
 
     // Resize handling
     const onWindowResize = () => {
@@ -90,10 +94,10 @@ export class HomeBackground extends LitElement {
     onWindowResize();
 
     const ambientLight = new AmbientLight();
-    ambientLight.intensity = 1;
+    ambientLight.intensity = 2.8;
     scene.add(ambientLight);
     const pointLight = new PointLight();
-    pointLight.intensity = 1;
+    pointLight.intensity = 20;
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
@@ -127,6 +131,9 @@ export class HomeBackground extends LitElement {
     // Create materials
     const normalMaterial = new MeshStandardMaterial({ color: 0xe4e4e4 });
     const blueMaterial = new MeshStandardMaterial({ color: 0x4273bd });
+    blueMaterial.toneMapped = false;
+    normalMaterial.color.convertSRGBToLinear();
+    blueMaterial.color.convertSRGBToLinear();
 
     // Create meshes
     const octa = new Mesh(octaGeometry, normalMaterial);
@@ -144,10 +151,10 @@ export class HomeBackground extends LitElement {
       scale: number;
       initialRotation: number;
     }[] = [
-      { mesh: blueOrb, position: [3.5, 5.5, 0], rotationRate: 0.002, scale: 1.5, initialRotation: 0 },
+      { mesh: blueOrb, position: [3.5, 5.5, 3], rotationRate: 0.002, scale: 1.5, initialRotation: 0 },
       { mesh: dodeca, position: [-2.5, 6, 0], rotationRate: -0.0016, scale: 1, initialRotation: 0 },
       { mesh: curly, position: [1.5, -6, 0], rotationRate: 0.0006, scale: 2, initialRotation: 0.6 },
-      { mesh: code, position: [-5, -0.5, 0], rotationRate: 0.0006, scale: 10, initialRotation: 1.56 },
+      { mesh: code, position: [-5, -0.5, 0], rotationRate: -0.00006, scale: 10, initialRotation: 1.56 },
       { mesh: curly, position: [7, 8, 0], rotationRate: -0.00058, scale: 6, initialRotation: 0.5 },
       { mesh: fnCall, position: [-5, 10, 0], rotationRate: 0.00058, scale: 4, initialRotation: -0.75 },
       { mesh: fnCall, position: [18, -10, 0], rotationRate: -0.000052, scale: 20, initialRotation: 0.127 },
