@@ -1,10 +1,8 @@
-import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 import portraitSrc from '../src/resources/portrait-2020.jpg';
-
-const HomeBackdrop = dynamic(() => import('../src/components/HomeBackdrop'), { ssr: false });
 
 const VerticalContainer = styled.div`
   display: flex;
@@ -72,7 +70,12 @@ const Separator = styled.span`
 export default function Home() {
   return (
     <>
-      <HomeBackdrop />
+      <Head>
+        <link rel="preconnect" href="https://www.gstatic.com" key="draco" />
+        <script src="/web-components/index.js" key="wc" async />
+      </Head>
+      <sthom-home-background />
+      {/* <HomeBackdrop /> */}
       <VerticalContainer>
         <ProfilePhoto
           src={portraitSrc}
@@ -128,3 +131,7 @@ export default function Home() {
     </>
   );
 }
+
+export const config = {
+  unstable_runtimeJS: false,
+};
