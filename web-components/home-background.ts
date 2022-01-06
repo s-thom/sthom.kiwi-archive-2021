@@ -75,7 +75,6 @@ export class HomeBackground extends LitElement {
     this.renderer.physicallyCorrectLights = true;
     this.renderer.toneMapping = LinearToneMapping;
     this.renderer.outputEncoding = sRGBEncoding;
-    (this.renderer as any).gammaFactor = 2.2;
 
     // Resize handling
     const onWindowResize = () => {
@@ -97,7 +96,7 @@ export class HomeBackground extends LitElement {
     ambientLight.intensity = 2.8;
     scene.add(ambientLight);
     const pointLight = new PointLight();
-    pointLight.intensity = 20;
+    pointLight.intensity = 10;
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
