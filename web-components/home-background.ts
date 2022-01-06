@@ -1,12 +1,15 @@
 import { css, html, LitElement } from 'lit';
 // eslint-disable-next-line import/extensions
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import {
+  AmbientLight,
   BoxBufferGeometry,
   Color,
+  IcosahedronBufferGeometry,
   Mesh,
-  MeshBasicMaterial,
+  MeshStandardMaterial,
   OrthographicCamera,
+  PointLight,
   Renderer,
   Scene,
   WebGLRenderer,
@@ -42,7 +45,7 @@ export class HomeBackground extends LitElement {
 
     const scene = new Scene();
     this.scene = scene;
-    scene.background = new Color(' #e4e4e4 ');
+    scene.background = new Color(0xe4e4e4);
     const camera = new OrthographicCamera();
     camera.zoom = 40;
     camera.position.z = 10;
@@ -63,10 +66,26 @@ export class HomeBackground extends LitElement {
     window.addEventListener('resize', onWindowResize);
     onWindowResize();
 
-    const geometry = new BoxBufferGeometry(1, 1, 1);
-    const material = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-    const cube = new Mesh(geometry, material);
+    const boxGeometry = new BoxBufferGeometry(1, 1, 1);
+    const icoGeometry = new IcosahedronBufferGeometry(1, 0);
+    const normalMaterial = new MeshStandardMaterial({ color: 0xe4e4e4 });
+    const blueMaterial = new MeshStandardMaterial({ color: 0x4273bd });
+    const cube = new Mesh(boxGeometry, normalMaterial);
     this.addThing(cube, 0.01);
+
+    const blueOrb = new Mesh(icoGeometry, blueMaterial);
+    blueOrb.position.x = 3.5;
+    blueOrb.position.y = 5.5;
+    blueOrb.scale.multiplyScalar(1.5);
+    this.addThing(blueOrb, -0.002);
+
+    const ambientLight = new AmbientLight();
+    const pointLight = new PointLight();
+    pointLight.position.x = 10;
+    pointLight.position.y = 10;
+    pointLight.position.z = 10;
+    scene.add(ambientLight);
+    scene.add(pointLight);
 
     const animationLoop = () => {
       requestAnimationFrame(animationLoop);
@@ -90,14 +109,9 @@ export class HomeBackground extends LitElement {
 
   doAnimation() {
     for (const thing of this.things) {
-      thing.mesh.rotation.x += thing.rotationRate;
       thing.mesh.rotation.y += thing.rotationRate;
     }
   }
-
-  // Declare reactive properties
-  @property()
-  name?: string = 'World';
 
   // Render the UI as a function of component state
   render() {
