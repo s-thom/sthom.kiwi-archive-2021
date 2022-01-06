@@ -6,7 +6,7 @@ import { createGlobalStyle, DefaultTheme, ThemeProvider } from 'styled-component
 
 const THEME: DefaultTheme = {
   colors: {
-    primary: '#4273bd',
+    primary: '#6598d7',
     background: '#e4e4e4',
     modal: '#e4e4e4F0',
     text: '#0D1117',

@@ -71,7 +71,7 @@ export class HomeBackground extends LitElement {
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.3/');
     this.loader.setDRACOLoader(dracoLoader);
 
-    this.renderer = new WebGLRenderer();
+    this.renderer = new WebGLRenderer({ antialias: true });
     this.renderer.physicallyCorrectLights = true;
     this.renderer.toneMapping = LinearToneMapping;
     this.renderer.outputEncoding = sRGBEncoding;
@@ -93,12 +93,16 @@ export class HomeBackground extends LitElement {
     onWindowResize();
 
     const ambientLight = new AmbientLight();
-    ambientLight.intensity = 2.8;
+    ambientLight.intensity = 2.5;
     scene.add(ambientLight);
     const pointLight = new PointLight();
-    pointLight.intensity = 10;
+    pointLight.intensity = 12;
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
+    const pointLight2 = new PointLight();
+    pointLight2.intensity = 5;
+    pointLight2.position.set(-10, 10, 10);
+    scene.add(pointLight2);
 
     const animationLoop = () => {
       requestAnimationFrame(animationLoop);
@@ -129,7 +133,7 @@ export class HomeBackground extends LitElement {
 
     // Create materials
     const normalMaterial = new MeshStandardMaterial({ color: 0xe4e4e4 });
-    const blueMaterial = new MeshStandardMaterial({ color: 0x4273bd });
+    const blueMaterial = new MeshStandardMaterial({ color: 0x6598d7 });
     blueMaterial.toneMapped = false;
     normalMaterial.color.convertSRGBToLinear();
     blueMaterial.color.convertSRGBToLinear();
@@ -151,6 +155,8 @@ export class HomeBackground extends LitElement {
       initialRotation: number;
     }[] = [
       { mesh: blueOrb, position: [3.5, 5.5, 3], rotationRate: 0.002, scale: 1.5, initialRotation: 0 },
+      // Use this for a nice static projection
+      // { mesh: blueOrb, position: [3.5, 5.5, 3], rotationRate: 0.0, scale: 1.5, initialRotation: (3 * Math.PI) / 8 },
       { mesh: dodeca, position: [-2.5, 6, 0], rotationRate: -0.0016, scale: 1, initialRotation: 0 },
       { mesh: curly, position: [1.5, -6, 0], rotationRate: 0.0006, scale: 2, initialRotation: 0.6 },
       { mesh: code, position: [-5, -0.5, 0], rotationRate: -0.00006, scale: 10, initialRotation: 1.56 },
