@@ -2,15 +2,15 @@
 
 I've written a new one again. It won't be the last.
 
-The background is rendered using [react-three-fiber](https://github.com/pmndrs/react-three-fiber), and caused me a lot of pain for the small and cheesy visual effect.
+## Highlights
 
-The code's all here, have a peek around. Suggest ideas if you'd like.
+- This is a Next.js site, but client-side Javascript is disabled ([Example](https://github.com/s-thom/sthom.kiwi/blob/728b162219fee82ed63456aaab297b828ab03908/pages/index.tsx#L131)).
+- Blog data comes from Notion, and is rendered by [react-notion-x](https://github.com/NotionX/react-notion-x).
+- Scripted bits of the site are actually web components, due to the above. ([Link](https://github.com/s-thom/sthom.kiwi/tree/main/web-components)).
+  - The web components are bundled separately to the rest of the application.
+- The background on the home page uses three.js
+  - Previous versions used [react-three-fiber](https://github.com/pmndrs/react-three-fiber), but I eventually found I didn't need it. It's a really cool project, though.
 
 ## License
 
-Since this repository has mixed context, different licenses apply in different scenarios. In particular:
-
-- Code that I have written is made available under a `MIT` license. Feel free to re-use all or part of the code, with proper attribution.
-- Words and prose that I have written is `CC BY-SA 4.0`. Feel free to build off of what I have written, with proper attribution.
-- Imagery that I own and have included in this repository is `CC BY-SA 4.0`. Feel free to use , with proper attribution.
-- Imagery that I do not own is included if I believe it is used fairly. Copyright notices are included for these works.
+Code in this repository is made available under an `Apache 2.0` license. If this code has been useful to you in your projects, it'd be cool if you let me know as well.
