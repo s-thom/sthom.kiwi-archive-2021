@@ -60,12 +60,14 @@ const StyledNotionRenderer = styled(NotionRenderer)`
     width: 100%;
   }
 
-  .notion-header {
-    display: none;
-  }
-
   .notion-gallery {
     width: 100%;
+  }
+
+  .notion-collection-card {
+    box-shadow: none;
+    border: 1px solid ${({ theme }) => theme.colors.text};
+    border-radius: 1em;
   }
 `;
 
