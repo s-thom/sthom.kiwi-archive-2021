@@ -45,7 +45,7 @@ export default function Index({ recordMap }: IndexProps) {
       ]}
     >
       <NextSeo title="Blog | Stuart Thomson" />
-      {recordMap && <BlogListNotion recordMap={recordMap} />}
+      {recordMap && <BlogListNotion disableHeader recordMap={recordMap} />}
     </Layout>
   );
 }

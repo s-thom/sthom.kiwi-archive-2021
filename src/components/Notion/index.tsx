@@ -4,7 +4,7 @@ import { ExtendedRecordMap } from 'notion-types';
 import { getCanonicalPageId } from 'notion-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'rc-dropdown/assets/index.css';
-import { NotionRenderer } from 'react-notion-x';
+import { NotionRenderer, NotionRendererProps } from 'react-notion-x';
 import 'react-notion-x/src/styles.css';
 import styled from 'styled-components';
 import Link from '../Link';
@@ -69,16 +69,26 @@ const StyledNotionRenderer = styled(NotionRenderer)`
   }
 `;
 
-export interface NotionProps {
+export interface NotionProps extends NotionRendererProps {
   recordMap: ExtendedRecordMap;
 }
 
-export default function Notion({ recordMap, ...rest }: NotionProps) {
+export default function Notion({
+  recordMap,
+  fullPage = true,
+  hideBlockId = true,
+  darkMode = false,
+  showCollectionViewDropdown = false,
+  components,
+  ...rest
+}: NotionProps) {
   return (
     <StyledNotionRenderer
       recordMap={recordMap}
-      fullPage
-      darkMode={false}
+      fullPage={fullPage}
+      hideBlockId={hideBlockId}
+      darkMode={darkMode}
+      showCollectionViewDropdown={showCollectionViewDropdown}
       components={{
         code: Code,
         collection: Collection,
@@ -86,6 +96,7 @@ export default function Notion({ recordMap, ...rest }: NotionProps) {
         pageLink: Link,
         modal: Modal,
         equation: Equation,
+        ...components,
       }}
       mapPageUrl={(id) => `/blog/posts/${getCanonicalPageId(id, recordMap)}`}
       {...rest}

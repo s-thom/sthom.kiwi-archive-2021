@@ -66,7 +66,7 @@ export default function Post({ recordMap }: PostProps) {
     >
       {/* {!frontMatter.published && <Warning>This post is a draft and has not been published yet</Warning>} */}
       <NextSeo title={`${title} | Blog | Stuart Thomson`} />
-      <BlogPageNotion recordMap={recordMap} />
+      <BlogPageNotion disableHeader recordMap={recordMap} />
     </Layout>
   );
 }
