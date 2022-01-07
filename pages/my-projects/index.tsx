@@ -103,12 +103,12 @@ function ProjectCard({ project, ...rest }: ProjectCardProps) {
         (link ? (
           <Link href={link}>
             <ProjectImageWrapper>
-              <ProjectImage src={image} alt={title} layout="responsive" />
+              <ProjectImage src={image} alt={title} layout="responsive" loading="eager" />
             </ProjectImageWrapper>
           </Link>
         ) : (
           <ProjectImageWrapper>
-            <ProjectImage src={image} alt={title} layout="responsive" />
+            <ProjectImage src={image} alt={title} layout="responsive" loading="eager" />
           </ProjectImageWrapper>
         ))}
       <ProjectContent>
