@@ -78,9 +78,28 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
     };
   }
 
-  const pageId = parsePageId(params.slug);
+  const slug = params.slug.toLowerCase();
 
-  const recordMap = await notion.getPage(pageId);
+  let pageId: string;
+  try {
+    pageId = parsePageId(slug);
+  } catch (err) {
+    console.error(`Error trying to resolve page ID from ${slug} `, err);
+    return {
+      notFound: true,
+    };
+  }
+
+  let recordMap: ExtendedRecordMap;
+  try {
+    recordMap = await notion.getPage(pageId);
+  } catch (err) {
+    console.error(`Error trying to get record map for page ${pageId}`, err);
+    return {
+      notFound: true,
+    };
+  }
+
   const spaceId = recordMap.block[pageId]?.value?.space_id;
   if (!NOTION_ALLOW_ALL_SPACES && spaceId !== NOTION_SPACE) {
     return {
