@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import styled from 'styled-components';
 import Layout from '../../src/components/Layout';
 import Link from '../../src/components/Link';
+import { home, projects } from '../../src/paths';
 import colourImage from './colour.png';
 import ednonImage from './ednon.png';
 import howToScreenshotImage from './hts.png';
@@ -311,8 +312,8 @@ export default function ProjectsPage() {
   return (
     <Layout
       breadcrumbs={[
-        { path: '/', name: 'Home' },
-        { path: '/my-projects', name: 'Projects' },
+        { path: home({}), name: 'Home' },
+        { path: projects({}), name: 'Projects' },
       ]}
     >
       <NextSeo title="Projects | Stuart Thomson" />

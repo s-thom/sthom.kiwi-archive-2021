@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
+import { home } from '../../paths';
 import portraitSrc from '../../resources/portrait-2020.jpg';
 import Link from '../Link';
 
@@ -69,7 +70,7 @@ export default function Header({ className, breadcrumbs }: HeaderProps) {
 
   return (
     <HeaderArea className={className}>
-      <HeaderProfile href="/">
+      <HeaderProfile href={home({})}>
         <ProfilePhotoWrapper>
           <ProfilePhoto
             src={portraitSrc}

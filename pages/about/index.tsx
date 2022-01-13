@@ -1,6 +1,7 @@
 import { NextSeo } from 'next-seo';
 import styled from 'styled-components';
 import Layout from '../../src/components/Layout';
+import { about, home } from '../../src/paths';
 
 const Container = styled.div`
   display: grid;
@@ -25,8 +26,8 @@ export default function AboutPage() {
   return (
     <Layout
       breadcrumbs={[
-        { path: '/', name: 'Home' },
-        { path: '/about', name: 'About Me' },
+        { path: home({}), name: 'Home' },
+        { path: about({}), name: 'About Me' },
       ]}
     >
       <NextSeo title="About Me | Stuart Thomson" />

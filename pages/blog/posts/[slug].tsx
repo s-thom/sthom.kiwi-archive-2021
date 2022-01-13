@@ -16,6 +16,7 @@ import 'react-notion-x/src/styles.css';
 import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
 import Notion from '../../../src/components/Notion';
+import { blog, blogPost, home } from '../../../src/paths';
 import { highlightCode } from '../../../src/shiki';
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
@@ -44,9 +45,9 @@ export default function Post({ recordMap }: PostProps) {
     return (
       <Layout
         breadcrumbs={[
-          { path: '/', name: 'Home' },
-          { path: '/blog', name: 'Blog' },
-          { path: `/blog/posts/${slug}`, name: 'Loading...' },
+          { path: home({}), name: 'Home' },
+          { path: blog({}), name: 'Blog' },
+          { path: blogPost({ slug: slug as string }), name: 'Loading...' },
         ]}
       >
         <NextSeo title="Loading... | Blog | Stuart Thomson" />
@@ -59,9 +60,9 @@ export default function Post({ recordMap }: PostProps) {
   return (
     <Layout
       breadcrumbs={[
-        { path: '/', name: 'Home' },
-        { path: '/blog', name: 'Blog' },
-        { path: `/blog/posts/${slug}`, name: title },
+        { path: home({}), name: 'Home' },
+        { path: blog({}), name: 'Blog' },
+        { path: blogPost({ slug: slug as string }), name: title },
       ]}
     >
       {/* {!frontMatter.published && <Warning>This post is a draft and has not been published yet</Warning>} */}
@@ -84,6 +85,7 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
   try {
     pageId = parsePageId(slug);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(`Error trying to resolve page ID from ${slug} `, err);
     return {
       notFound: true,
@@ -94,6 +96,7 @@ export const getStaticProps: GetStaticProps<PostProps, { slug: string }> = async
   try {
     recordMap = await notion.getPage(pageId);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(`Error trying to get record map for page ${pageId}`, err);
     return {
       notFound: true,
@@ -150,11 +153,11 @@ export async function getStaticPaths() {
   const allPageIds = Object.keys(pages);
   const pageIds = allPageIds.filter((pageId) => pageId !== NOTION_COLLECTION);
   const paths = pageIds.map((pageId) => {
-    let id = pageId;
+    let slug = pageId;
     if (pages[pageId]) {
-      id = getCanonicalPageId(pageId, pages[pageId]!) ?? pageId;
+      slug = getCanonicalPageId(pageId, pages[pageId]!) ?? pageId;
     }
-    return `/blog/posts/${id}`;
+    return blogPost({ slug });
   });
 
   return {

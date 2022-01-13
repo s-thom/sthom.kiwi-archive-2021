@@ -7,6 +7,7 @@ import 'rc-dropdown/assets/index.css';
 import { NotionRenderer, NotionRendererProps } from 'react-notion-x';
 import 'react-notion-x/src/styles.css';
 import styled from 'styled-components';
+import { blogPost } from '../../paths';
 import Link from '../Link';
 
 // @ts-ignore
@@ -100,7 +101,7 @@ export default function Notion({
         equation: Equation,
         ...components,
       }}
-      mapPageUrl={(id) => `/blog/posts/${getCanonicalPageId(id, recordMap)}`}
+      mapPageUrl={(id) => blogPost({ slug: getCanonicalPageId(id, recordMap)! })}
       {...rest}
     />
   );
