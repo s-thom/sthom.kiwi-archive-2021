@@ -15,7 +15,7 @@ const Equation = dynamic(() => import('react-notion-x').then((notion) => notion.
 // @ts-ignore
 const Collection = dynamic(() => import('react-notion-x').then((notion) => notion.Collection));
 // @ts-ignore
-const CollectionRow = dynamic(() => import('react-notion-x').then((notion) => notion.CollectionRow));
+const CollectionRow = dynamic(() => import('./PagePropertyList'));
 const Modal = dynamic(() => import('react-notion-x').then((notion) => notion.Modal), { ssr: false });
 const Code = dynamic(() => import('../Code'));
 

@@ -12,10 +12,11 @@ import {
 } from 'notion-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'rc-dropdown/assets/index.css';
+import { CollectionRow as NotionCollectionRow, useNotionContext } from 'react-notion-x';
 import 'react-notion-x/src/styles.css';
-import styled from 'styled-components';
 import Layout from '../../../src/components/Layout';
 import Notion from '../../../src/components/Notion';
+import PagePropertyList from '../../../src/components/Notion/PagePropertyList';
 import { blog, blogPost, home } from '../../../src/paths';
 import { highlightCode } from '../../../src/shiki';
 
@@ -27,11 +28,21 @@ const NOTION_COLLECTION = process.env.NOTION_COLLECTION;
 /* eslint-enable prefer-destructuring */
 const notion = new NotionAPI();
 
-const BlogPageNotion = styled(Notion)`
-  .notion-title + .notion-collection-row {
-    display: none;
+type CollectionRowProps = React.ComponentProps<typeof NotionCollectionRow>;
+
+function CollectionRow(props: CollectionRowProps) {
+  const { block } = props;
+
+  const { recordMap } = useNotionContext();
+
+  if (block.type === 'page') {
+    if (block.parent_table === 'collection') {
+      return <PagePropertyList recordMap={recordMap} block={block} />;
+    }
   }
-`;
+
+  return <NotionCollectionRow {...props} />;
+}
 
 interface PostProps {
   recordMap: ExtendedRecordMap | null;
@@ -47,7 +58,7 @@ export default function Post({ recordMap }: PostProps) {
         breadcrumbs={[
           { path: home({}), name: 'Home' },
           { path: blog({}), name: 'Blog' },
-          { path: blogPost({ slug: slug as string }), name: 'Loading...' },
+          { path: blogPost({ slug: '404' }), name: 'Loading...' },
         ]}
       >
         <NextSeo title="Loading... | Blog | Stuart Thomson" />
@@ -65,9 +76,8 @@ export default function Post({ recordMap }: PostProps) {
         { path: blogPost({ slug: slug as string }), name: title },
       ]}
     >
-      {/* {!frontMatter.published && <Warning>This post is a draft and has not been published yet</Warning>} */}
       <NextSeo title={`${title} | Blog | Stuart Thomson`} />
-      <BlogPageNotion disableHeader recordMap={recordMap} />
+      <Notion disableHeader recordMap={recordMap} components={{ collectionRow: CollectionRow }} />
     </Layout>
   );
 }
