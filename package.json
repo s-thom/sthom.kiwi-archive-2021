@@ -34,7 +34,7 @@
     "shiki": "^0.9.12",
     "static-path": "^0.0.4",
     "styled-components": "^5.3.3",
-    "three": "^0.136.0"
+    "three": "^0.137.0"
   },
   "scripts": {
     "dev": "concurrently -n next,web-components \"npm run dev:next\" \"npm run dev:web-components\"",
