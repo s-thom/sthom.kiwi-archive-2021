@@ -20,7 +20,7 @@
     "deepmerge": "^4.2.2",
     "katex": "^0.15.1",
     "lit": "^2.0.2",
-    "next": "^12.0.7",
+    "next": "^12.0.9",
     "next-seo": "^4.28.1",
     "notion-client": "^4.12.0",
     "notion-types": "^4.10.0",
