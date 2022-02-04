@@ -42,6 +42,7 @@
       }
     ],
     "no-underscore-dangle": "off",
+    "no-param-reassign": ["error", { "props": false }],
     "react/function-component-definition": "off",
     "react/jsx-curly-newline": "off",
     "react/jsx-indent": "off",
