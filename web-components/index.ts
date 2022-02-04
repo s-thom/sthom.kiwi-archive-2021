@@ -1,10 +1,8 @@
 import { DOMAttributes } from 'react';
-import { Analytics } from './ga';
 import { HomeBackground } from './home-background';
 
 // To prevent tree shaking dropping all the code, export this object
 export const ELEMENTS = {
-  Analytics,
   HomeBackground,
 };
 
@@ -23,7 +21,6 @@ type CustomElement<T, K extends string | undefined = undefined> = Partial<
 declare global {
   interface HTMLElementTagNameMap {
     'sthom-home-background': HomeBackground;
-    'sthom-ga': Analytics;
   }
 }
 
@@ -31,7 +28,6 @@ declare global {
   namespace JSX {
     interface IntrinsicElements {
       'sthom-home-background': CustomElement<HomeBackground>;
-      'sthom-ga': CustomElement<Analytics>;
     }
   }
 }

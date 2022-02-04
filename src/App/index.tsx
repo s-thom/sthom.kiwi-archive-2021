@@ -75,7 +75,22 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="preconnect" href="https://www.gstatic.com" key="draco" />
         <script src="/web-components/index.js" key="wc" async />
-        {process.env.NEXT_PUBLIC_ANALYTICS_ID && <sthom-ga propertyId={process.env.NEXT_PUBLIC_ANALYTICS_ID} />}
+        {process.env.NEXT_PUBLIC_ANALYTICS_ID && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_ANALYTICS_ID}`} />
+            <script
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-BL58S4CRYP');
+                `,
+              }}
+            />
+          </>
+        )}
       </Head>
       <Container>
         <Component {...pageProps} />
