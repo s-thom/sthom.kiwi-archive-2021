@@ -75,6 +75,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="preconnect" href="https://www.gstatic.com" key="draco" />
         <script src="/web-components/index.js" key="wc" async />
+        {process.env.NEXT_PUBLIC_ANALYTICS_ID && <sthom-ga propertyId={process.env.NEXT_PUBLIC_ANALYTICS_ID} />}
       </Head>
       <Container>
         <Component {...pageProps} />
