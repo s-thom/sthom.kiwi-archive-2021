@@ -24,8 +24,10 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// eslint-disable-next-line import/extensions
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+// eslint-disable-next-line import/extensions
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 /**
  * Colour constants
