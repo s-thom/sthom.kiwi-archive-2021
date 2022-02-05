@@ -209,6 +209,8 @@ export class HomeBackground extends LitElement {
 
   private sceneState: SceneState = { intersections: [], isActive: false };
 
+  private hasPointerLeft = false;
+
   constructor() {
     super();
 
@@ -295,6 +297,14 @@ export class HomeBackground extends LitElement {
     this.initializeScene().then(() => {
       const container = this.shadowRoot!.getElementById('container')!;
       container.classList.add('ready');
+
+      container.addEventListener('mouseleave', () => {
+        this.hasPointerLeft = true;
+        this.sceneState.intersections = [];
+      });
+      container.addEventListener('mouseenter', () => {
+        this.hasPointerLeft = false;
+      });
     });
   }
 
@@ -304,7 +314,9 @@ export class HomeBackground extends LitElement {
 
     // Intersections
     this.raycaster.setFromCamera(this.pointer, this.camera);
-    this.sceneState.intersections = this.raycaster.intersectObjects(this.scene.children);
+    if (!this.hasPointerLeft) {
+      this.sceneState.intersections = this.raycaster.intersectObjects(this.scene.children);
+    }
 
     for (const update of this.shapes) {
       update.update(time, this.sceneState);
@@ -327,7 +339,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: icoGeometry,
         position: [3.5, 5.5, 3],
-        rotationRate: 0.1,
+        rotationRate: 0.2,
         initialRotation: 0,
         // rotationRate: 0,
         // initialRotation: (3 * Math.PI) / 8,
@@ -337,7 +349,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: codeGeometry,
         position: [-5, -0.5, 0],
-        rotationRate: -0.006,
+        rotationRate: -0.01,
         initialRotation: 1.56,
         scale: 10,
         color: { default: COLORS.DEFAULT, active: COLORS.RED },
@@ -345,7 +357,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: curlyGeometry,
         position: [1.5, -6, 0],
-        rotationRate: 0.012,
+        rotationRate: 0.02,
         initialRotation: 0.6,
         scale: 2,
         color: { default: COLORS.DEFAULT, active: COLORS.ORANGE },
@@ -353,7 +365,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: curlyGeometry,
         position: [7, 8, 0],
-        rotationRate: -0.01,
+        rotationRate: -0.02,
         initialRotation: 0.5,
         scale: 6,
         color: { default: COLORS.DEFAULT, active: COLORS.GREEN },
@@ -361,7 +373,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: fnCallGeometry,
         position: [-5, 10, 0],
-        rotationRate: 0.01,
+        rotationRate: 0.02,
         initialRotation: -0.75,
         scale: 4,
         color: { default: COLORS.DEFAULT, active: COLORS.YELLOW },
@@ -369,7 +381,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: fnCallGeometry,
         position: [18, -10, 0],
-        rotationRate: -0.0011,
+        rotationRate: -0.02,
         initialRotation: 0.127,
         scale: 20,
         color: { default: COLORS.DEFAULT, active: COLORS.BLUE },
@@ -377,7 +389,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: icoGeometry,
         position: [-17, -12, 0],
-        rotationRate: -0.0022,
+        rotationRate: -0.04,
         initialRotation: 0,
         scale: 6,
         color: { default: COLORS.DEFAULT, active: COLORS.YELLOW },
@@ -385,7 +397,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: icoGeometry,
         position: [19, 12, 0],
-        rotationRate: -0.0014,
+        rotationRate: -0.03,
         initialRotation: 0,
         scale: 6,
         color: { default: COLORS.DEFAULT, active: COLORS.VIOLET },
@@ -393,7 +405,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: octaGeometry,
         position: [-21, 14, 0],
-        rotationRate: -0.0012,
+        rotationRate: -0.03,
         initialRotation: 0,
         scale: 9,
         color: { default: COLORS.DEFAULT, active: COLORS.RED },
@@ -401,7 +413,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: dodecaGeometry,
         position: [-2.5, 6, 0],
-        rotationRate: -0.036,
+        rotationRate: -0.07,
         initialRotation: 0,
         scale: 1,
         color: { default: COLORS.DEFAULT, active: COLORS.ORANGE },
@@ -409,7 +421,7 @@ export class HomeBackground extends LitElement {
       {
         geometry: dodecaGeometry,
         position: [-25, 0, 0],
-        rotationRate: -0.004,
+        rotationRate: -0.04,
         initialRotation: 0,
         scale: 4,
         color: { default: COLORS.DEFAULT, active: COLORS.GREEN },
