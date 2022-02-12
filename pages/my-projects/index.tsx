@@ -241,6 +241,7 @@ export default function ProjectsPage() {
         ),
         github: 'https://github.com/s-thom/paste',
         image: pasteImage,
+        link: 'https://paste.sthom.kiwi/about',
       },
       {
         title: 'the-index',
