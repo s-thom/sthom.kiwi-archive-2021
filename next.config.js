@@ -48,6 +48,16 @@ module.exports = withPlugins([
           destination: 'https://archive-2020.sthom.kiwi/projects/:slug*',
           permanent: true,
         },
+        {
+          source: '/blog/pages/:slug*',
+          destination: 'https://blog.sthom.kiwi/:slug*',
+          permanent: true,
+        },
+        {
+          source: '/blog',
+          destination: 'https://blog.sthom.kiwi/',
+          permanent: true,
+        },
       ];
     },
     images: {

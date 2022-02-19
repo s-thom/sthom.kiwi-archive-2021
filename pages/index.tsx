@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { about, blog, projects } from '../src/paths';
+import { about, projects } from '../src/paths';
 import portraitSrc from '../src/resources/portrait-2020.jpg';
 
 const VerticalContainer = styled.div`
@@ -94,7 +94,7 @@ export default function Home() {
             <LinkText aria-label="Projects">Projects</LinkText>
           </Link>
           <Separator aria-hidden="true">|</Separator>
-          <Link href={blog({})} passHref>
+          <Link href="https://blog.sthom.kiwi" passHref>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkText aria-label="Blog">Blog</LinkText>
           </Link>
