@@ -4,6 +4,7 @@ import Header, { HeaderProps } from './Header';
 
 const Container = styled.div`
   margin: 0 auto;
+  padding-bottom: 1em;
 
   width: 90vw;
   width: clamp(16rem, 93vw, 75rem);

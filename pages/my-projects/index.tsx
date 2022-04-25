@@ -8,6 +8,7 @@ import { home, projects } from '../../src/paths';
 import colourImage from './colour.png';
 import ednonImage from './ednon.png';
 import howToScreenshotImage from './hts.png';
+import linkdropImage from './linkdrop.png';
 import pasteImage from './paste.png';
 import pexaUkImage from './peuk.png';
 import pexaPlusImage from './pexa-plus.png';
@@ -186,22 +187,6 @@ export default function ProjectsPage() {
   const activeProjects = useMemo<Project[]>(
     () => [
       {
-        title: 'How to Screenshot',
-        description: (
-          <>
-            <p>A website to show how to take screenshots on various platforms.</p>
-            <p>
-              This project was partially to solve a pet peeve of mine (when people use their phone to take a photo of a
-              screen), but also to try and make a modern website without any framework at all. All images are embedded
-              SVG, meaning the browser doesn&apos;t need to fetch additional resources to load.
-            </p>
-          </>
-        ),
-        github: 'https://github.com/s-thom/howtoscreenshot',
-        image: howToScreenshotImage,
-        link: 'https://screenshot.help/',
-      },
-      {
         title: 'sthom.kiwi',
         description: (
           <p>
@@ -230,6 +215,24 @@ export default function ProjectsPage() {
   const completedProjects = useMemo<Project[]>(
     () => [
       {
+        title: 'linkdrop',
+        description: (
+          <>
+            <p>
+              linkdrop is a website for storing links with tags, and then searching for them later. It&apos;s built to
+              be quick to use, so I can quickly save something in the middle of a browsing session.
+            </p>
+            <p>
+              If you know me in real life and want to use it, just ask me about it and I&apos;ll add you to it. Public
+              sign up is not available at this time.
+            </p>
+          </>
+        ),
+        github: 'https://github.com/s-thom/linkdrop',
+        image: linkdropImage,
+        link: 'https://linkdrop.sthom.kiwi/',
+      },
+      {
         title: 'paste',
         description: (
           <p>
@@ -247,14 +250,11 @@ export default function ProjectsPage() {
         title: 'the-index',
         description: (
           <>
+            <p>the-index has been replaced by linkdrop, but it gave me a lot of what I needed to build it.</p>
             <p>
               the-index is a link bookmarking site with tags and searching. I made it because I was losing track of the
               tickets I had worked on previously at work, and found myself benefiting from having links to past tickets
               easily searchable.
-            </p>
-            <p>
-              Signing up to the-index is not possible. You can contact me directly if you believe it would be useful to
-              you. Alternatively, grab the Docker images and run it yourself.
             </p>
           </>
         ),
@@ -287,6 +287,22 @@ export default function ProjectsPage() {
   );
   const dormantProjects = useMemo<Project[]>(
     () => [
+      {
+        title: 'How to Screenshot',
+        description: (
+          <>
+            <p>A website to show how to take screenshots on various platforms.</p>
+            <p>
+              This project was partially to solve a pet peeve of mine (when people use their phone to take a photo of a
+              screen), but also to try and make a modern website without any framework at all. All images are embedded
+              SVG, meaning the browser doesn&apos;t need to fetch additional resources to load.
+            </p>
+          </>
+        ),
+        github: 'https://github.com/s-thom/howtoscreenshot',
+        image: howToScreenshotImage,
+        link: 'https://screenshot.help/',
+      },
       {
         title: 'Colour Tool',
         description: (
